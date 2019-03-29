@@ -21,9 +21,37 @@ setopt share_history            # share hist between sessions
 setopt no_hist_beep		# no beep
 setopt bang_hist     
 
-if [[ -s "${HOME}/.zsh_plugins.sh" ]]; then
-  source "${HOME}/.zsh_plugins.sh"
+if [[ -s "${ZDOTDIR}/zsh_plugins.sh" ]]; then
+  source "${ZDOTDIR}/zsh_plugins.sh"
 fi
 
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
+
+if [ -d "${CUSTOMDIR}/bin" ] ; then
+    PATH="$CUSTOMDIR/bin:${PATH}"
+fi
+
+
+# vim setup
+if [ -d "${VIMDIR}/runtime" ];then
+    VIMRUNTIME="${VIMDIR}/runtime"
+    export VIMRUNTIME
+fi
+if [ ${VIMDIR+defined} ]; then
+    alias vim="vim -u ${VIMDIR}/.vimrc"
+fi
+
+#golang
+if [ -d ${CUSTOMDIR}/golang ]; then
+    export GOROOT=${CUSTOMDIR}/golang/go
+    export PATH=${PATH}:${GOROOT}/bin
+fi
+if [ -d ${HOME}/golang ]; then
+    export GOPATH=${HOME}/golang
+    export PATH=${PATH}:${GOPATH}/bin
+fi
+
+if [ -d ${TMUXDIR} ];then
+    alias tmux="tmux -f ${TMUXDIR}/.tmux.conf"
+fi
