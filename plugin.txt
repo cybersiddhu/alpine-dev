@@ -3,7 +3,7 @@ zsh-users/zsh-completions
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-history-substring-search
 zsh-users/zsh-autosuggestions
-robbyrussell/oh-my-zsh folder:plugins/git
+robbyrussell/oh-my-zsh path:plugins/git
 popstas/zsh-command-time
 djui/alias-tips
 zpm-zsh/autoenv
