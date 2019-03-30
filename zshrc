@@ -33,11 +33,6 @@ if [ -d "${CUSTOMDIR}/bin" ] ; then
 fi
 
 
-# vim setup
-if [ -d "${VIMDIR}/runtime" ];then
-    VIMRUNTIME="${VIMDIR}/runtime"
-    export VIMRUNTIME
-fi
 if [ ${VIMDIR+defined} ]; then
     alias vim="vim -u ${VIMDIR}/.vimrc"
 fi

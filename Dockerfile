@@ -11,22 +11,23 @@ RUN apk add --no-cache git build-base \
 
 
 ## setup OS
-FROM alpine:3.9
+FROM golang:1.11.6-alpine3.9
 LABEL maintainer="Siddhartha Basu<biosidd@gmail.com>" 
 ARG CONT_USER=cybersiddhu
 ENV CUSTOMDIR=/custom
 ENV ZDOTDIR=${CUSTOMDIR}/dotfiles/shell
 ENV TMUXDIR=${CUSTOMDIR}/dotfiles/tmux
+ENV VIMDIR=${CUSTOMDIR}/dotfiles/vim
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 ENV TERM=screen
 RUN addgroup -g 1000 -S ${CONT_USER} \ 
 	&& adduser -u 1000 -S -G ${CONT_USER} ${CONT_USER} \
 	&& apk update \ 
-	&& apk add --no-cache zsh curl git file ca-certificates python python3 python3-dev tmux bash vim gawk \ 
+	&& apk add --no-cache zsh curl git file ca-certificates python python3 python3-dev tmux bash vim gawk tree \ 
 	&& rm -f /tmp/* /etc/apk/cache/* \ 
 	&& sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
-	&& mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} \ 
+	&& mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${VIMDIR} \ 
 	&& chown -R 1000:1000 ${CUSTOMDIR}
 COPY --from=0 /go/antibody/antibody  /usr/local/bin
 USER ${CONT_USER}
@@ -46,6 +47,16 @@ RUN git clone https://github.com/tmux-plugins/tpm ${TMUXDIR}/plugins/tpm \
 	&& git clone https://github.com/tmux-plugins/tmux-fpp ${TMUXDIR}/plugins/tmux-fpp
 ADD tmux.conf ${TMUXDIR}/.tmux.conf
 ENV TMUX_PLUGIN_MANAGER_PATH=${TMUXDIR}/plugins
+
+## setup vim
+RUN curl -fLo ${VIMDIR}/autoload/plug.vim --create-dirs \
+	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
+	&& mkdir -p ${VIMDIR}/plugged \
+	&& git clone --branch feature/golang https://github.com/cybersiddhu/spf13-vim.git ${VIMDIR}/spf13 \
+	&& ln -sf ${VIMDIR}/spf13/.vimrc.before ${VIMDIR}/.vimrc.before \
+	&& ln -sf ${VIMDIR}/spf13/.vimrc ${VIMDIR}/.vimrc \
+	&& ln -sf ${VIMDIR}/spf13/.vimrc.bundles ${VIMDIR}/.vimrc.bundles \
+	&& ln -sf ${VIMDIR}/spf13/.vimrc.local ${VIMDIR}/.vimrc.local
 
 ## configure zsh
 ENV SHELL=/bin/zsh
