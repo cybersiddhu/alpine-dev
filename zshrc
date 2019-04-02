@@ -28,10 +28,10 @@ fi
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
-if [ -d "${CUSTOMDIR}/bin" ] ; then
-    PATH="$CUSTOMDIR/bin:${PATH}"
-fi
 
+if [ -d "${CUSTOMDIR}/bin" ] ; then
+   export PATH="$CUSTOMDIR/bin:${PATH}"
+fi
 
 if [ ${VIMDIR+defined} ]; then
     alias vim="vim -u ${VIMDIR}/.vimrc"
@@ -45,6 +45,10 @@ fi
 if [ -d ${HOME}/golang ]; then
     export GOPATH=${HOME}/golang
     export PATH=${PATH}:${GOPATH}/bin
+fi
+
+if [ -d /usr/local/go/bin ]; then
+    export PATH=${PATH}:/usr/local/go/bin
 fi
 
 if [ -d ${TMUXDIR} ];then
