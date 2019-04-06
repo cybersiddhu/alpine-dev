@@ -1,5 +1,11 @@
-autoload -Uz compaudit compinit
+autoload -Uz compaudit compinit promptinit compdef
 compinit
+promptinit
+
+if [[ -s "${ZDOTDIR}/zsh_plugins.sh" ]]; then
+  source "${ZDOTDIR}/zsh_plugins.sh"
+fi
+
 
 ###
 # History
@@ -21,9 +27,6 @@ setopt share_history            # share hist between sessions
 setopt no_hist_beep		# no beep
 setopt bang_hist     
 
-if [[ -s "${ZDOTDIR}/zsh_plugins.sh" ]]; then
-  source "${ZDOTDIR}/zsh_plugins.sh"
-fi
 
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down

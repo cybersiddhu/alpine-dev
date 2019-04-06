@@ -26,7 +26,7 @@ RUN addgroup -g 1000 -S ${CONT_USER} \
 	&& apk update \ 
 	&& apk add --no-cache build-base ctags zsh curl git \
 		   file ca-certificates python python3 python3-dev \ 
-           tmux bash vim gawk tree \ 
+           tmux bash vim gawk tree openssh-client protobuf \ 
 	&& pip3 install pynvim \
 	&& rm -f /tmp/* /etc/apk/cache/* \ 
 	&& sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
@@ -61,6 +61,9 @@ RUN curl -fLo ${VIMDIR}/autoload/plug.vim --create-dirs \
 	&& ln -sf ${VIMDIR}/spf13/.vimrc.bundles ${VIMDIR}/.vimrc.bundles \
 	&& ln -sf ${VIMDIR}/spf13/.vimrc.local ${VIMDIR}/.vimrc.local \
 	&& vim -E -s -u ${VIMDIR}/.vimrc +PlugInstall +qall
+
+## timezone
+ENV TZ America/Chicago
 
 ## configure zsh
 ENV SHELL=/bin/zsh
