@@ -26,12 +26,15 @@ RUN addgroup -g 1000 -S ${CONT_USER} \
 	&& apk update \ 
 	&& apk add --no-cache build-base ctags zsh curl git \
 		   file ca-certificates python python3 python3-dev \ 
-           tmux bash vim gawk tree openssh-client protobuf \ 
+           tmux bash vim gawk tree openssh-client protobuf tzdata \ 
 	&& pip3 install pynvim \
 	&& rm -f /tmp/* /etc/apk/cache/* \ 
 	&& sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
 	&& mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${VIMDIR} \ 
-	&& chown -R 1000:1000 ${CUSTOMDIR}
+	&& chown -R 1000:1000 ${CUSTOMDIR} \
+## timezone
+    && cp /usr/share/zoneinfo/America/Chicago /etc/localtime \
+    && echo "America/chicago" > /etc/timezone
 COPY --from=0 /go/antibody/antibody  /usr/local/bin
 USER ${CONT_USER}
 WORKDIR /home/cybersiddhu 
@@ -47,7 +50,8 @@ RUN git clone https://github.com/tmux-plugins/tpm ${TMUXDIR}/plugins/tpm \
 	&& git clone https://github.com/tmux-plugins/tmux-sensible ${TMUXDIR}/plugins/tmux-sensible \
 	&& git clone https://github.com/tmux-plugins/tmux-pain-control ${TMUXDIR}/plugins/tmux-pain-control \
 	&& git clone https://github.com/tmux-plugins/tmux-sidebar ${TMUXDIR}/plugins/tmux-sidebar \
-	&& git clone https://github.com/tmux-plugins/tmux-fpp ${TMUXDIR}/plugins/tmux-fpp
+	&& git clone https://github.com/tmux-plugins/tmux-fpp ${TMUXDIR}/plugins/tmux-fpp \
+    && git clone https://github.com/arcticicestudio/nord-tmux ${TMUXDIR}/plugins/nord-tmux
 ADD tmux.conf ${TMUXDIR}/.tmux.conf
 ENV TMUX_PLUGIN_MANAGER_PATH=${TMUXDIR}/plugins
 
@@ -62,8 +66,7 @@ RUN curl -fLo ${VIMDIR}/autoload/plug.vim --create-dirs \
 	&& ln -sf ${VIMDIR}/spf13/.vimrc.local ${VIMDIR}/.vimrc.local \
 	&& vim -E -s -u ${VIMDIR}/.vimrc +PlugInstall +qall
 
-## timezone
-ENV TZ America/Chicago
+
 
 ## configure zsh
 ENV SHELL=/bin/zsh
