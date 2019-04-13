@@ -27,6 +27,7 @@ RUN addgroup -g 1000 -S ${CONT_USER} \
 	&& apk add --no-cache build-base ctags zsh curl git \
 		   file ca-certificates python python3 python3-dev \ 
            tmux bash vim gawk tree openssh-client protobuf tzdata \ 
+           the_silver_searcher the_silver_searcher-zsh-completion \
 	&& pip3 install pynvim \
 	&& rm -f /tmp/* /etc/apk/cache/* \ 
 	&& sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
