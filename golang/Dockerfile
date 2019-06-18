@@ -24,7 +24,7 @@ ENV TERM=screen
 RUN addgroup -g 1000 -S ${CONT_USER} \ 
 	&& adduser -u 1000 -S -G ${CONT_USER} ${CONT_USER} \
 	&& apk update \ 
-	&& apk add --no-cache build-base ctags zsh curl git \
+	&& apk add --no-cache build-base ctags zsh curl git htop \
 		   file ca-certificates python python3 python3-dev \ 
            tmux bash vim gawk tree openssh-client protobuf tzdata \ 
            the_silver_searcher the_silver_searcher-zsh-completion \
