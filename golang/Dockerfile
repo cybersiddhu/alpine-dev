@@ -1,5 +1,5 @@
 ## build antibody
-FROM golang:1.11.6-alpine3.9 
+FROM golang:1.11.13-alpine3.10 
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -11,7 +11,7 @@ RUN apk add --no-cache git build-base \
 
 
 ## setup OS
-FROM golang:1.11.6-alpine3.9
+FROM golang:1.11.13-alpine3.10 
 LABEL maintainer="Siddhartha Basu<biosidd@gmail.com>" 
 ARG CONT_USER=cybersiddhu
 ENV CUSTOMDIR=/custom
@@ -65,7 +65,9 @@ RUN curl -fLo ${VIMDIR}/autoload/plug.vim --create-dirs \
 	&& ln -sf ${VIMDIR}/spf13/.vimrc ${VIMDIR}/.vimrc \
 	&& ln -sf ${VIMDIR}/spf13/.vimrc.bundles ${VIMDIR}/.vimrc.bundles \
 	&& ln -sf ${VIMDIR}/spf13/.vimrc.local ${VIMDIR}/.vimrc.local \
-	&& vim -E -s -u ${VIMDIR}/.vimrc +PlugInstall +qall
+	&& vim -E -s -u ${VIMDIR}/.vimrc +PlugInstall +qall \
+    && echo  "call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })" >> ${VIMDIR}/spf13/.vimrc.local
+
 
 
 
