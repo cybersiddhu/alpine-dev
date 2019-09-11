@@ -35,7 +35,7 @@ RUN  apk add --update-cache curl unzip ctags zsh git htop unibilium \
        file ca-certificates tmux bash gawk tree \ 
        openssh-client protobuf tzdata libtermkey \ 
        the_silver_searcher the_silver_searcher-zsh-completion \
-       python openjdk11-jdk
+       python openjdk11-jdk yarn watchman
 # install deps
 RUN git clone https://github.com/neovim/libvterm.git && \
     cd libvterm \
