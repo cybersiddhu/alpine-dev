@@ -36,8 +36,8 @@ if [ -d "${CUSTOMDIR}/bin" ] ; then
    export PATH="$CUSTOMDIR/bin:${PATH}"
 fi
 
-if [ ${VIMDIR+defined} ]; then
-    alias vim="vim -u ${VIMDIR}/.vimrc"
+if [ ${NVIMDIR+defined} ]; then
+    alias nvim="nvim -u ${NVIMDIR}/init.vim"
 fi
 
 #golang
