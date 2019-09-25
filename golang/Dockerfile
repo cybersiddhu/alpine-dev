@@ -37,7 +37,8 @@ RUN  apk add --update-cache curl unzip ctags zsh git htop unibilium \
        file ca-certificates tmux bash gawk tree \ 
        openssh-client protobuf tzdata libtermkey \ 
        the_silver_searcher the_silver_searcher-zsh-completion \
-       python npm yarn watchman
+       python npm yarn watchman \
+       && npm install -g dockerfile-language-server-nodejs
 # install deps
 RUN git clone https://github.com/neovim/libvterm.git && \
     cd libvterm \
@@ -54,13 +55,13 @@ RUN	rm -f /tmp/* /etc/apk/cache/* \
 	&& sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
 	&& mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${COCDIR}/extensions \ 
 	&& chown -R 1000:1000 ${CUSTOMDIR} \
+    && mkdir -p /var/run/watchman/${CONT_USER}-state \
+    && cd /var/run \
+    && chown -R 1000:1000 watchman
 ## timezone
     && cp /usr/share/zoneinfo/America/Chicago /etc/localtime \
     && echo "America/chicago" > /etc/timezone
 COPY --from=0 /go/antibody/antibody  /usr/local/bin
-RUN mkdir -p /var/run/watchman/${CONT_USER}-state \
-    && cd /var/run \
-    && chown -R 1000:1000 watchman
 USER ${CONT_USER}
 WORKDIR /home/cybersiddhu 
 ADD plugin.txt ${ZDOTDIR}
