@@ -46,6 +46,7 @@ if [ -d ${CUSTOMDIR}/golang ]; then
     export PATH=${PATH}:${GOROOT}/bin
 fi
 if [ -d ${HOME}/golang ]; then
+    export GO111MODULE=on
     export GOPATH=${HOME}/golang
     export PATH=${PATH}:${GOPATH}/bin
 fi

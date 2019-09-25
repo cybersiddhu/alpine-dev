@@ -15,11 +15,11 @@ FROM golang:1.11.13-alpine3.10
 LABEL maintainer="Siddhartha Basu<biosidd@gmail.com>" 
 ARG CONT_USER=cybersiddhu
 ENV CUSTOMDIR=/custom
-ENV XDG_CONFIG_DIR=${CUSTOMDIR}
+ENV XDG_CONFIG_HOME=${CUSTOMDIR}
 ENV ZDOTDIR=${CUSTOMDIR}/dotfiles/shell
 ENV TMUXDIR=${CUSTOMDIR}/dotfiles/tmux
-ENV NVIMDIR=${XDG_CONFIG_DIR}/nvim
-ENV COCDIR=${XDG_CONFIG_DIR}/coc
+ENV NVIMDIR=${XDG_CONFIG_HOME}/nvim
+ENV COCDIR=${XDG_CONFIG_HOME}/coc
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 ENV TERM=screen
@@ -44,7 +44,7 @@ RUN git clone https://github.com/neovim/libvterm.git && \
     make -j4 && make install \
     && cd ../ && rm -rf libvterm
 # compile and install neovim
-RUN git clone -b nightly --single-branch https://github.com/neovim/neovim.git nvim \
+RUN git clone -b v0.4.2 --single-branch https://github.com/neovim/neovim.git nvim \
     && cd nvim \
     && make -j6 \
     && make install \
@@ -58,6 +58,9 @@ RUN	rm -f /tmp/* /etc/apk/cache/* \
     && cp /usr/share/zoneinfo/America/Chicago /etc/localtime \
     && echo "America/chicago" > /etc/timezone
 COPY --from=0 /go/antibody/antibody  /usr/local/bin
+RUN mkdir -p /var/run/watchman/${CONT_USER}-state \
+    && cd /var/run \
+    && chown -R 1000:1000 watchman
 USER ${CONT_USER}
 WORKDIR /home/cybersiddhu 
 ADD plugin.txt ${ZDOTDIR}
@@ -89,9 +92,10 @@ RUN curl -fLo ${NVIMDIR}/autoload/plug.vim --create-dirs \
 	&& nvim -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall \
     && cd ${COCDIR}/extensions \
     && echo '{"dependencies":{}}'> package.json \
-    && npm install coc-dictionary coc-tag coc-word coc-yank coc-go \
+    && npm install coc-dictionary coc-tag coc-word coc-yank \
        coc-pairs coc-docker --global-style --ignore-scripts --no-bin-links \
        --no-package-lock --only=prod
+ADD coc-settings.json ${NVIMDIR}/
 
 ## configure zsh
 ENV SHELL=/bin/zsh
