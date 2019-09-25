@@ -57,7 +57,7 @@ RUN	rm -f /tmp/* /etc/apk/cache/* \
 	&& chown -R 1000:1000 ${CUSTOMDIR} \
     && mkdir -p /var/run/watchman/${CONT_USER}-state \
     && cd /var/run \
-    && chown -R 1000:1000 watchman
+    && chown -R 1000:1000 watchman \
 ## timezone
     && cp /usr/share/zoneinfo/America/Chicago /etc/localtime \
     && echo "America/chicago" > /etc/timezone
