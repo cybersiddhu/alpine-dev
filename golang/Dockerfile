@@ -93,8 +93,8 @@ RUN curl -fLo ${NVIMDIR}/autoload/plug.vim --create-dirs \
 	&& nvim -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall \
     && cd ${COCDIR}/extensions \
     && echo '{"dependencies":{}}'> package.json \
-    && npm install coc-dictionary coc-tag coc-word coc-yank \
-       coc-pairs coc-docker --global-style --ignore-scripts --no-bin-links \
+    && npm install coc-dictionary coc-tag coc-word \
+       --global-style --ignore-scripts --no-bin-links \
        --no-package-lock --only=prod
 ADD coc-settings.json ${NVIMDIR}/
 
