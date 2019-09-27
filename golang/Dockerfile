@@ -84,7 +84,7 @@ ENV TMUX_PLUGIN_MANAGER_PATH=${TMUXDIR}/plugins
 ## setup nvim
 RUN curl -fLo ${NVIMDIR}/autoload/plug.vim --create-dirs \
 	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
-	&& mkdir -p ${NVIMDIR}/plugged \
+	&& mkdir -p ${NVIMDIR}/plugged ${NVIMDIR}/markdown \
 	&& git clone --branch feature/golang-coc https://github.com/cybersiddhu/spf13-vim.git ${NVIMDIR}/spf13 \
 	&& ln -sf ${NVIMDIR}/spf13/.vimrc.before ${NVIMDIR}/.vimrc.before \
 	&& ln -sf ${NVIMDIR}/spf13/init.vim ${NVIMDIR}/init.vim \
@@ -97,6 +97,8 @@ RUN curl -fLo ${NVIMDIR}/autoload/plug.vim --create-dirs \
        --global-style --ignore-scripts --no-bin-links \
        --no-package-lock --only=prod
 ADD coc-settings.json ${NVIMDIR}/
+ADD github-markdown.css ${NVIMDIR}/markdown/
+EXPOSE 9255
 
 ## configure zsh
 ENV SHELL=/bin/zsh
