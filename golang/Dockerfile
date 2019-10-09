@@ -1,5 +1,5 @@
 ## build antibody
-FROM golang:1.11.13-alpine3.10 
+FROM golang:1.11.13-alpine3.10 AS antibuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -9,10 +9,27 @@ RUN apk add --no-cache git build-base \
 	&& go get -v ./... \
 	&& go build -o antibody
 
+## build prototool
+FROM cybersiddhu/golang:1.12.10-alpine-edge AS protobuilder
+LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && apk add --no-cache build-base curl git protobuf \
+    && rm -rf /var/cache/apk/*
+
+ENV GOLANG_PROTOBUF_VERSION=1.3.2
+ENV PROTOTOOL_VERSION=1.8.0
+ENV GO_PROTO_VALIDATORS=0.2.0
+ENV PROTOC_GEN_DOC=1.3.0
+ENV GO111MODULE=on
+RUN go get -v github.com/golang/protobuf/protoc-gen-go@v${GOLANG_PROTOBUF_VERSION} \
+    && go get -v github.com/uber/prototool/cmd/prototool@v${PROTOTOOL_VERSION} \
+    && go get -v github.com/mwitkow/go-proto-validators/protoc-gen-govalidators@v${GO_PROTO_VALIDATORS} \
+    && go get -v github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v${PROTOC_GEN_DOC}
+
 
 ## setup OS
-FROM golang:1.11.13-alpine3.10 
-LABEL maintainer="Siddhartha Basu<biosidd@gmail.com>" 
+FROM cybersiddhu/golang:1.11.13-alpine-edge
+LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
 ENV CUSTOMDIR=/custom
 ENV XDG_CONFIG_HOME=${CUSTOMDIR}
@@ -24,16 +41,16 @@ ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 ENV TERM=screen
 ENV CMAKE_EXTRA_FLAGS=-DENABLE_JEMALLOC=OFF
-RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 # install deps
 RUN addgroup -g 1000 -S ${CONT_USER} \ 
 	&& adduser -u 1000 -S -G ${CONT_USER} ${CONT_USER} \
-    && apk add --update-cache --virtual build-deps --no-cache \
+    && apk add --update --virtual build-deps --no-cache \
         autoconf automake cmake g++ libtool \
         libuv linux-headers lua5.3-dev m4 make libtermkey-dev \
         libintl gettext-dev lua-sec 
 # install deps
-RUN  apk add --update-cache curl unzip ctags zsh git htop unibilium \
+RUN  apk add --update --no-cache curl unzip ctags zsh git htop unibilium \
        file ca-certificates tmux bash gawk tree \ 
        openssh-client protobuf tzdata libtermkey \ 
        the_silver_searcher the_silver_searcher-zsh-completion \
@@ -51,7 +68,7 @@ RUN git clone -b v0.4.2 --single-branch https://github.com/neovim/neovim.git nvi
     && make install \
     && cd .. && rm -rf nvim 
 # OS setup
-RUN	rm -f /tmp/* /etc/apk/cache/* \ 
+RUN	rm -f /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
 	&& sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
 	&& mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${COCDIR}/extensions \ 
 	&& chown -R 1000:1000 ${CUSTOMDIR} \
@@ -61,13 +78,26 @@ RUN	rm -f /tmp/* /etc/apk/cache/* \
 ## timezone
     && cp /usr/share/zoneinfo/America/Chicago /etc/localtime \
     && echo "America/chicago" > /etc/timezone
-COPY --from=0 /go/antibody/antibody  /usr/local/bin
+
+## configure protocol buffer tools
+COPY --from=protobuilder /go/bin/protoc-gen* /usr/local/bin/
+COPY --from=protobuilder /go/bin/prototool /usr/local/bin/
+ENV GRPC_GATEWAY_VERSION=1.11.3
+RUN curl -sSL \
+    https://github.com/grpc-ecosystem/grpc-gateway/releases/download/v${GRPC_GATEWAY_VERSION}/protoc-gen-grpc-gateway-v${GRPC_GATEWAY_VERSION}-linux-x86_64 \
+    -o /usr/local/bin/protoc-gen-grpc-gateway \
+    && curl -sSL \
+    https://github.com/grpc-ecosystem/grpc-gateway/releases/download/v${GRPC_GATEWAY_VERSION}/protoc-gen-swagger-v${GRPC_GATEWAY_VERSION}-linux-x86_64 \
+    -o /usr/local/bin/protoc-gen-swagger \
+    && chmod +x /usr/local/bin/protoc-gen-grpc-gateway \
+    && chmod +x /usr/local/bin/protoc-gen-swagger
+
+## configure antibody
+COPY --from=antibuilder /go/antibody/antibody  /usr/local/bin
 USER ${CONT_USER}
 WORKDIR /home/cybersiddhu 
 ADD plugin.txt ${ZDOTDIR}
 ADD zshrc ${ZDOTDIR}/.zshrc
-
-## configure antibody
 ENV ANTIBODY_HOME=${ZDOTDIR}/antibody
 RUN antibody bundle < ${ZDOTDIR}/plugin.txt > ${ZDOTDIR}/zsh_plugins.sh
 
