@@ -58,3 +58,8 @@ fi
 if [ -d ${TMUXDIR} ];then
     alias tmux="tmux -f ${TMUXDIR}/.tmux.conf"
 fi
+
+#hub command line
+if [ -d /usr/local/bin/hub ]; then
+    alias git=hub
+fi
