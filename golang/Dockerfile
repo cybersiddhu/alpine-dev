@@ -20,11 +20,13 @@ ENV GOLANG_PROTOBUF_VERSION=1.3.2
 ENV PROTOTOOL_VERSION=1.8.0
 ENV GO_PROTO_VALIDATORS=0.2.0
 ENV PROTOC_GEN_DOC=1.3.0
+ENV HUB_VERSION=2.12.8
 ENV GO111MODULE=on
 RUN go get -v github.com/golang/protobuf/protoc-gen-go@v${GOLANG_PROTOBUF_VERSION} \
     && go get -v github.com/uber/prototool/cmd/prototool@v${PROTOTOOL_VERSION} \
     && go get -v github.com/mwitkow/go-proto-validators/protoc-gen-govalidators@v${GO_PROTO_VALIDATORS} \
-    && go get -v github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v${PROTOC_GEN_DOC}
+    && go get -v github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v${PROTOC_GEN_DOC} \
+    && go get -v github.com/github/hub@v${HUB_VERSION}
 
 
 ## setup OS
@@ -82,6 +84,8 @@ RUN	rm -f /tmp/* /etc/apk/cache/* /var/cache/apk/* \
 ## configure protocol buffer tools
 COPY --from=protobuilder /go/bin/protoc-gen* /usr/local/bin/
 COPY --from=protobuilder /go/bin/prototool /usr/local/bin/
+## copy hub binary
+COPY --from=protobuilder /go/bin/hub /usr/local/bin/
 ENV GRPC_GATEWAY_VERSION=1.11.3
 RUN curl -sSL \
     https://github.com/grpc-ecosystem/grpc-gateway/releases/download/v${GRPC_GATEWAY_VERSION}/protoc-gen-grpc-gateway-v${GRPC_GATEWAY_VERSION}-linux-x86_64 \
