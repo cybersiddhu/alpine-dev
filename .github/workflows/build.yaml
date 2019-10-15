@@ -23,4 +23,23 @@ jobs:
         run: |
           docker push cybersiddhu/golang:1.11.13-alpine-edge
           docker push cybersiddhu/golang:1.12.10-alpine-edge
+  github-build:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: check out code
+        uses: actions/checkout@v1
+      - name: build golang:1.12.10-alpine-edge image
+        run: | 
+          cd core/1.12.10
+          docker build -t docker.pkg.github.com/cybersiddhu/alpine-dev/golang:1.12.10-alpine-edge .
+      - name: build golang:1.11.13-alpine-edge image
+        run: | 
+          cd core/1.11.13
+          docker build -t docker.pkg.github.com/cybersiddhu/alpine-dev/golang:1.11.13-alpine-edge .
+      - name: login to github package registry
+        run: docker login docker.pkg.github.com -u cybersiddhu -p ${{ secrets.GITHUB_REGISTRY_TOKEN }}
+      - name: push to github package registry
+        run: |
+          docker push docker.pkg.github.com/cybersiddhu/alpine-dev/golang:1.11.13-alpine-edge
+          docker push docker.pkg.github.com/cybersiddhu/alpine-dev/golang:1.12.10-alpine-edge
 
