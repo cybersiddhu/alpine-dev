@@ -1,2 +1,2 @@
 # alpine-dev
-Alpine docker based setup for shell based programming environment.
+Alpine docker based dev enviornment for shell based programming environment.

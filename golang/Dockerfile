@@ -9,7 +9,7 @@ RUN apk add --no-cache git build-base \
 	&& go get -v ./... \
 	&& go build -o antibody
 
-## build prototool
+## build prototool and go tools
 FROM cybersiddhu/golang:1.12.10-alpine-edge AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
