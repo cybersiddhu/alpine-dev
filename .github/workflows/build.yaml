@@ -1,0 +1,24 @@
+name: BuildImage
+on: 
+ push:
+   branches:
+     - feature/golang-coc
+jobs:
+  dockerhub-build:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: build golang:1.12.10-alpine-edge image
+        run: | 
+          cd core/1.12.10
+          docker build -t cybersiddhu/golang:1.12.10-alpine-edge .
+      - name: build golang:1.11.13-alpine-edge image
+        run: | 
+          cd core/1.11.13
+          docker build -t cybersiddhu/golang:1.11.13-alpine-edge .
+      - name: login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: push to docker hub
+        run: |
+          docker push cybersiddhu/golang:1.11.13-alpine-edge
+          docker push cybersiddhu/golang:1.12.10-alpine-edge
+
