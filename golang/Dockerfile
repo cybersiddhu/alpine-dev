@@ -57,7 +57,7 @@ RUN  apk add --update --no-cache curl unzip ctags zsh git htop unibilium \
        openssh-client protobuf tzdata libtermkey \ 
        the_silver_searcher the_silver_searcher-zsh-completion \
        python npm yarn watchman \
-       && npm install -g dockerfile-language-server-nodejs
+       && npm install -g dockerfile-language-server-nodejs semantic-release
 # install deps
 RUN git clone https://github.com/neovim/libvterm.git && \
     cd libvterm \
@@ -70,7 +70,7 @@ RUN git clone -b v0.4.2 --single-branch https://github.com/neovim/neovim.git nvi
     && make install \
     && cd .. && rm -rf nvim 
 # OS setup
-RUN	rm -f /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
+RUN	rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
 	&& sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
 	&& mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${COCDIR}/extensions \ 
 	&& chown -R 1000:1000 ${CUSTOMDIR} \
