@@ -4,13 +4,13 @@ LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
 	&& cd /go \
-	&& git clone -b v4.1.1 --single-branch https://github.com/getantibody/antibody.git \
+	&& git clone -b v4.2.0 --single-branch https://github.com/getantibody/antibody.git \
 	&& cd antibody \
 	&& go get -v ./... \
 	&& go build -o antibody
 
 ## build prototool and go tools
-FROM cybersiddhu/golang:1.12.10-alpine-edge AS protobuilder
+FROM cybersiddhu/golang:1.12.15-alpine-edge AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk add --no-cache build-base curl git protobuf \
@@ -20,7 +20,7 @@ ENV GOLANG_PROTOBUF_VERSION=1.3.2
 ENV PROTOTOOL_VERSION=1.8.0
 ENV GO_PROTO_VALIDATORS=0.2.0
 ENV PROTOC_GEN_DOC=1.3.0
-ENV HUB_VERSION=2.12.8
+ENV HUB_VERSION=2.14.1
 ENV GO111MODULE=on
 RUN go get -v github.com/golang/protobuf/protoc-gen-go@v${GOLANG_PROTOBUF_VERSION} \
     && go get -v github.com/uber/prototool/cmd/prototool@v${PROTOTOOL_VERSION} \
