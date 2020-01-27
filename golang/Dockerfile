@@ -4,7 +4,7 @@ LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
 	&& cd /go \
-	&& git clone -b v4.2.0 --single-branch https://github.com/getantibody/antibody.git \
+	&& git clone -b v4.1.2 --single-branch https://github.com/getantibody/antibody.git \
 	&& cd antibody \
 	&& go get -v ./... \
 	&& go build -o antibody
