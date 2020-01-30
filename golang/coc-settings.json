@@ -12,6 +12,7 @@
         }
     },
     "suggest.noselect": false,
+    "suggest.enablePreselect": false,
     "suggest.snippetIndicator": "►",
     "suggest.acceptSuggestionOnCommitCharacter": true,
     "suggest.minTriggerInputLength": 2,
