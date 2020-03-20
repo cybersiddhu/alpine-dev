@@ -19,13 +19,13 @@ ENV GOLANG_PROTOBUF_VERSION=1.3.2
 ENV PROTOTOOL_VERSION=1.9.0
 ENV GO_PROTO_VALIDATORS=0.2.0
 ENV PROTOC_GEN_DOC=1.3.0
-ENV HUB_VERSION=2.14.2
+ENV HUB_VERSION=v2.11.2+incompatible
 ENV GO111MODULE=on
 RUN go get -v github.com/golang/protobuf/protoc-gen-go@v${GOLANG_PROTOBUF_VERSION} \
     && go get -v github.com/uber/prototool/cmd/prototool@v${PROTOTOOL_VERSION} \
     && go get -v github.com/mwitkow/go-proto-validators/protoc-gen-govalidators@v${GO_PROTO_VALIDATORS} \
     && go get -v github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v${PROTOC_GEN_DOC} \
-    && go get -v github.com/github/hub@v${HUB_VERSION}
+    && go get -v github.com/github/hub@${HUB_VERSION}
 
 ## setup OS
 FROM golang:1.13.9-alpine3.11
