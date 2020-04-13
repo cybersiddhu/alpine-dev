@@ -1,5 +1,5 @@
 ## build antibody
-FROM golang:1.13.9-alpine3.11 AS antibuilder
+FROM golang:1.13.10-alpine3.11 AS antibuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -10,7 +10,7 @@ RUN apk add --no-cache git build-base \
 	&& go build -o antibody
 
 ## build prototool and go tools
-FROM golang:1.13.9-alpine3.11 AS protobuilder
+FROM golang:1.13.10-alpine3.11 AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache build-base curl git protobuf \
     && rm -rf /var/cache/apk/*
@@ -28,7 +28,7 @@ RUN go get -v github.com/golang/protobuf/protoc-gen-go@v${GOLANG_PROTOBUF_VERSIO
     && go get -v github.com/github/hub@${HUB_VERSION}
 
 ## setup OS
-FROM golang:1.13.9-alpine3.11
+FROM golang:1.13.10-alpine3.11
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
 ENV CUSTOMDIR=/custom
@@ -62,7 +62,7 @@ RUN git clone https://github.com/neovim/libvterm.git && \
     make -j4 && make install \
     && cd ../ && rm -rf libvterm
 # compile and install neovim
-RUN git clone -b v0.4.2 --single-branch https://github.com/neovim/neovim.git nvim \
+RUN git clone -b v0.4.3 --single-branch https://github.com/neovim/neovim.git nvim \
     && cd nvim \
     && make -j6 \
     && make install \
