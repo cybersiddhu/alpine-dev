@@ -112,10 +112,11 @@ RUN curl -fLo ${NVIMDIR}/autoload/plug.vim --create-dirs \
 	&& ln -sf ${NVIMDIR}/spf13/init.vim ${NVIMDIR}/init.vim \
 	&& ln -sf ${NVIMDIR}/spf13/.vimrc.bundles ${NVIMDIR}/.vimrc.bundles \
 	&& ln -sf ${NVIMDIR}/spf13/.vimrc.local ${NVIMDIR}/.vimrc.local \
-	&& nvim -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall \
-    && cd ${COCDIR}/extensions \
+	&& nvim -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall 
+
+RUN cd ${COCDIR}/extensions \
     && echo '{"dependencies":{}}'> package.json \
-    && npm install coc-dictionary coc-tag coc-word \
+    && npm install coc-dictionary coc-tag coc-word coc-marketplace \
        --global-style --ignore-scripts --no-bin-links \
        --no-package-lock --only=prod 
 ADD coc-settings.json ${NVIMDIR}/
