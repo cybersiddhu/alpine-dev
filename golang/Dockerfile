@@ -54,19 +54,9 @@ RUN  apk add --update --no-cache curl unzip ctags zsh git htop unibilium \
        file ca-certificates tmux bash gawk tree \ 
        openssh-client protobuf tzdata libtermkey \ 
        the_silver_searcher the_silver_searcher-zsh-completion \
-       python npm yarn watchman \
-       && npm install -g dockerfile-language-server-nodejs semantic-release
-# install deps
-RUN git clone https://github.com/neovim/libvterm.git && \
-    cd libvterm \
-    make -j4 && make install \
-    && cd ../ && rm -rf libvterm
-# compile and install neovim
-RUN git clone -b v0.4.3 --single-branch https://github.com/neovim/neovim.git nvim \
-    && cd nvim \
-    && make -j6 \
-    && make install \
-    && cd .. && rm -rf nvim 
+       python python3 python3-dev npm yarn watchman neovim \
+       && npm install -g dockerfile-language-server-nodejs semantic-release \
+       && python3 -m pip install --upgrade pynvim
 # OS setup
 RUN	rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
 	&& sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
@@ -127,7 +117,7 @@ RUN curl -fLo ${NVIMDIR}/autoload/plug.vim --create-dirs \
     && echo '{"dependencies":{}}'> package.json \
     && npm install coc-dictionary coc-tag coc-word \
        --global-style --ignore-scripts --no-bin-links \
-       --no-package-lock --only=prod
+       --no-package-lock --only=prod 
 ADD coc-settings.json ${NVIMDIR}/
 ADD github-markdown.css ${NVIMDIR}/markdown/
 EXPOSE 9255
