@@ -1,0 +1,14 @@
+# plugins
+mafredri/zsh-async
+zsh-users/zsh-completions
+zsh-users/zsh-autosuggestions
+robbyrussell/oh-my-zsh path:lib/git.zsh
+robbyrussell/oh-my-zsh path:plugins/git
+popstas/zsh-command-time
+djui/alias-tips
+zpm-zsh/autoenv
+
+# theme
+sindresorhus/pure
+zdharma/fast-syntax-highlighting
+zsh-users/zsh-history-substring-search
