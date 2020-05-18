@@ -9,6 +9,26 @@ RUN apk add --no-cache git build-base \
 	&& go get -v ./... \
 	&& go build -o antibody
 
+## build gitbug
+FROM golang:1.13.10-alpine3.11 AS gitbug
+LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
+RUN apk add --no-cache git build-base \
+	&& mkdir -p /go \
+	&& cd /go \
+	&& git clone -b 0.7.1 --single-branch https://github.com/MichaelMure/git-bug \
+	&& cd git-bug \
+	&& make build
+
+## build hugo
+FROM golang:1.13.10-alpine3.11 AS hugo
+LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
+RUN apk add --no-cache git build-base \
+	&& mkdir -p /go \
+	&& cd /go \
+	&& git clone -b v0.70.0 --single-branch https://github.com/gohugoio/hugo \
+	&& cd hugo \
+	&& go build -o hugo
+
 ## build prototool and go tools
 FROM golang:1.13.10-alpine3.11 AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
@@ -83,6 +103,10 @@ RUN curl -sSL \
     -o /usr/local/bin/protoc-gen-swagger \
     && chmod +x /usr/local/bin/protoc-gen-grpc-gateway \
     && chmod +x /usr/local/bin/protoc-gen-swagger
+
+## copy hugo and git-bug
+COPY --from=hugo /go/hugo/hugo /usr/local/bin
+COPY --from=gitbug /go/git-bug/git-bug /usr/local/bin
 
 ## configure antibody
 COPY --from=antibuilder /go/antibody/antibody  /usr/local/bin
