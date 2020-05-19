@@ -111,7 +111,7 @@ COPY --from=gitbug /go/git-bug/git-bug /usr/local/bin
 ## configure antibody
 COPY --from=antibuilder /go/antibody/antibody  /usr/local/bin
 USER ${CONT_USER}
-WORKDIR /home/cybersiddhu 
+WORKDIR /home/${CONT_USER} 
 ADD plugin.txt ${ZDOTDIR}
 ADD zshrc ${ZDOTDIR}/.zshrc
 ENV ANTIBODY_HOME=${ZDOTDIR}/antibody
