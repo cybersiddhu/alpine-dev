@@ -60,6 +60,7 @@ RUN addgroup --gid 1000 ${CONT_USER} \
        git-core \ 
        htop \ 
        file \ 
+       ncurses-term \
        tmux \ 
        gawk \ 
        tree \ 
