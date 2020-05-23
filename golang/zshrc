@@ -1,4 +1,4 @@
-autoload -Uz compaudit compinit promptinit compdef
+autoload -Uz compaudit compinit promptinit compdef add-zsh-hook
 compinit
 promptinit
 
@@ -32,27 +32,8 @@ bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
 
-if [ -d "${CUSTOMDIR}/bin" ] ; then
-   export PATH="$CUSTOMDIR/bin:${PATH}"
-fi
-
 if [ ${NVIMDIR+defined} ]; then
-    alias nvim="nvim -u ${NVIMDIR}/init.vim"
-fi
-
-#golang
-if [ -d ${CUSTOMDIR}/golang ]; then
-    export GOROOT=${CUSTOMDIR}/golang/go
-    export PATH=${PATH}:${GOROOT}/bin
-fi
-if [ -d ${HOME}/golang ]; then
-    export GO111MODULE=on
-    export GOPATH=${HOME}/golang
-    export PATH=${PATH}:${GOPATH}/bin
-fi
-
-if [ -d /usr/local/go/bin ]; then
-    export PATH=${PATH}:/usr/local/go/bin
+    alias nvim="${CUSTOMDIR}/usr/bin/nvim -u ${NVIMDIR}/init.vim"
 fi
 
 if [ -d ${TMUXDIR} ];then
@@ -63,3 +44,5 @@ fi
 if [ -d /usr/local/bin/hub ]; then
     alias git=hub
 fi
+
+export GPG_TTY=$(tty)

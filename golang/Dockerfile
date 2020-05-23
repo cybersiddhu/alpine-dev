@@ -113,6 +113,7 @@ COPY --from=antibuilder /go/antibody/antibody  /usr/local/bin
 USER ${CONT_USER}
 WORKDIR /home/${CONT_USER} 
 ADD plugin.txt ${ZDOTDIR}
+ADD zshenv ${ZDOTDIR}/.zshenv
 ADD zshrc ${ZDOTDIR}/.zshrc
 ENV ANTIBODY_HOME=${ZDOTDIR}/antibody
 RUN antibody bundle < ${ZDOTDIR}/plugin.txt > ${ZDOTDIR}/zsh_plugins.sh

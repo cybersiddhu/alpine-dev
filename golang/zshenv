@@ -1,0 +1,3 @@
+if [ -d "${CUSTOMDIR}/bin" ] ; then
+   export PATH="$CUSTOMDIR/bin:${PATH}"
+fi

@@ -32,10 +32,6 @@ bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
 
-if [ -d "${CUSTOMDIR}/bin" ] ; then
-   export PATH="$CUSTOMDIR/bin:${PATH}"
-fi
-
 if [ ${NVIMDIR+defined} ]; then
     alias nvim="${CUSTOMDIR}/usr/bin/nvim -u ${NVIMDIR}/init.vim"
 fi
@@ -49,5 +45,4 @@ if [ -d /usr/local/bin/hub ]; then
     alias git=hub
 fi
 
-#tty setup for gpg
 export GPG_TTY=$(tty)
