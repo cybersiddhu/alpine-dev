@@ -43,7 +43,7 @@ RUN addgroup --gid 1000 ${CONT_USER} \
        libtool \
        libffi-dev \ 
        libffi6 \
-       gnupg \
+       gnupg2 \
        libssl-dev \
        libpq-dev \ 
        libhdf5-dev \
