@@ -1,5 +1,5 @@
 ## build antibody
-FROM golang:1.13.10-alpine3.11 AS antibuilder
+FROM golang:1.13.12-alpine3.12 AS antibuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -10,7 +10,7 @@ RUN apk add --no-cache git build-base \
 	&& go build -o antibody
 
 ## build gitbug
-FROM golang:1.13.10-alpine3.11 AS gitbug
+FROM golang:1.13.12-alpine3.12 AS gitbug
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -20,7 +20,7 @@ RUN apk add --no-cache git build-base \
 	&& make build
 
 ## build hugo
-FROM golang:1.13.10-alpine3.11 AS hugo
+FROM golang:1.13.12-alpine3.12 AS hugo
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -30,7 +30,7 @@ RUN apk add --no-cache git build-base \
 	&& go build -o hugo
 
 ## build prototool and go tools
-FROM golang:1.13.10-alpine3.11 AS protobuilder
+FROM golang:1.13.12-alpine3.12 AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache build-base curl git protobuf \
     && rm -rf /var/cache/apk/*
@@ -48,7 +48,7 @@ RUN go get -v github.com/golang/protobuf/protoc-gen-go@v${GOLANG_PROTOBUF_VERSIO
     && go get -v github.com/github/hub@${HUB_VERSION}
 
 ## setup OS
-FROM golang:1.13.10-alpine3.11
+FROM golang:1.13.12-alpine3.12
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
 ENV CUSTOMDIR=/custom
@@ -74,9 +74,9 @@ RUN  apk add --update --no-cache curl unzip ctags zsh git htop unibilium \
        file ca-certificates tmux bash gawk tree \ 
        openssh-client protobuf tzdata libtermkey \ 
        the_silver_searcher the_silver_searcher-zsh-completion \
-       python python3 python3-dev npm yarn watchman neovim \
+       python2 python3 python3-dev py3-pip npm yarn watchman neovim \
        && npm install -g dockerfile-language-server-nodejs semantic-release \
-       && python3 -m pip install --upgrade pynvim
+       && pip3 install --upgrade pynvim
 # OS setup
 RUN	rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
 	&& sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
