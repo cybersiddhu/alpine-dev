@@ -31,11 +31,6 @@ setopt bang_hist
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
-
-if [ ${NVIMDIR+defined} ]; then
-    alias nvim="${CUSTOMDIR}/usr/bin/nvim -u ${NVIMDIR}/init.vim"
-fi
-
 #golang
 if [ -d ${CUSTOMDIR}/golang ]; then
     export GOROOT=${CUSTOMDIR}/golang/go
