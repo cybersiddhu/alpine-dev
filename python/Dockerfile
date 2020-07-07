@@ -114,7 +114,7 @@ COPY --from=builder /go/bin/hub /usr/local/bin/
 ### configure antibody
 COPY --from=builder /go/antibody/antibody  /usr/local/bin
 USER ${CONT_USER}
-WORKDIR /home/cybersiddhu 
+WORKDIR /home/${CONT_USER} 
 ADD plugin.txt ${ZDOTDIR}
 ADD zshenv ${ZDOTDIR}/.zshenv
 ADD zshrc ${ZDOTDIR}/.zshrc
