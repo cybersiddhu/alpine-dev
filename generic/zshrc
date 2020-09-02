@@ -33,3 +33,8 @@ bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
 # aliases
+#
+if command -v neofetch &> /dev/null 
+then 
+    neofetch
+fi
