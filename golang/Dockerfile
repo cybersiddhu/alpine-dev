@@ -1,5 +1,5 @@
 ## build antibody
-FROM golang:1.13.12-alpine3.12 AS antibuilder
+FROM golang:1.13.15-alpine3.12 AS antibuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -10,7 +10,7 @@ RUN apk add --no-cache git build-base \
 	&& go build -o antibody
 
 ## build gitbug
-FROM golang:1.13.12-alpine3.12 AS gitbug
+FROM golang:1.13.15-alpine3.12 AS gitbug
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -20,7 +20,7 @@ RUN apk add --no-cache git build-base \
 	&& make build
 
 ## build hugo
-FROM golang:1.13.12-alpine3.12 AS hugo
+FROM golang:1.13.15-alpine3.12 AS hugo
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -30,7 +30,7 @@ RUN apk add --no-cache git build-base \
 	&& go build -o hugo
 
 ## build prototool and go tools
-FROM golang:1.13.12-alpine3.12 AS protobuilder
+FROM golang:1.13.15-alpine3.12 AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache build-base curl git protobuf \
     && rm -rf /var/cache/apk/*
@@ -38,17 +38,20 @@ RUN apk add --no-cache build-base curl git protobuf \
 ENV GOLANG_PROTOBUF_VERSION=1.3.2
 ENV PROTOTOOL_VERSION=1.9.0
 ENV GO_PROTO_VALIDATORS=0.2.0
-ENV PROTOC_GEN_DOC=1.3.0
-ENV HUB_VERSION=v2.11.2+incompatible
+ENV PROTOC_GEN_DOC=1.3.2
+ENV CLI_VERSION=v1.1.0
 ENV GO111MODULE=on
 RUN go get -v github.com/golang/protobuf/protoc-gen-go@v${GOLANG_PROTOBUF_VERSION} \
     && go get -v github.com/uber/prototool/cmd/prototool@v${PROTOTOOL_VERSION} \
     && go get -v github.com/mwitkow/go-proto-validators/protoc-gen-govalidators@v${GO_PROTO_VALIDATORS} \
     && go get -v github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v${PROTOC_GEN_DOC} \
-    && go get -v github.com/github/hub@${HUB_VERSION}
+    && git clone -b ${CLI_VERSION} https://github.com/cli/cli.git gh-cli \
+    && cd gh-cli \
+    && make \
+    && cp bin/gh /go/bin/
 
 ## setup OS
-FROM golang:1.13.12-alpine3.12
+FROM golang:1.13.15-alpine3.12
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
 ENV CUSTOMDIR=/custom
@@ -71,7 +74,8 @@ RUN addgroup -g 1000 -S ${CONT_USER} \
         libintl gettext-dev lua-sec 
 # install deps
 RUN  apk add --update --no-cache curl unzip ctags zsh git htop unibilium \
-       file ca-certificates tmux bash gawk tree \ 
+       file ca-certificates tmux bash gawk \ 
+       gnupg exa fd \ 
        openssh-client protobuf tzdata libtermkey \ 
        the_silver_searcher the_silver_searcher-zsh-completion \
        python2 python3 python3-dev py3-pip npm yarn watchman neovim \
@@ -81,7 +85,7 @@ RUN  apk add --update --no-cache curl unzip ctags zsh git htop unibilium \
 RUN	rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
 	&& sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
 	&& mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${COCDIR}/extensions \ 
-	&& chown -R 1000:1000 ${CUSTOMDIR} \
+	&& chown -R 1001 :1000 ${CUSTOMDIR} \
     && mkdir -p /var/run/watchman/${CONT_USER}-state \
     && cd /var/run \
     && chown -R 1000:1000 watchman \
@@ -92,8 +96,8 @@ RUN	rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \
 ## configure protocol buffer tools
 COPY --from=protobuilder /go/bin/protoc-gen* /usr/local/bin/
 COPY --from=protobuilder /go/bin/prototool /usr/local/bin/
-## copy hub binary
-COPY --from=protobuilder /go/bin/hub /usr/local/bin/
+## copy gh binary
+COPY --from=protobuilder /go/bin/gh /usr/local/bin/
 ENV GRPC_GATEWAY_VERSION=1.11.3
 RUN curl -sSL \
     https://github.com/grpc-ecosystem/grpc-gateway/releases/download/v${GRPC_GATEWAY_VERSION}/protoc-gen-grpc-gateway-v${GRPC_GATEWAY_VERSION}-linux-x86_64 \
