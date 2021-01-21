@@ -1,0 +1,22 @@
+{
+    "suggest.noselect": false,
+    "suggest.enablePreselect": false,
+    "suggest.snippetIndicator": "►",
+    "suggest.acceptSuggestionOnCommitCharacter": true,
+    "suggest.minTriggerInputLength": 2,
+    "coc.source.dictionary.enable": true,
+    "coc.source.dictionary.priority": 9,
+    "coc.source.tag.enable": true,
+    "coc.source.tag.priority": 8,
+    "coc.source.word.enable": true,
+    "coc.source.word.priority": 11,
+    "yank.priority": 20,
+    "snippets.priority": 7,
+    "css.lint.duplicateProperties": "error",
+    "css.lint.importStatement": "warning",
+    "css.lint.unknownVendorSpecificProperties": "warning",
+    "eslint.autoFixOnSave": true,
+    "eslint.packageManager": "yarn",
+    "prettier.semi": false,
+    "prettier.tslintIntegration": true
+}

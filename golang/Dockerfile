@@ -85,7 +85,7 @@ RUN  apk add --update --no-cache curl unzip ctags zsh git htop unibilium \
 RUN	rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
 	&& sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
 	&& mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${COCDIR}/extensions \ 
-	&& chown -R 1001 :1000 ${CUSTOMDIR} \
+	&& chown -R 1000:1000 ${CUSTOMDIR} \
     && mkdir -p /var/run/watchman/${CONT_USER}-state \
     && cd /var/run \
     && chown -R 1000:1000 watchman \
