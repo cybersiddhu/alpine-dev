@@ -1,45 +1,34 @@
-name: BuildImage
+name: Build golang image
 on: 
  push:
    branches:
-     - feature/golang-coc
+     - master 
 jobs:
-  dockerhub-build:
-    runs-on: ubuntu-18.04
+  dockerhub-golang-build:
+    runs-on: ubuntu-20.04
     steps:
       - name: check out code
-        uses: actions/checkout@v1
-      - name: build golang:1.12.10-alpine-edge image
-        run: | 
-          cd core/1.12.10
-          docker build -t cybersiddhu/golang:1.12.10-alpine-edge .
-      - name: build golang:1.11.13-alpine-edge image
-        run: | 
-          cd core/1.11.13
-          docker build -t cybersiddhu/golang:1.11.13-alpine-edge .
-      - name: login to docker hub
-        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - name: push to docker hub
-        run: |
-          docker push cybersiddhu/golang:1.11.13-alpine-edge
-          docker push cybersiddhu/golang:1.12.10-alpine-edge
-  github-build:
-    runs-on: ubuntu-18.04
-    steps:
-      - name: check out code
-        uses: actions/checkout@v1
-      - name: build golang:1.12.10-alpine-edge image
-        run: | 
-          cd core/1.12.10
-          docker build -t docker.pkg.github.com/cybersiddhu/alpine-dev/golang:1.12.10-alpine-edge .
-      - name: build golang:1.11.13-alpine-edge image
-        run: | 
-          cd core/1.11.13
-          docker build -t docker.pkg.github.com/cybersiddhu/alpine-dev/golang:1.11.13-alpine-edge .
-      - name: login to github package registry
-        run: docker login docker.pkg.github.com -u cybersiddhu -p ${{ secrets.GITHUB_REGISTRY_TOKEN }}
-      - name: push to github package registry
-        run: |
-          docker push docker.pkg.github.com/cybersiddhu/alpine-dev/golang:1.11.13-alpine-edge
-          docker push docker.pkg.github.com/cybersiddhu/alpine-dev/golang:1.12.10-alpine-edge
-
+        uses: actions/checkout@v2
+      - name: set up docker buildx
+        uses: docker/setup-buildx-action@v1
+      - name: cache docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ hashFiles('golang/*.*') }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - name: login to dockerhub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: docker build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          context: golang/ 
+          file: golang/Dockerfile
+          tags: cybersiddhu/alpine-godev:coc
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
