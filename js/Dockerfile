@@ -12,7 +12,7 @@ RUN apk add --no-cache git build-base \
 FROM node:14.15.4-alpine3.12 AS bsbuilder
 ARG VERSION=8.4.2
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories 
-RUN apk add --update --no-cache g++ make python3 && \
+RUN apk add --update --no-cache build-base g++ make python2 && \
     yarn global add bs-platform@${VERSION}
 
 ## setup OS
