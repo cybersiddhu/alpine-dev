@@ -12,7 +12,7 @@ RUN apk add --no-cache git build-base \
 FROM alpine:3.13 AS ninjabuilder 
 ARG VERSION=8.4.2
 RUN apk add --update --no-cache build-base g++ cmake git \
-    && cd /tmp
+    && cd /tmp \
     && git clone -b v1.10.2 --single-branch https://github.com/ninja-build/ninja.git \
     && cd ninja \
     && cmake -Bbuild-cmake -H. \
