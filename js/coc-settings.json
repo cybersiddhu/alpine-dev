@@ -1,4 +1,13 @@
 {
+    "languageserver": {
+	  "rescript":  {
+	    "enable": true,
+	    "module": "/custom/nvim/plugged/vim-rescript/rescript-vscode/extension/server/out/server.js",
+	    "args": ["--node-ipc"],
+	    "filetypes": ["rescript"],
+	    "rootPatterns": ["bsconfig.json"]
+	  }
+    },
     "suggest.noselect": false,
     "suggest.enablePreselect": false,
     "suggest.snippetIndicator": "►",
@@ -17,6 +26,7 @@
     "css.lint.unknownVendorSpecificProperties": "warning",
     "eslint.autoFixOnSave": true,
     "eslint.packageManager": "yarn",
+    "eslint.alwaysShowStatus": true,
     "prettier.semi": false,
     "prettier.tslintIntegration": true
 }
