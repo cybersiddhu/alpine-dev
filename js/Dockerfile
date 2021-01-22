@@ -54,7 +54,7 @@ RUN apk add --update --virtual build-deps --no-cache build-base shadow g++ make 
 ## configure bs-platform
 COPY --from=bsbuilder /usr/local/share/.config/yarn/global /usr/local/share/.config/yarn/global
 ENV BS_PLATFORM_VERSION=${VERSION}
-RUN cd /usr/local 
+RUN cd /usr/local \
     && ln -s ../share/.config/yarn/global/node_modules/.bin/bsb bin/bsb \
     && ln -s ../share/.config/yarn/global/node_modules/.bin/bsc bin/bsc \
     && ln -s ../share/.config/yarn/global/node_modules/.bin/bsrefmt bin/bsrefmt
