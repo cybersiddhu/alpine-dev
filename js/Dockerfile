@@ -8,12 +8,15 @@ RUN apk add --no-cache git build-base \
     && cd antibody \
     && go build -o antibody
 
-## build bs-platform
-FROM node:14.15.4-alpine3.12 AS bsbuilder
+## build ninja 
+FROM alpine:3.13 AS ninjabuilder 
 ARG VERSION=8.4.2
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories 
-RUN apk add --update --no-cache build-base g++ make python2 && \
-    yarn global add bs-platform@${VERSION}
+RUN apk add --update --no-cache build-base g++ cmake git \
+    && cd /tmp
+    && git clone -b v1.10.2 --single-branch https://github.com/ninja-build/ninja.git \
+    && cd ninja \
+    && cmake -Bbuild-cmake -H. \
+    && cmake --build build-cmake -j 4
 
 ## setup OS
 FROM node:14.15.4-alpine3.12
@@ -51,13 +54,8 @@ RUN apk add --update --virtual build-deps --no-cache build-base shadow g++ make 
 ## timezone
     && cp /usr/share/zoneinfo/America/Chicago /etc/localtime \
     && echo "America/chicago" > /etc/timezone
-## configure bs-platform
-COPY --from=bsbuilder /usr/local/share/.config/yarn/global /usr/local/share/.config/yarn/global
-ENV BS_PLATFORM_VERSION=${VERSION}
-RUN cd /usr/local \
-    && ln -s ../share/.config/yarn/global/node_modules/.bin/bsb bin/bsb \
-    && ln -s ../share/.config/yarn/global/node_modules/.bin/bsc bin/bsc \
-    && ln -s ../share/.config/yarn/global/node_modules/.bin/bsrefmt bin/bsrefmt
+## configure ninja builder 
+COPY --from=ninjabuilder /tmp/ninja/build-cmake/ninja /usr/local/bin/
 ## configure antibody
 COPY --from=antibuilder /go/antibody/antibody  /usr/local/bin
 USER ${CONT_USER}
