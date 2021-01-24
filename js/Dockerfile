@@ -1,28 +1,19 @@
 ## build antibody
-FROM golang:1.15.6-alpine3.12 AS antibuilder
+FROM golang:1.15.7-buster AS antibuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
-RUN apk add --no-cache git build-base \
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt update -qq \ 
+    && apt-get -y --no-install-recommends install git \
     && mkdir -p /go \
     && cd /go \
-    && git clone -b v6.1.1 --single-branch https://github.com/getantibody/antibody.git \
+    && git clone -b v4.1.2 --single-branch https://github.com/getantibody/antibody.git \
     && cd antibody \
     && go build -o antibody
 
-## build ninja 
-FROM alpine:3.13 AS ninjabuilder 
-ARG VERSION=8.4.2
-RUN apk add --update --no-cache build-base g++ cmake git \
-    && cd /tmp \
-    && git clone -b v1.10.2 --single-branch https://github.com/ninja-build/ninja.git \
-    && cd ninja \
-    && cmake -Bbuild-cmake -H. \
-    && cmake --build build-cmake -j 4
-
 ## setup OS
-FROM node:14.15.4-alpine3.12
+FROM node:14.15.4-buster-slim
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
-ARG VERSION=8.4.2
 ENV CUSTOMDIR=/custom
 ENV XDG_CONFIG_HOME=${CUSTOMDIR}
 ENV ZDOTDIR=${CUSTOMDIR}/dotfiles/shell
@@ -32,30 +23,47 @@ ENV COCDIR=${XDG_CONFIG_HOME}/coc
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 ENV TERM=screen
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+ENV DEBIAN_FRONTEND=noninteractive
 # install deps and add users and groups
-RUN apk add --update --virtual build-deps --no-cache build-base shadow g++ make \ 
-    curl unzip zsh git htop file ca-certificates tmux bash gawk \ 
-    gnupg exa fd openssh-client tzdata fzf the_silver_searcher \ 
-    the_silver_searcher-zsh-completion python2 python3 python3-dev \ 
-    py3-pip watchman neovim \
-    && pip3 install --upgrade pynvim \
-    && yarn global add dockerfile-language-server-nodejs semantic-release \
+RUN apt update -qqy \
+    && apt upgrade -yq \
+    && apt-get install -y --no-install-recommends \ 
+       build-essential pkg-config autoconf automake \
+       gnupg2 curl wget unzip zsh git htop ninja-build \ 
+       file ncurses-term tmux gawk tree fzf less \
+       openssh-client silversearcher-ag tzdata \
+       python3 libpython3-all-dev python3-pip \ 
+       python3 -m pip install --upgrade pynvim \
     && groupmod -n ${CONT_USER} node \ 
-    && usermod -l ${CONT_USER} -g 1000 -d /home/${CONT_USER} -m node \
-# OS setup
-    && rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
+    && usermod -l ${CONT_USER} -g 1000 -d /home/${CONT_USER} -m node 
+## install watchman
+RUN cd /tmp \
+    && curl -L -O https://github.com/facebook/watchman/releases/download/v2021.01.18.00/watchman-v2021.01.18.00-linux.zip 
+    && unzip watchman-*-linux.zip \
+    && mkdir -p /usr/local/{bin,lib} /usr/local/var/run/watchman \
+    && cp bin/* /usr/local/bin \
+    && cp lib/* /usr/local/lib \
+    && chmod 755 /usr/local/bin/watchman \
+    && chmod 2777 /usr/local/var/run/watchman \
+## OS setup
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
     && sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
-    && mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${COCDIR}/extensions \
-    && chown -R 1000:1000 ${CUSTOMDIR} \
+    && mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${LANG_SERVER_DIR} \ 
+    && chown -R 1000:1000 ${CUSTOMDIR} /home/${CONT_USER} \
     && mkdir -p /var/run/watchman/${CONT_USER}-state \
     && cd /var/run \
     && chown -R 1000:1000 watchman \
 ## timezone
     && cp /usr/share/zoneinfo/America/Chicago /etc/localtime \
-    && echo "America/chicago" > /etc/timezone
-## configure ninja builder 
-COPY --from=ninjabuilder /tmp/ninja/build-cmake/ninja /usr/local/bin/
+    && echo "America/chicago" > /etc/timezone \
+## install neovim
+    && cd /tmp \
+    && curl -L -O https://github.com/neovim/neovim/releases/download/v0.4.4/nvim.appimage \
+    && chmod +x nvim.appimage \
+    && ./nvim.appimage --appimage-extract \
+    && mv squashfs-root ${CUSTOMDIR}/  \
+    && rm -f /tmp/*
 ## configure antibody
 COPY --from=antibuilder /go/antibody/antibody  /usr/local/bin
 USER ${CONT_USER}
@@ -88,8 +96,9 @@ RUN curl -fLo ${NVIMDIR}/autoload/plug.vim --create-dirs \
     && ln -sf ${NVIMDIR}/spf13/init.vim ${NVIMDIR}/init.vim \
     && ln -sf ${NVIMDIR}/spf13/.vimrc.before ${NVIMDIR}/.vimrc.before \
     && ln -sf ${NVIMDIR}/spf13/.vimrc.bundles ${NVIMDIR}/.vimrc.bundles \
-    && ln -sf ${NVIMDIR}/spf13/.vimrc.local ${NVIMDIR}/.vimrc.local 
-RUN nvim -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall 
+    && ln -sf ${NVIMDIR}/spf13/.vimrc.local ${NVIMDIR}/.vimrc.local  \
+    && ${CUSTOMDIR}/usr/bin/nvim -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall 
+
 RUN cd ${COCDIR}/extensions \
     && echo '{"dependencies":{}}'> package.json \
     && npm install coc-dictionary coc-tag coc-word coc-marketplace \
