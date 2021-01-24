@@ -31,8 +31,4 @@ setopt bang_hist
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
-if [ -d ${TMUXDIR} ];then
-    alias tmux="tmux -f ${TMUXDIR}/.tmux.conf"
-fi
-
 export GPG_TTY=$(tty)
