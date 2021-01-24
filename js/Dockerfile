@@ -2,9 +2,7 @@
 FROM golang:1.15.7-buster AS antibuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update -qq \ 
-    && apt-get -y --no-install-recommends install git \
-    && mkdir -p /go \
+RUN mkdir -p /go \
     && cd /go \
     && git clone -b v4.1.2 --single-branch https://github.com/getantibody/antibody.git \
     && cd antibody \
@@ -25,22 +23,24 @@ ENV LC_ALL=en_US.UTF-8
 ENV TERM=screen
 ENV DEBIAN_FRONTEND=noninteractive
 # install deps and add users and groups
-RUN apt update -qqy \
-    && apt upgrade -yq \
+RUN apt-get update -qqy \
+    && apt-get upgrade -yq \
     && apt-get install -y --no-install-recommends \ 
        build-essential pkg-config autoconf automake \
-       gnupg2 curl wget unzip zsh git htop ninja-build \ 
+       gnupg2 curl wget unzip zsh htop ninja-build \ 
        file ncurses-term tmux gawk tree fzf less \
-       openssh-client silversearcher-ag tzdata \
+       openssh-client silversearcher-ag tzdata git \
        python3 libpython3-all-dev python3-pip \ 
-       python3 -m pip install --upgrade pynvim \
+    && python3 -m pip install setuptools \
+    && python3 -m pip install --upgrade pynvim \
     && groupmod -n ${CONT_USER} node \ 
     && usermod -l ${CONT_USER} -g 1000 -d /home/${CONT_USER} -m node 
 ## install watchman
 RUN cd /tmp \
-    && curl -L -O https://github.com/facebook/watchman/releases/download/v2021.01.18.00/watchman-v2021.01.18.00-linux.zip 
-    && unzip watchman-*-linux.zip \
+    && curl -L -O https://github.com/facebook/watchman/releases/download/v2021.01.18.00/watchman-v2021.01.18.00-linux.zip  \ 
+    && unzip watchman-*-linux.zip \ 
     && mkdir -p /usr/local/{bin,lib} /usr/local/var/run/watchman \
+    && cd watchman-v2021.01.18.00-linux/ \
     && cp bin/* /usr/local/bin \
     && cp lib/* /usr/local/lib \
     && chmod 755 /usr/local/bin/watchman \
@@ -63,7 +63,7 @@ RUN cd /tmp \
     && chmod +x nvim.appimage \
     && ./nvim.appimage --appimage-extract \
     && mv squashfs-root ${CUSTOMDIR}/  \
-    && rm -f /tmp/*
+    && rm -fr /tmp/*
 ## configure antibody
 COPY --from=antibuilder /go/antibody/antibody  /usr/local/bin
 USER ${CONT_USER}
