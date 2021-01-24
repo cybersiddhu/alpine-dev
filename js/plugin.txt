@@ -10,6 +10,6 @@ djui/alias-tips
 zpm-zsh/autoenv
 
 # theme
-sindresorhus/pure
+sindresorhus/pure branch:main
 zdharma/fast-syntax-highlighting
 zsh-users/zsh-history-substring-search
