@@ -31,7 +31,7 @@ RUN apt-get update -qqy \
        gnupg2 curl wget unzip zsh htop ninja-build \ 
        file ncurses-term tmux gawk tree fzf less \
        openssh-client silversearcher-ag tzdata git \
-       python3 libpython3-all-dev python3-pip 
+       python3 libpython3-all-dev python3-pip python 
 
 # install python deps
 RUN python3 -m pip install setuptools \
@@ -56,11 +56,7 @@ RUN cd /tmp \
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
-    && mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${LANG_SERVER_DIR} \ 
-    && chown -R 1000:1000 ${CUSTOMDIR} /home/${CONT_USER} \
-    && mkdir -p /var/run/watchman/${CONT_USER}-state \
-    && cd /var/run \
-    && chown -R 1000:1000 watchman 
+    && mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${COCDIR}/extensions  
 
 # setup timezone
 RUN cp /usr/share/zoneinfo/America/Chicago /etc/localtime \
@@ -72,6 +68,10 @@ RUN cd /tmp \
     && chmod +x nvim.appimage \
     && ./nvim.appimage --appimage-extract \
     && mv squashfs-root/* ${CUSTOMDIR}/  \
+    && chown -R 1000:1000 ${CUSTOMDIR} /home/${CONT_USER} \
+    && mkdir -p /var/run/watchman/${CONT_USER}-state \
+    && cd /var/run \
+    && chown -R 1000:1000 watchman  \
     && rm -fr /tmp/*
 
 # configure antibody and zsh plugins
@@ -106,8 +106,8 @@ RUN curl -fLo ${NVIMDIR}/autoload/plug.vim --create-dirs \
     && ln -sf ${NVIMDIR}/spf13/init.vim ${NVIMDIR}/init.vim \
     && ln -sf ${NVIMDIR}/spf13/.vimrc.before ${NVIMDIR}/.vimrc.before \
     && ln -sf ${NVIMDIR}/spf13/.vimrc.bundles ${NVIMDIR}/.vimrc.bundles \
-    && ln -sf ${NVIMDIR}/spf13/.vimrc.local ${NVIMDIR}/.vimrc.local  \
-    && ${CUSTOMDIR}/usr/bin/nvim -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall 
+    && ln -sf ${NVIMDIR}/spf13/.vimrc.local ${NVIMDIR}/.vimrc.local  
+RUN ${CUSTOMDIR}/usr/bin/nvim -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall 
 
 # install coc-extensions
 RUN cd ${COCDIR}/extensions \
