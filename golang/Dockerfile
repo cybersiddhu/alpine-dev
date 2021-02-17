@@ -1,5 +1,5 @@
 ## build antibody
-FROM golang:1.13.15-alpine3.12 AS antibuilder
+FROM golang:1.16.0-alpine3.13 AS antibuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -10,7 +10,7 @@ RUN apk add --no-cache git build-base \
 	&& go build -o antibody
 
 ## build gitbug
-FROM golang:1.13.15-alpine3.12 AS gitbug
+FROM golang:1.16.0-alpine3.13 AS gitbug
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -20,7 +20,7 @@ RUN apk add --no-cache git build-base \
 	&& make build
 
 ## build hugo
-FROM golang:1.13.15-alpine3.12 AS hugo
+FROM golang:1.16.0-alpine3.13 AS hugo
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -30,7 +30,7 @@ RUN apk add --no-cache git build-base \
 	&& go build -o hugo
 
 ## build prototool and go tools
-FROM golang:1.13.15-alpine3.12 AS protobuilder
+FROM golang:1.16.0-alpine3.13 AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache build-base curl git protobuf \
     && rm -rf /var/cache/apk/*
@@ -51,7 +51,7 @@ RUN go get -v github.com/golang/protobuf/protoc-gen-go@v${GOLANG_PROTOBUF_VERSIO
     && cp bin/gh /go/bin/
 
 ## setup OS
-FROM golang:1.13.15-alpine3.12
+FROM golang:1.16.0-alpine3.13
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
 ENV CUSTOMDIR=/custom
@@ -67,7 +67,7 @@ ENV CMAKE_EXTRA_FLAGS=-DENABLE_JEMALLOC=OFF
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 # install deps
 RUN addgroup -g 1000 -S ${CONT_USER} \ 
-	&& adduser -u 1000 -S -G ${CONT_USER} ${CONT_USER} \
+    && adduser -u 1000 -S -G ${CONT_USER} ${CONT_USER} \
     && apk add --update --virtual build-deps --no-cache \
         autoconf automake cmake g++ libtool \
         libuv linux-headers lua5.3-dev m4 make libtermkey-dev \
@@ -78,14 +78,14 @@ RUN  apk add --update --no-cache curl unzip ctags zsh git htop unibilium \
        gnupg exa fd \ 
        openssh-client protobuf tzdata libtermkey \ 
        the_silver_searcher the_silver_searcher-zsh-completion \
-       python2 python3 python3-dev py3-pip npm yarn watchman neovim \
-       && npm install -g dockerfile-language-server-nodejs semantic-release \
-       && pip3 install --upgrade pynvim
+     python2 python3 python3-dev py3-pip npm yarn watchman neovim \
+     && npm install -g dockerfile-language-server-nodejs semantic-release \
+     && pip3 install --upgrade pynvim
 # OS setup
-RUN	rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
-	&& sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
-	&& mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${COCDIR}/extensions \ 
-	&& chown -R 1000:1000 ${CUSTOMDIR} \
+RUN rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
+    && sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
+    && mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${COCDIR}/extensions \ 
+    && chown -R 1000:1000 ${CUSTOMDIR} \
     && mkdir -p /var/run/watchman/${CONT_USER}-state \
     && cd /var/run \
     && chown -R 1000:1000 watchman \
