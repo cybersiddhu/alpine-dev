@@ -19,16 +19,6 @@ RUN apk add --no-cache git build-base \
 	&& cd git-bug \
 	&& make build
 
-## build hugo
-FROM golang:1.16.0-alpine3.13 AS hugo
-LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
-RUN apk add --no-cache git build-base \
-	&& mkdir -p /go \
-	&& cd /go \
-	&& git clone -b v0.70.0 --single-branch https://github.com/gohugoio/hugo \
-	&& cd hugo \
-	&& go build -o hugo
-
 ## build prototool and go tools
 FROM golang:1.16.0-alpine3.13 AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
@@ -108,8 +98,7 @@ RUN curl -sSL \
     && chmod +x /usr/local/bin/protoc-gen-grpc-gateway \
     && chmod +x /usr/local/bin/protoc-gen-swagger
 
-## copy hugo and git-bug
-COPY --from=hugo /go/hugo/hugo /usr/local/bin
+## copy git-bug
 COPY --from=gitbug /go/git-bug/git-bug /usr/local/bin
 
 ## configure antibody
