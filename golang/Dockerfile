@@ -111,6 +111,13 @@ ADD zshrc ${ZDOTDIR}/.zshrc
 ENV ANTIBODY_HOME=${ZDOTDIR}/antibody
 RUN antibody bundle < ${ZDOTDIR}/plugin.txt > ${ZDOTDIR}/zsh_plugins.sh
 
+## install operator-sdk
+ENV OPERATOR_SDK_VERSION=v1.5.0
+RUN curl -sSL \
+    https://github.com/operator-framework/operator-sdk/releases/download/${OPERATOR_SDK_VERSION}/operator-sdk_linux_amd64 \
+    -o /usr/local/bin/operator-sdk \
+    && chmod +x /usr/local/bin/operator-sdk
+
 ## configure tmux
 RUN git clone https://github.com/tmux-plugins/tpm ${TMUXDIR}/plugins/tpm \
 	&& git clone https://github.com/tmux-plugins/tmux-sensible ${TMUXDIR}/plugins/tmux-sensible \
