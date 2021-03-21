@@ -40,8 +40,20 @@ RUN go get -v github.com/golang/protobuf/protoc-gen-go@v${GOLANG_PROTOBUF_VERSIO
     && make \
     && cp bin/gh /go/bin/
 
+
+## build operator-sdk
+FROM golang:1.16.2-alpine3.13 AS sdkbuilder
+ENV OPERATOR_SDK_VERSION=1.5.0
+ENV GOPROXY="https://proxy.golang.org|direct"
+RUN apk add --no-cache git build-base bash \
+	&& mkdir -p /go \
+	&& cd /go \
+	&& git clone -b v1.5.0 --single-branch https://github.com/operator-framework/operator-sdk.git \ 
+	&& cd operator-sdk \
+	&& make build
+
 ## setup OS
-FROM golang:1.16.0-alpine3.13
+FROM golang:1.16.2-alpine3.13
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
 ENV CUSTOMDIR=/custom
@@ -100,6 +112,8 @@ RUN curl -sSL \
 
 ## copy git-bug
 COPY --from=gitbug /go/git-bug/git-bug /usr/local/bin
+## copy operator-sdk
+COPY --from=sdkbuilder /go/operator-sdk/build/operator-sdk /usr/local/bin
 
 ## configure antibody
 COPY --from=antibuilder /go/antibody/antibody  /usr/local/bin
@@ -111,12 +125,6 @@ ADD zshrc ${ZDOTDIR}/.zshrc
 ENV ANTIBODY_HOME=${ZDOTDIR}/antibody
 RUN antibody bundle < ${ZDOTDIR}/plugin.txt > ${ZDOTDIR}/zsh_plugins.sh
 
-## install operator-sdk
-ENV OPERATOR_SDK_VERSION=v1.5.0
-RUN curl -sSL \
-    https://github.com/operator-framework/operator-sdk/releases/download/${OPERATOR_SDK_VERSION}/operator-sdk_linux_amd64 \
-    -o /usr/local/bin/operator-sdk \
-    && chmod +x /usr/local/bin/operator-sdk
 
 ## configure tmux
 RUN git clone https://github.com/tmux-plugins/tpm ${TMUXDIR}/plugins/tpm \
