@@ -77,7 +77,7 @@ RUN addgroup -g 1000 -S ${CONT_USER} \
 # install deps
 RUN  apk add --update --no-cache curl unzip ctags zsh git htop unibilium \
        file ca-certificates tmux bash gawk \ 
-       gnupg exa fd \ 
+       gnupg exa fd starship \ 
        openssh-client protobuf tzdata libtermkey \ 
        the_silver_searcher the_silver_searcher-zsh-completion \
      python2 python3 python3-dev py3-pip npm yarn watchman neovim \
@@ -86,7 +86,7 @@ RUN  apk add --update --no-cache curl unzip ctags zsh git htop unibilium \
 # OS setup
 RUN rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
     && sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
-    && mkdir -p ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${COCDIR}/extensions \ 
+    && mkdir -p ${CUSTOMDIR}/starship ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${COCDIR}/extensions \ 
     && chown -R 1000:1000 ${CUSTOMDIR} \
     && mkdir -p /var/run/watchman/${CONT_USER}-state \
     && cd /var/run \
@@ -154,6 +154,7 @@ RUN cd ${COCDIR}/extensions \
        --no-package-lock --only=prod 
 ADD coc-settings.json ${NVIMDIR}/
 ADD github-markdown.css ${NVIMDIR}/markdown/
+ADD config.toml ${CUSTOMDIR}/starship/
 EXPOSE 9255
 
 ## configure zsh

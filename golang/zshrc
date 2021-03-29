@@ -50,9 +50,9 @@ if [ -d ${TMUXDIR} ];then
     alias tmux="tmux -f ${TMUXDIR}/.tmux.conf"
 fi
 
-#hub command line
-if [ -d /usr/local/bin/hub ]; then
-    alias git=hub
+if [ -d ${CUSTOMDIR}/starship ]; then
+    export STARSHIP_CONFIG=${CUSTOMDIR}/starship/config.toml
 fi
 
 export GPG_TTY=$(tty)
+eval "$(starship init zsh)"
