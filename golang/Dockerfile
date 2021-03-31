@@ -1,5 +1,5 @@
 ## build antibody
-FROM golang:1.16.0-alpine3.13 AS antibuilder
+FROM golang:1.16.2-alpine3.13 AS antibuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -10,7 +10,7 @@ RUN apk add --no-cache git build-base \
 	&& go build -o antibody
 
 ## build gitbug
-FROM golang:1.16.0-alpine3.13 AS gitbug
+FROM golang:1.16.2-alpine3.13 AS gitbug
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -20,7 +20,7 @@ RUN apk add --no-cache git build-base \
 	&& make build
 
 ## build prototool and go tools
-FROM golang:1.16.0-alpine3.13 AS protobuilder
+FROM golang:1.16.2-alpine3.13 AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache build-base curl git protobuf \
     && rm -rf /var/cache/apk/*
@@ -52,15 +52,22 @@ RUN apk add --no-cache git build-base bash \
 	&& cd operator-sdk \
 	&& make build
 
+#########################################
 ## setup OS
+#########################################
 FROM golang:1.16.2-alpine3.13
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
+ARG UID=1000
+ARG GID=1000
+ARG HOME_BASE=/home
+ENV HOME=/${HOME_BASE}/${CONT_USER}
 ENV CUSTOMDIR=/custom
 ENV XDG_CONFIG_HOME=${CUSTOMDIR}
 ENV ZDOTDIR=${CUSTOMDIR}/dotfiles/shell
 ENV TMUXDIR=${CUSTOMDIR}/dotfiles/tmux
 ENV NVIMDIR=${XDG_CONFIG_HOME}/nvim
+ENV NVIM_LOG_FILE=${NVIMDIR}/log
 ENV COCDIR=${XDG_CONFIG_HOME}/coc
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
@@ -68,14 +75,11 @@ ENV TERM=screen
 ENV CMAKE_EXTRA_FLAGS=-DENABLE_JEMALLOC=OFF
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 # install deps
-RUN addgroup -g 1000 -S ${CONT_USER} \ 
-    && adduser -u 1000 -S -G ${CONT_USER} ${CONT_USER} \
-    && apk add --update --virtual build-deps --no-cache \
-        autoconf automake cmake g++ libtool \
-        libuv linux-headers lua5.3-dev m4 make libtermkey-dev \
-        libintl gettext-dev lua-sec 
-# install deps
-RUN  apk add --update --no-cache curl unzip ctags zsh git htop unibilium \
+RUN  apk add --update --virtual build-deps --no-cache \ 
+       autoconf automake cmake g++ libtool \
+       libuv linux-headers lua5.3-dev m4 make libtermkey-dev \
+       libintl gettext-dev lua-sec shadow \
+       curl unzip ctags zsh git htop unibilium \
        file ca-certificates tmux bash gawk \ 
        gnupg exa fd starship \ 
        openssh-client protobuf tzdata libtermkey \ 
@@ -83,14 +87,18 @@ RUN  apk add --update --no-cache curl unzip ctags zsh git htop unibilium \
      python2 python3 python3-dev py3-pip npm yarn watchman neovim \
      && npm install -g dockerfile-language-server-nodejs semantic-release \
      && pip3 install --upgrade pynvim
+# install deps
+RUN groupadd -g ${GID} ${CONT_USER} \ 
+    && useradd -u ${UID} -d ${HOME} -g ${CONT_USER} --system -m ${CONT_USER} 
 # OS setup
 RUN rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
     && sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
     && mkdir -p ${CUSTOMDIR}/starship ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${COCDIR}/extensions \ 
-    && chown -R 1000:1000 ${CUSTOMDIR} \
+    && chown -R ${UID}:${GID} ${CUSTOMDIR} \
+    && chown -R ${UID}:${GID} ${HOME} \
     && mkdir -p /var/run/watchman/${CONT_USER}-state \
     && cd /var/run \
-    && chown -R 1000:1000 watchman \
+    && chown -R ${UID}:${GID} watchman \
 ## timezone
     && cp /usr/share/zoneinfo/America/Chicago /etc/localtime \
     && echo "America/chicago" > /etc/timezone
@@ -118,7 +126,7 @@ COPY --from=sdkbuilder /go/operator-sdk/build/operator-sdk /usr/local/bin
 ## configure antibody
 COPY --from=antibuilder /go/antibody/antibody  /usr/local/bin
 USER ${CONT_USER}
-WORKDIR /home/${CONT_USER} 
+WORKDIR ${HOME} 
 ADD plugin.txt ${ZDOTDIR}
 ADD zshenv ${ZDOTDIR}/.zshenv
 ADD zshrc ${ZDOTDIR}/.zshrc
@@ -144,8 +152,8 @@ RUN curl -fLo ${NVIMDIR}/autoload/plug.vim --create-dirs \
 	&& ln -sf ${NVIMDIR}/spf13/.vimrc.before ${NVIMDIR}/.vimrc.before \
 	&& ln -sf ${NVIMDIR}/spf13/init.vim ${NVIMDIR}/init.vim \
 	&& ln -sf ${NVIMDIR}/spf13/.vimrc.bundles ${NVIMDIR}/.vimrc.bundles \
-	&& ln -sf ${NVIMDIR}/spf13/.vimrc.local ${NVIMDIR}/.vimrc.local \
-	&& nvim -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall 
+	&& ln -sf ${NVIMDIR}/spf13/.vimrc.local ${NVIMDIR}/.vimrc.local  \
+	&& nvim --headless -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall 
 
 RUN cd ${COCDIR}/extensions \
     && echo '{"dependencies":{}}'> package.json \
