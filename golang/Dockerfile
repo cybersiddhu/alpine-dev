@@ -1,39 +1,35 @@
 ## build antibody
-FROM golang:1.16.2-alpine3.13 AS antibuilder
+FROM golang:1.16.3-alpine3.13 AS antigitbuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
 	&& cd /go \
-	&& git clone -b v4.1.2 --single-branch https://github.com/getantibody/antibody.git \
+	&& git clone -b v6.1.1 --single-branch https://github.com/getantibody/antibody.git \
 	&& cd antibody \
-	&& go get -v ./... \
-	&& go build -o antibody
-
-## build gitbug
-FROM golang:1.16.2-alpine3.13 AS gitbug
-LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
-RUN apk add --no-cache git build-base \
-	&& mkdir -p /go \
+	&& go build -o antibody \
 	&& cd /go \
-	&& git clone -b 0.7.1 --single-branch https://github.com/MichaelMure/git-bug \
+	&& git clone -b 0.7.2 --single-branch https://github.com/MichaelMure/git-bug \
 	&& cd git-bug \
 	&& make build
 
 ## build prototool and go tools
-FROM golang:1.16.2-alpine3.13 AS protobuilder
+FROM golang:1.16.3-alpine3.13 AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN apk add --no-cache build-base curl git protobuf \
     && rm -rf /var/cache/apk/*
 
-ENV GOLANG_PROTOBUF_VERSION=1.3.2
 ENV PROTOTOOL_VERSION=1.9.0
 ENV GO_PROTO_VALIDATORS=0.2.0
-ENV PROTOC_GEN_DOC=1.3.2
-ENV CLI_VERSION=v1.1.0
-ENV GO111MODULE=on
-RUN go get -v github.com/golang/protobuf/protoc-gen-go@v${GOLANG_PROTOBUF_VERSION} \
+ENV PROTOC_GEN_DOC=1.4.1
+ENV CLI_VERSION=v1.9.1
+ENV GO111MODULE=auto
+RUN go install google.golang.org/protobuf/cmd/protoc-gen-go \
+    && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc \
+    && go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway \
+    && go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2 \
     && go get -v github.com/uber/prototool/cmd/prototool@v${PROTOTOOL_VERSION} \
-    && go get -v github.com/mwitkow/go-proto-validators/protoc-gen-govalidators@v${GO_PROTO_VALIDATORS} \
+    && go get -v github.com/mwitkow/go-proto-validators/protoc-gen-govalidators \
     && go get -v github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v${PROTOC_GEN_DOC} \
     && git clone -b ${CLI_VERSION} https://github.com/cli/cli.git gh-cli \
     && cd gh-cli \
@@ -41,21 +37,10 @@ RUN go get -v github.com/golang/protobuf/protoc-gen-go@v${GOLANG_PROTOBUF_VERSIO
     && cp bin/gh /go/bin/
 
 
-## build operator-sdk
-FROM golang:1.16.2-alpine3.13 AS sdkbuilder
-ENV OPERATOR_SDK_VERSION=1.5.0
-ENV GOPROXY="https://proxy.golang.org|direct"
-RUN apk add --no-cache git build-base bash \
-	&& mkdir -p /go \
-	&& cd /go \
-	&& git clone -b v1.5.0 --single-branch https://github.com/operator-framework/operator-sdk.git \ 
-	&& cd operator-sdk \
-	&& make build
-
 #########################################
-## setup OS
+## setup dev environment 
 #########################################
-FROM golang:1.16.2-alpine3.13
+FROM golang:1.16.3-alpine3.13
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
 ARG UID=1000
@@ -87,7 +72,7 @@ RUN  apk add --update --virtual build-deps --no-cache \
      python2 python3 python3-dev py3-pip npm yarn watchman neovim \
      && npm install -g dockerfile-language-server-nodejs semantic-release \
      && pip3 install --upgrade pynvim
-# install deps
+# setup user
 RUN groupadd -g ${GID} ${CONT_USER} \ 
     && useradd -u ${UID} -d ${HOME} -g ${CONT_USER} --system -m ${CONT_USER} 
 # OS setup
@@ -108,23 +93,10 @@ COPY --from=protobuilder /go/bin/protoc-gen* /usr/local/bin/
 COPY --from=protobuilder /go/bin/prototool /usr/local/bin/
 ## copy gh binary
 COPY --from=protobuilder /go/bin/gh /usr/local/bin/
-ENV GRPC_GATEWAY_VERSION=1.11.3
-RUN curl -sSL \
-    https://github.com/grpc-ecosystem/grpc-gateway/releases/download/v${GRPC_GATEWAY_VERSION}/protoc-gen-grpc-gateway-v${GRPC_GATEWAY_VERSION}-linux-x86_64 \
-    -o /usr/local/bin/protoc-gen-grpc-gateway \
-    && curl -sSL \
-    https://github.com/grpc-ecosystem/grpc-gateway/releases/download/v${GRPC_GATEWAY_VERSION}/protoc-gen-swagger-v${GRPC_GATEWAY_VERSION}-linux-x86_64 \
-    -o /usr/local/bin/protoc-gen-swagger \
-    && chmod +x /usr/local/bin/protoc-gen-grpc-gateway \
-    && chmod +x /usr/local/bin/protoc-gen-swagger
-
 ## copy git-bug
-COPY --from=gitbug /go/git-bug/git-bug /usr/local/bin
-## copy operator-sdk
-COPY --from=sdkbuilder /go/operator-sdk/build/operator-sdk /usr/local/bin
-
+COPY --from=antigitbuilder /go/git-bug/git-bug /usr/local/bin
 ## configure antibody
-COPY --from=antibuilder /go/antibody/antibody  /usr/local/bin
+COPY --from=antigitbuilder /go/antibody/antibody  /usr/local/bin
 USER ${CONT_USER}
 WORKDIR ${HOME} 
 ADD plugin.txt ${ZDOTDIR}
