@@ -8,7 +8,7 @@ RUN apk add --no-cache git build-base \
 	&& cd antibody \
 	&& go build -o antibody \
 	&& cd /go \
-	&& git clone -b 0.7.2 --single-branch https://github.com/MichaelMure/git-bug \
+	&& git clone -b v0.7.2 --single-branch https://github.com/MichaelMure/git-bug \
 	&& cd git-bug \
 	&& make build
 
