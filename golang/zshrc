@@ -31,20 +31,6 @@ setopt bang_hist
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
-#golang
-if [ -d ${CUSTOMDIR}/golang ]; then
-    export GOROOT=${CUSTOMDIR}/golang/go
-    export PATH=${PATH}:${GOROOT}/bin
-fi
-if [ -d ${HOME}/golang ]; then
-    export GO111MODULE=auto
-    export GOPATH=${HOME}/golang
-    export PATH=${PATH}:${GOPATH}/bin
-fi
-
-if [ -d /usr/local/go/bin ]; then
-    export PATH=${PATH}:/usr/local/go/bin
-fi
 
 if [ -d ${TMUXDIR} ];then
     alias tmux="tmux -f ${TMUXDIR}/.tmux.conf"
@@ -56,3 +42,4 @@ fi
 
 export GPG_TTY=$(tty)
 eval "$(starship init zsh)"
+eval "$(gh completion -s zsh)"
