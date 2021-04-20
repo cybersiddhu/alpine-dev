@@ -64,7 +64,7 @@ RUN  apk add --update --virtual build-deps --no-cache \
        autoconf automake cmake g++ libtool \
        libuv linux-headers lua5.3-dev m4 make libtermkey-dev \
        libintl gettext-dev lua-sec shadow \
-       curl unzip ctags zsh git htop unibilium \
+       curl unzip ctags zsh git htop \
        file ca-certificates tmux bash gawk \ 
        gnupg exa fd starship \ 
        openssh-client protobuf tzdata libtermkey \ 
