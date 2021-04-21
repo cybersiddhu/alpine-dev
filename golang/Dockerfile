@@ -18,19 +18,12 @@ LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN apk add --no-cache build-base curl git protobuf \
     && rm -rf /var/cache/apk/*
-
-ENV PROTOTOOL_VERSION=1.9.0
-ENV GO_PROTO_VALIDATORS=0.2.0
-ENV PROTOC_GEN_DOC=1.4.1
-ENV CLI_VERSION=v1.9.1
+ENV CLI_VERSION=v1.9.2
 ENV GO111MODULE=auto
-RUN go install google.golang.org/protobuf/cmd/protoc-gen-go \
-    && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc \
-    && go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway \
-    && go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2 \
-    && go get -v github.com/uber/prototool/cmd/prototool@v${PROTOTOOL_VERSION} \
-    && go get -v github.com/mwitkow/go-proto-validators/protoc-gen-govalidators \
-    && go get -v github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v${PROTOC_GEN_DOC} \
+RUN go get google.golang.org/protobuf/cmd/protoc-gen-go 
+RUN go get google.golang.org/grpc/cmd/protoc-gen-go-grpc 
+RUN go get github.com/mwitkow/go-proto-validators/protoc-gen-govalidators 
+RUN go get github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc \
     && git clone -b ${CLI_VERSION} https://github.com/cli/cli.git gh-cli \
     && cd gh-cli \
     && make \
@@ -90,7 +83,6 @@ RUN rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \
 
 ## configure protocol buffer tools
 COPY --from=protobuilder /go/bin/protoc-gen* /usr/local/bin/
-COPY --from=protobuilder /go/bin/prototool /usr/local/bin/
 ## copy gh binary
 COPY --from=protobuilder /go/bin/gh /usr/local/bin/
 ## copy git-bug
