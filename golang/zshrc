@@ -27,26 +27,19 @@ setopt share_history            # share hist between sessions
 setopt no_hist_beep		# no beep
 setopt bang_hist     
 
+
 if [ -d "${CUSTOMDIR}/bin" ] ; then
    export PATH="$CUSTOMDIR/bin:${PATH}"
 fi
-
-
 if [ -d ${HOME}/golang ]; then
     export GO111MODULE=auto
     export GOPATH=${HOME}/golang
     export PATH=${PATH}:${GOPATH}/bin
 fi
-
-#golang
-if [ -d ${CUSTOMDIR}/golang ]; then
-    export GOROOT=${CUSTOMDIR}/golang/go
-    export PATH=${PATH}:${GOROOT}/bin
-fi
-
 if [ -d /usr/local/go/bin ]; then
     export PATH=${PATH}:/usr/local/go/bin
 fi
+
 
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
@@ -62,4 +55,3 @@ fi
 
 export GPG_TTY=$(tty)
 eval "$(starship init zsh)"
-eval "$(gh completion -s zsh)"
