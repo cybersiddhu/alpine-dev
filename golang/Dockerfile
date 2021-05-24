@@ -1,5 +1,5 @@
 ## build antibody
-FROM golang:1.16.3-alpine3.13 AS antigitbuilder
+FROM golang:1.16.4-alpine3.13 AS antigitbuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -13,12 +13,12 @@ RUN apk add --no-cache git build-base \
 	&& make build
 
 ## build prototool and go tools
-FROM golang:1.16.3-alpine3.13 AS protobuilder
+FROM golang:1.16.4-alpine3.13 AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN apk add --no-cache build-base curl git protobuf \
     && rm -rf /var/cache/apk/*
-ENV CLI_VERSION=v1.9.2
+ENV CLI_VERSION=v1.10.3
 ENV GO111MODULE=auto
 RUN go get google.golang.org/protobuf/cmd/protoc-gen-go 
 RUN go get google.golang.org/grpc/cmd/protoc-gen-go-grpc 
@@ -33,7 +33,7 @@ RUN go get github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc \
 #########################################
 ## setup dev environment 
 #########################################
-FROM golang:1.16.3-alpine3.13
+FROM golang:1.16.4-alpine3.13
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
 ARG UID=1000
@@ -51,6 +51,7 @@ ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 ENV TERM=screen
 ENV CMAKE_EXTRA_FLAGS=-DENABLE_JEMALLOC=OFF
+ENV GIT_OPTIONAL_LOCKS=0
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 # install deps
 RUN  apk add --update --virtual build-deps --no-cache \ 
