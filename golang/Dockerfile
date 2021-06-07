@@ -1,5 +1,5 @@
 ## build antibody
-FROM golang:1.16.4-alpine3.13 AS antigitbuilder
+FROM golang:1.16.5-alpine3.13 AS antigitbuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -13,7 +13,7 @@ RUN apk add --no-cache git build-base \
 	&& make build
 
 ## build prototool and go tools
-FROM golang:1.16.4-alpine3.13 AS protobuilder
+FROM golang:1.16.5-alpine3.13 AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN apk add --no-cache build-base curl git protobuf \
@@ -33,7 +33,7 @@ RUN go get github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc \
 #########################################
 ## setup dev environment 
 #########################################
-FROM golang:1.16.4-alpine3.13
+FROM golang:1.16.5-alpine3.13
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
 ARG UID=1000
