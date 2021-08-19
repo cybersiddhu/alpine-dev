@@ -1,5 +1,5 @@
 ## build antibody
-FROM golang:1.16.5-alpine3.13 AS antigitbuilder
+FROM golang:1.17.0-alpine3.14 AS antigitbuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -13,27 +13,26 @@ RUN apk add --no-cache git build-base \
 	&& make build
 
 ## build prototool and go tools
-FROM golang:1.16.5-alpine3.13 AS protobuilder
+FROM golang:1.17.0-alpine3.14 AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-RUN apk add --no-cache build-base curl git protobuf \
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && apk add --no-cache build-base curl git protobuf \
     && rm -rf /var/cache/apk/*
 ENV CLI_VERSION=v1.10.3
 ENV GO111MODULE=auto
-RUN go get google.golang.org/protobuf/cmd/protoc-gen-go 
-RUN go get google.golang.org/grpc/cmd/protoc-gen-go-grpc 
-RUN go get github.com/mwitkow/go-proto-validators/protoc-gen-govalidators 
-RUN go get github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc \
+RUN go get google.golang.org/protobuf/cmd/protoc-gen-go \
+    && go get google.golang.org/grpc/cmd/protoc-gen-go-grpc \ 
+    && go get github.com/mwitkow/go-proto-validators/protoc-gen-govalidators \
+    && go get github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc \
     && git clone -b ${CLI_VERSION} https://github.com/cli/cli.git gh-cli \
     && cd gh-cli \
     && make \
     && cp bin/gh /go/bin/
 
-
 #########################################
 ## setup dev environment 
 #########################################
-FROM golang:1.16.5-alpine3.13
+FROM golang:1.17.0-alpine3.14
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
 ARG UID=1000
@@ -92,9 +91,9 @@ COPY --from=antigitbuilder /go/git-bug/git-bug /usr/local/bin
 COPY --from=antigitbuilder /go/antibody/antibody  /usr/local/bin
 USER ${CONT_USER}
 WORKDIR ${HOME} 
-ADD plugin.txt ${ZDOTDIR}
-ADD zshenv ${ZDOTDIR}/.zshenv
-ADD zshrc ${ZDOTDIR}/.zshrc
+COPY plugin.txt ${ZDOTDIR}
+COPY zshenv ${ZDOTDIR}/.zshenv
+COPY zshrc ${ZDOTDIR}/.zshrc
 ENV ANTIBODY_HOME=${ZDOTDIR}/antibody
 RUN antibody bundle < ${ZDOTDIR}/plugin.txt > ${ZDOTDIR}/zsh_plugins.sh
 
@@ -106,7 +105,7 @@ RUN git clone https://github.com/tmux-plugins/tpm ${TMUXDIR}/plugins/tpm \
 	&& git clone https://github.com/tmux-plugins/tmux-sidebar ${TMUXDIR}/plugins/tmux-sidebar \
 	&& git clone https://github.com/tmux-plugins/tmux-fpp ${TMUXDIR}/plugins/tmux-fpp \
     && git clone https://github.com/arcticicestudio/nord-tmux ${TMUXDIR}/plugins/nord-tmux
-ADD tmux.conf ${TMUXDIR}/.tmux.conf
+COPY tmux.conf ${TMUXDIR}/.tmux.conf
 ENV TMUX_PLUGIN_MANAGER_PATH=${TMUXDIR}/plugins
 
 ## setup nvim
@@ -118,16 +117,16 @@ RUN curl -fLo ${NVIMDIR}/autoload/plug.vim --create-dirs \
 	&& ln -sf ${NVIMDIR}/spf13/init.vim ${NVIMDIR}/init.vim \
 	&& ln -sf ${NVIMDIR}/spf13/.vimrc.bundles ${NVIMDIR}/.vimrc.bundles \
 	&& ln -sf ${NVIMDIR}/spf13/.vimrc.local ${NVIMDIR}/.vimrc.local  \
-	&& nvim --headless -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall 
+	&& nvim --headless -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall \
+	&& cd ${COCDIR}/extensions \
+    	&& echo '{"dependencies":{}}'> package.json \
+    	&& npm install coc-dictionary coc-tag coc-word coc-marketplace \
+       			--global-style --ignore-scripts --no-bin-links \
+       			--no-package-lock --only=prod 
 
-RUN cd ${COCDIR}/extensions \
-    && echo '{"dependencies":{}}'> package.json \
-    && npm install coc-dictionary coc-tag coc-word coc-marketplace \
-       --global-style --ignore-scripts --no-bin-links \
-       --no-package-lock --only=prod 
-ADD coc-settings.json ${NVIMDIR}/
-ADD github-markdown.css ${NVIMDIR}/markdown/
-ADD config.toml ${CUSTOMDIR}/starship/
+COPY coc-settings.json ${NVIMDIR}/
+COPY github-markdown.css ${NVIMDIR}/markdown/
+COPY config.toml ${CUSTOMDIR}/starship/
 EXPOSE 9255
 
 ## configure zsh
