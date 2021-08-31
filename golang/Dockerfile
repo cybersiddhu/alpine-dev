@@ -59,7 +59,8 @@ RUN  apk add --update --virtual build-deps --no-cache \
        libintl gettext-dev lua-sec shadow \
        curl unzip ctags zsh git htop \
        file ca-certificates tmux bash gawk \ 
-       gnupg exa fd starship \ 
+       gnupg exa fd starship rxvt-unicode-terminfo \ 
+       ncurses-terminfo foot-terminfo \
        openssh-client protobuf tzdata libtermkey \ 
        the_silver_searcher the_silver_searcher-zsh-completion \
      python2 python3 python3-dev py3-pip npm yarn watchman neovim \
@@ -104,7 +105,7 @@ RUN git clone https://github.com/tmux-plugins/tpm ${TMUXDIR}/plugins/tpm \
 	&& git clone https://github.com/tmux-plugins/tmux-pain-control ${TMUXDIR}/plugins/tmux-pain-control \
 	&& git clone https://github.com/tmux-plugins/tmux-sidebar ${TMUXDIR}/plugins/tmux-sidebar \
 	&& git clone https://github.com/tmux-plugins/tmux-fpp ${TMUXDIR}/plugins/tmux-fpp \
-    && git clone https://github.com/arcticicestudio/nord-tmux ${TMUXDIR}/plugins/nord-tmux
+    	&& git clone https://github.com/arcticicestudio/nord-tmux ${TMUXDIR}/plugins/nord-tmux
 COPY tmux.conf ${TMUXDIR}/.tmux.conf
 ENV TMUX_PLUGIN_MANAGER_PATH=${TMUXDIR}/plugins
 
