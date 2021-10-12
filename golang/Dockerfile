@@ -1,5 +1,5 @@
 ## build antibody
-FROM golang:1.17.0-alpine3.14 AS antigitbuilder
+FROM golang:1.17.1-alpine3.14 AS antigitbuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \
 	&& mkdir -p /go \
@@ -13,12 +13,12 @@ RUN apk add --no-cache git build-base \
 	&& make build
 
 ## build prototool and go tools
-FROM golang:1.17.0-alpine3.14 AS protobuilder
+FROM golang:1.17.1-alpine3.14 AS protobuilder
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk add --no-cache build-base curl git protobuf \
     && rm -rf /var/cache/apk/*
-ENV CLI_VERSION=v1.10.3
+ENV CLI_VERSION=v2.0.0
 ENV GO111MODULE=auto
 RUN go get google.golang.org/protobuf/cmd/protoc-gen-go \
     && go get google.golang.org/grpc/cmd/protoc-gen-go-grpc \ 
@@ -32,7 +32,7 @@ RUN go get google.golang.org/protobuf/cmd/protoc-gen-go \
 #########################################
 ## setup dev environment 
 #########################################
-FROM golang:1.17.0-alpine3.14
+FROM golang:1.17.1-alpine3.14
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
 ARG UID=1000
@@ -65,12 +65,12 @@ RUN  apk add --update --virtual build-deps --no-cache \
        the_silver_searcher the_silver_searcher-zsh-completion \
      python2 python3 python3-dev py3-pip npm yarn watchman neovim \
      && npm install -g dockerfile-language-server-nodejs semantic-release \
-     && pip3 install --upgrade pynvim
+     && pip3 install --upgrade pynvim \
 # setup user
-RUN groupadd -g ${GID} ${CONT_USER} \ 
-    && useradd -u ${UID} -d ${HOME} -g ${CONT_USER} --system -m ${CONT_USER} 
+    && groupadd -g ${GID} ${CONT_USER} \ 
+    && useradd -u ${UID} -d ${HOME} -g ${CONT_USER} --system -m ${CONT_USER}  \
 # OS setup
-RUN rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
+    && rm -fr /tmp/* /etc/apk/cache/* /var/cache/apk/* \ 
     && sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd \
     && mkdir -p ${CUSTOMDIR}/starship ${ZDOTDIR}/antibody ${TMUXDIR} ${NVIMDIR} ${COCDIR}/extensions \ 
     && chown -R ${UID}:${GID} ${CUSTOMDIR} \
@@ -98,33 +98,31 @@ COPY zshrc ${ZDOTDIR}/.zshrc
 ENV ANTIBODY_HOME=${ZDOTDIR}/antibody
 RUN antibody bundle < ${ZDOTDIR}/plugin.txt > ${ZDOTDIR}/zsh_plugins.sh
 
-
 ## configure tmux
 RUN git clone https://github.com/tmux-plugins/tpm ${TMUXDIR}/plugins/tpm \
-	&& git clone https://github.com/tmux-plugins/tmux-sensible ${TMUXDIR}/plugins/tmux-sensible \
-	&& git clone https://github.com/tmux-plugins/tmux-pain-control ${TMUXDIR}/plugins/tmux-pain-control \
-	&& git clone https://github.com/tmux-plugins/tmux-sidebar ${TMUXDIR}/plugins/tmux-sidebar \
-	&& git clone https://github.com/tmux-plugins/tmux-fpp ${TMUXDIR}/plugins/tmux-fpp \
-    	&& git clone https://github.com/arcticicestudio/nord-tmux ${TMUXDIR}/plugins/nord-tmux
+    && git clone https://github.com/tmux-plugins/tmux-sensible ${TMUXDIR}/plugins/tmux-sensible \
+    && git clone https://github.com/tmux-plugins/tmux-pain-control ${TMUXDIR}/plugins/tmux-pain-control \
+    && git clone https://github.com/tmux-plugins/tmux-sidebar ${TMUXDIR}/plugins/tmux-sidebar \
+    && git clone https://github.com/tmux-plugins/tmux-fpp ${TMUXDIR}/plugins/tmux-fpp \
+    && git clone https://github.com/arcticicestudio/nord-tmux ${TMUXDIR}/plugins/nord-tmux
 COPY tmux.conf ${TMUXDIR}/.tmux.conf
 ENV TMUX_PLUGIN_MANAGER_PATH=${TMUXDIR}/plugins
 
 ## setup nvim
 RUN curl -fLo ${NVIMDIR}/autoload/plug.vim --create-dirs \
 	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
-	&& mkdir -p ${NVIMDIR}/plugged ${NVIMDIR}/markdown \
-	&& git clone --branch feature/golang-coc https://github.com/cybersiddhu/spf13-vim.git ${NVIMDIR}/spf13 \
-	&& ln -sf ${NVIMDIR}/spf13/.vimrc.before ${NVIMDIR}/.vimrc.before \
-	&& ln -sf ${NVIMDIR}/spf13/init.vim ${NVIMDIR}/init.vim \
-	&& ln -sf ${NVIMDIR}/spf13/.vimrc.bundles ${NVIMDIR}/.vimrc.bundles \
-	&& ln -sf ${NVIMDIR}/spf13/.vimrc.local ${NVIMDIR}/.vimrc.local  \
-	&& nvim --headless -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall \
-	&& cd ${COCDIR}/extensions \
-    	&& echo '{"dependencies":{}}'> package.json \
-    	&& npm install coc-dictionary coc-tag coc-word coc-marketplace \
+    && mkdir -p ${NVIMDIR}/plugged ${NVIMDIR}/markdown \
+    && git clone --branch feature/golang-coc https://github.com/cybersiddhu/spf13-vim.git ${NVIMDIR}/spf13 \
+    && ln -sf ${NVIMDIR}/spf13/.vimrc.before ${NVIMDIR}/.vimrc.before \
+    && ln -sf ${NVIMDIR}/spf13/init.vim ${NVIMDIR}/init.vim \
+    && ln -sf ${NVIMDIR}/spf13/.vimrc.bundles ${NVIMDIR}/.vimrc.bundles \
+    && ln -sf ${NVIMDIR}/spf13/.vimrc.local ${NVIMDIR}/.vimrc.local  \
+    && nvim --headless -E -s -u ${NVIMDIR}/init.vim +PlugInstall +qall \
+    && cd ${COCDIR}/extensions \
+    && echo '{"dependencies":{}}'> package.json \
+    && npm install coc-dictionary coc-tag coc-word coc-marketplace \
        			--global-style --ignore-scripts --no-bin-links \
        			--no-package-lock --only=prod 
-
 COPY coc-settings.json ${NVIMDIR}/
 COPY github-markdown.css ${NVIMDIR}/markdown/
 COPY config.toml ${CUSTOMDIR}/starship/
