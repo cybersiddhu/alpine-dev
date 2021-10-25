@@ -53,4 +53,7 @@ return require("packer").startup(function()
 --	{"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
 --	"tami5/sqlite.lua"
 --	"nvim-telescope/telescope-frecency.nvim"
+--
+-- markdown
+        use {"iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview"}
 end)
