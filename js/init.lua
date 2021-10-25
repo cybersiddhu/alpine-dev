@@ -1,0 +1,7 @@
+require "settings"
+require "keymappings"
+require "plugins"
+require "config.lsp"
+require "config.treesitter"
+require "config.folding"
+require "config.colorscheme"
