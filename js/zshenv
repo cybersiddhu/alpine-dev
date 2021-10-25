@@ -1,11 +1,1 @@
-if [ -d "${CUSTOMDIR}/bin" ] ; then
-   export PATH="$CUSTOMDIR/bin:${PATH}"
-fi
-
-if [ ${NVIMDIR+defined} ]; then
-    alias nvim="${CUSTOMDIR}/usr/bin/nvim -u ${NVIMDIR}/init.vim"
-fi
-
-if [ -d ${TMUXDIR} ];then
-    alias tmux="tmux -f ${TMUXDIR}/.tmux.conf"
-fi
+# still nothing here

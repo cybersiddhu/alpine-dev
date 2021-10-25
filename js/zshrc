@@ -28,7 +28,20 @@ setopt no_hist_beep		# no beep
 setopt bang_hist     
 
 
+if [ -d "${CUSTOMDIR}/bin" ] ; then
+   export PATH="$CUSTOMDIR/bin:${PATH}"
+fi
+
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
+if [ -d ${TMUXDIR} ];then
+    alias tmux="tmux -f ${TMUXDIR}/.tmux.conf"
+fi
+
+if [ -d ${CUSTOMDIR}/starship ]; then
+    export STARSHIP_CONFIG=${CUSTOMDIR}/starship/config.toml
+fi
+
 export GPG_TTY=$(tty)
+eval "$(starship init zsh)"
