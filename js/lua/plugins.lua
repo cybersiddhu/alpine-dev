@@ -56,4 +56,17 @@ return require("packer").startup(function()
 --
 -- markdown
         use {"iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview"}
+-- git
+        use { "lewis6991/gitsigns.nvim",
+      		requires = {{"nvim-lua/plenary.nvim"}},
+		config = function()
+    			require("gitsigns").setup()
+  		end
+	}
+	use { "TimUntersberger/neogit",
+  		requires = {{"nvim-lua/plenary.nvim"}},
+		config = function()
+    			require("neogit").setup()
+  		end
+	}
 end)
