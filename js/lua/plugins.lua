@@ -25,15 +25,14 @@ return require("packer").startup(function()
 	}
 	use "onsails/lspkind-nvim"
 -- treesitter
-        use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+        use { "nvim-treesitter/nvim-treesitter", 
+		run = {":TSUpdate",":TSInstall javascript typescript yaml vim html json graphql dockerfile"},
+	}
 	use "nvim-treesitter/nvim-treesitter-textobjects"
 	use "nvim-treesitter/nvim-treesitter-refactor"
 	use { 
 		"JoosepAlviste/nvim-ts-context-commentstring",
-		requires = {
-			{"b3nj5m1n/kommentary"}
-
-		}
+		requires = {{"b3nj5m1n/kommentary"}}
 	}
 	use "p00f/nvim-ts-rainbow"
 	use "romgrk/nvim-treesitter-context"
@@ -69,4 +68,9 @@ return require("packer").startup(function()
     			require("neogit").setup()
   		end
 	}
+-- tabline
+	use {"romgrk/barbar.nvim",
+  		requires = {"kyazdani42/nvim-web-devicons"}
+	}
+
 end)

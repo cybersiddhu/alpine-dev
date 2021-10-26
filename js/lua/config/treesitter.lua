@@ -74,16 +74,6 @@ local rainbow = {
 	max_file_lines = nil,
 }
 tree_config.setup {
-	ensure_installed = {
-		"html",
-		"tsx",
-		"javascript",
-		"json",
-		"yaml",
-		"vim",
-		"typescript",
-		"dockerfile",
-	},
 	highlight = { enable = true },
 	incremental_selection = { enable = true },
 	indent = { enable = true },
