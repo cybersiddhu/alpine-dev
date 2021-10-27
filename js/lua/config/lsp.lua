@@ -21,7 +21,7 @@ local on_attach = function(client,bufnr)
 	buf_set_keymap("v", "<Leader>a", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
 	buf_set_keymap("n", "S", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 end
-for _,lsp in ipairs({"tsserver","html","graphql","eslint"}) do
+for _,lsp in ipairs({"tsserver","html","graphql","eslint", "dockerls"}) do
 	nvim_lsp[lsp].setup{
 		on_attach = on_attach,
 		capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
