@@ -85,7 +85,7 @@ RUN git clone --depth=1 https://github.com/wbthomason/packer.nvim \
     ${NVIMDIR}/site/pack/packer/start/packer.nvim
 COPY bootstrap.lua ${NVIMDIR}/init.lua
 COPY lua ${NVIMDIR}/lua
-RUN  nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync"
+RUN  nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync" 
 COPY init.lua ${NVIMDIR}/init.lua
 
 COPY config.toml ${CUSTOMDIR}/starship/
