@@ -22,23 +22,23 @@ return require("packer").startup(function()
 			{"saadparwaiz1/cmp_luasnip"},
 			{"rafamadriz/friendly-snippets"},
 		}
-	}
-	use "onsails/lspkind-nvim"
+	} -- works
+	use "onsails/lspkind-nvim" -- works
 -- treesitter
         use { "nvim-treesitter/nvim-treesitter", 
 		run = {":TSUpdate"},
 	}
-	use {"nvim-treesitter/nvim-treesitter-textobjects", opt = true }
-	use { "nvim-treesitter/nvim-treesitter-refactor", opt = true }
+	use {"nvim-treesitter/nvim-treesitter-textobjects" }
+	use { "nvim-treesitter/nvim-treesitter-refactor" }
 	use { 
 		"JoosepAlviste/nvim-ts-context-commentstring",
 		requires = {"b3nj5m1n/kommentary"}
-	}
-	use { "p00f/nvim-ts-rainbow", opt = true }
+	} -- works
+	use { "p00f/nvim-ts-rainbow" }
 	use { "romgrk/nvim-treesitter-context" }
 	use "folke/twilight.nvim"
 	use "folke/zen-mode.nvim"
-	use { "windwp/nvim-ts-autotag" , opt = true }
+	use { "windwp/nvim-ts-autotag" }
 	use "shaunsingh/nord.nvim"
 --	"mfussenegger/nvim-ts-hint-textobject"
 --	"RRethy/nvim-treesitter-textsubjects"
@@ -64,13 +64,14 @@ return require("packer").startup(function()
  --       use {"iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview"}
 -- git
         use { "lewis6991/gitsigns.nvim",
-      		requires = {{"nvim-lua/plenary.nvim"}},
+      		requires = {"nvim-lua/plenary.nvim"},
 		config = function()
     			require("gitsigns").setup()
   		end
 	}
 	use { "TimUntersberger/neogit",
-  		requires = {{"nvim-lua/plenary.nvim"}},
+		commit = "a7eba973974018b4fed5076ffdc6cdf03e368904",
+  		requires = {"nvim-lua/plenary.nvim"},
 		config = function()
     			require("neogit").setup()
   		end

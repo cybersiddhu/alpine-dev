@@ -76,7 +76,7 @@ local rainbow = {
 tree_config.setup {
 	ensure_installed = {
 		"tsx","javascript","html","json",
-		"graphql","yaml","dockerfile",
+		"graphql","yaml","dockerfile","typescript",
 	},
 	highlight = { enable = true },
 	incremental_selection = { enable = true },
