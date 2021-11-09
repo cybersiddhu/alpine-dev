@@ -83,10 +83,57 @@ ENV TMUX_PLUGIN_MANAGER_PATH=${TMUXDIR}/plugins
 # setup nvim
 RUN git clone --depth=1 https://github.com/wbthomason/packer.nvim \
     ${NVIMDIR}/site/pack/packer/start/packer.nvim
-COPY bootstrap.lua ${NVIMDIR}/init.lua
+COPY init.lua ${NVIMDIR}/init.lua
 COPY lua ${NVIMDIR}/lua
 RUN  nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync" 
-COPY init.lua ${NVIMDIR}/init.lua
+# install language parser for treesitter
+ENV TREE_INSTALL_PATH=${NVIMDIR}/site/pack/packer/start/nvim-treesitter/parser
+RUN mkdir -p ${TREE_INSTALL_PATH} \
+# tsx and typescript parser install
+    && cd $(mktemp -d) \
+    && git clone https://github.com/tree-sitter/tree-sitter-typescript \
+    && cd tree-sitter-typescript/typescript \
+    && gcc -o ${TREE_INSTALL_PATH}/typescript.so -I./src src/parser.c src/scanner.c -shared -Os -lstdc++ \
+    && cd ../tsx \
+    && gcc -o ${TREE_INSTALL_PATH}/tsx.so -I./src src/parser.c src/scanner.c -shared -Os -lstdc++ \
+    && cd ../../ \
+    && rm -rf tree-sitter-typescript \
+# javascript parser install
+    && git clone https://github.com/tree-sitter/tree-sitter-javascript \
+    && cd tree-sitter-javascript \
+    && gcc -o ${TREE_INSTALL_PATH}/javascript.so -I./src src/parser.c src/scanner.c -shared -Os -lstdc++ \
+    && cd ../ \
+    && rm -rf tree-sitter-javascript \
+# html parser install
+#    && git clone https://github.com/tree-sitter/tree-sitter-html \
+#    && cd tree-sitter-html \ 
+#    && gcc -o ${TREE_INSTALL_PATH}/html.so -I./src src/parser.c src/scanner.cc -shared -Os -lstdc++ \
+#    && cd ../ \
+#    && rm -rf tree-sitter-html  \
+# json parser install
+    && git clone https://github.com/tree-sitter/tree-sitter-json \
+    && cd tree-sitter-json \ 
+    && gcc -o ${TREE_INSTALL_PATH}/json.so -I./src src/parser.c -shared -Os -lstdc++ \
+    && cd ../ \
+    && rm -rf tree-sitter-json \ 
+# graphql parser install
+    && git clone https://github.com/bkegley/tree-sitter-graphql \
+    && cd tree-sitter-graphql \ 
+    && gcc -o ${TREE_INSTALL_PATH}/graphql.so -I./src src/parser.c -shared -Os -lstdc++ \
+    && cd ../ \
+    && rm -rf tree-sitter-graphql \ 
+# yaml parser install
+    && git clone https://github.com/ikatyang/tree-sitter-yaml \
+    && cd tree-sitter-yaml \ 
+    && gcc -o ${TREE_INSTALL_PATH}/yaml.so -I./src src/parser.c src/scanner.cc -shared -Os -lstdc++ \
+    && cd ../ \
+    && rm -rf tree-sitter-yaml \ 
+# dockerfile parser install
+    && git clone https://github.com/camdencheek/tree-sitter-dockerfile \
+    && cd tree-sitter-dockerfile \ 
+    && gcc -o ${TREE_INSTALL_PATH}/dockerfile.so -I./src src/parser.c -shared -Os -lstdc++ \
+    && cd ../ \
+    && rm -rf tree-sitter-dockerfile 
 
 COPY config.toml ${CUSTOMDIR}/starship/
 
