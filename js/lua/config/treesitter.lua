@@ -74,10 +74,6 @@ local rainbow = {
 	max_file_lines = nil,
 }
 tree_config.setup {
-	ensure_installed = {
-		"tsx","javascript","html","json",
-		"graphql","yaml","dockerfile","typescript",
-	},
 	highlight = { enable = true },
 	incremental_selection = { enable = true },
 	indent = { enable = true },
@@ -89,20 +85,4 @@ tree_config.setup {
     		enable = true,
     		enable_autocmd = false,
   	},
-}
--- integration with kommentary plugin
-require("kommentary.config").configure_language("typescriptreact", {
-  single_line_comment_string = "auto",
-  multi_line_comment_strings = "auto",
-  hook_function = function()
-    require("ts_context_commentstring.internal").update_commentstring()
-  end,
-})
-require("treesitter-context").setup{
-	enable = true,
-	throttle = true,
-	max_lines = 0,
-	pattern = {
-		default = {"class","function","method"},
-	},
 }
