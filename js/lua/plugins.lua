@@ -23,6 +23,12 @@ return require("packer").startup(function()
 			after = "lspkind-nvim",
 			config = [[require("config.autocomplete")]],
 		}, -- works
+		{"liuchengxu/vista.vim",
+			config = function()
+				require("utils").map("n","<Leader>vt","<Cmd>Vista!!<CR>")
+				vim.api.nvim_set_var("vista_default_executive","nvim_lsp")
+			end
+		},
 	}
         use { 
 		{ "nvim-treesitter/nvim-treesitter", 
@@ -54,9 +60,15 @@ return require("packer").startup(function()
        		{ "shaunsingh/nord.nvim", event = "VimEnter", config = "vim.cmd[[colorscheme nord]]" }, 
 	}
 -- telescope
-	use { "nvim-telescope/telescope.nvim",
-		requires = {"nvim-lua/plenary.nvim"},
-		config = [[require("config.telescope")]],
+	use { 
+		{ "nvim-telescope/telescope.nvim",
+			requires = {"nvim-lua/plenary.nvim"},
+		},	
+		{ "nvim-telescope/telescope-fzf-native.nvim", 
+			run = "make",
+			config = [[require("config.telescope")]],
+		}, 
+		{ "nvim-telescope/telescope-symbols.nvim" },
 	}
 -- git
         use {  
@@ -69,10 +81,9 @@ return require("packer").startup(function()
 		{ "TimUntersberger/neogit",
 			commit = "a7eba973974018b4fed5076ffdc6cdf03e368904",
 			requires = {"nvim-lua/plenary.nvim"},
-			cmd = "Neogit",
 			config = function()
 				require("neogit").setup({disable_commit_confirmation = true})
-				require("utils").map("n","<Leader>gs","Neogit<CR>")
+				require("utils").map("n","<Leader>ng",":Neogit<CR>")
 			end
 		},
 	}
@@ -80,5 +91,12 @@ return require("packer").startup(function()
 	use { "romgrk/barbar.nvim",
   		requires = {"kyazdani42/nvim-web-devicons"},
 		config = [[require("config.tabline")]],
+	}
+-- hop 
+	use { "phaazon/hop.nvim",
+		config = function()
+			require("hop").setup({keys = "auietsrncbpovdljyxqghf" })
+			require("config.hop")
+		end
 	}
 end)

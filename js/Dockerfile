@@ -1,6 +1,5 @@
 # build antibody
 FROM golang:1.17.2-alpine3.14 AS antibuilder
-LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 RUN apk add --no-cache git build-base \ 
     && mkdir -p /go \
     && cd /go \
@@ -8,8 +7,22 @@ RUN apk add --no-cache git build-base \
     && cd antibody \
     && go build -o antibody
 
+# build ctags with json support
+FROM alpine:3.14 AS ctagsbuilder
+RUN apk --update --no-cache add jansson yaml libxml2 \
+    && apk --update --no-cache add --virtual build-deps \
+       git autoconf make gcc automake musl-dev \
+       jansson-dev yaml-dev libxml2-dev \
+    && mkdir -p /src \
+    && git clone -b p5.9.20211107.0 http://github.com/universal-ctags/ctags.git /src/ctags \
+    && cd /src/ctags \
+    && ./autogen.sh \
+    && ./configure --enable-json \
+    && make -j 5 
+
+
 # setup env
-FROM node:14.18.1-alpine3.14
+FROM node:16.13-alpine3.14
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
 ARG CONT_USER=cybersiddhu
 ARG UID=1000
@@ -31,9 +44,10 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repo
 # install deps 
 RUN  apk add --update build-base --no-cache \ 
        autoconf automake cmake g++ libtool \
+       jansson-dev yaml-dev libxml2-dev \
        libuv linux-headers lua5.3-dev m4 make libtermkey-dev \
        libintl gettext-dev lua-sec shadow \
-       curl unzip ctags zsh git htop \
+       curl unzip zsh git htop \
        file ca-certificates tmux bash gawk \ 
        gnupg exa fd rxvt-unicode-terminfo \ 
        ncurses-terminfo ripgrep ripgrep-zsh-completion \
@@ -134,6 +148,7 @@ RUN mkdir -p ${TREE_INSTALL_PATH} \
     && gcc -o ${TREE_INSTALL_PATH}/dockerfile.so -I./src src/parser.c -shared -Os -lstdc++ \
     && cd ../ \
     && rm -rf tree-sitter-dockerfile 
+COPY --from=ctagsbuilder /src/ctags/ctags  /usr/local/bin
 
 COPY config.toml ${CUSTOMDIR}/starship/
 
