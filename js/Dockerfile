@@ -7,20 +7,6 @@ RUN apk add --no-cache git build-base \
     && cd antibody \
     && go build -o antibody
 
-# build ctags with json support
-FROM alpine:3.14 AS ctagsbuilder
-RUN apk --update --no-cache add jansson yaml libxml2 \
-    && apk --update --no-cache add --virtual build-deps \
-       git autoconf make gcc automake musl-dev \
-       jansson-dev yaml-dev libxml2-dev \
-    && mkdir -p /src \
-    && git clone -b p5.9.20211107.0 http://github.com/universal-ctags/ctags.git /src/ctags \
-    && cd /src/ctags \
-    && ./autogen.sh \
-    && ./configure --enable-json \
-    && make -j 5 
-
-
 # setup env
 FROM node:16.13-alpine3.14
 LABEL maintainer="Siddhartha Basu <siddhartha-basu@northwestern.edu>"
@@ -43,15 +29,12 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositori
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 # install deps 
 RUN  apk add --update build-base --no-cache \ 
-       autoconf automake cmake g++ libtool \
-       jansson-dev yaml-dev libxml2-dev \
-       libuv linux-headers lua5.3-dev m4 make libtermkey-dev \
-       libintl gettext-dev lua-sec shadow \
-       curl unzip zsh git htop \
-       file ca-certificates tmux bash gawk \ 
+       g++ make shadow curl unzip \
+       zsh git htop gotop lazygit ncdu \
+       file ca-certificates bash gawk \ 
        gnupg exa fd rxvt-unicode-terminfo \ 
        ncurses-terminfo ripgrep ripgrep-zsh-completion \
-       openssh-client tzdata libtermkey \ 
+       openssh-client tzdata \ 
        python2 python3 python3-dev py3-pip neovim neovim-doc \
      && npm install -g dockerfile-language-server-nodejs semantic-release \
         vscode-langservers-extracted graphql-language-service-cli \
@@ -83,16 +66,6 @@ COPY zshenv ${ZDOTDIR}/.zshenv
 COPY zshrc ${ZDOTDIR}/.zshrc
 ENV ANTIBODY_HOME=${ZDOTDIR}/antibody
 RUN antibody bundle < ${ZDOTDIR}/plugin.txt > ${ZDOTDIR}/zsh_plugins.sh
-
-# configure tmux
-RUN git clone https://github.com/tmux-plugins/tpm ${TMUXDIR}/plugins/tpm \
-    && git clone https://github.com/tmux-plugins/tmux-sensible ${TMUXDIR}/plugins/tmux-sensible \
-    && git clone https://github.com/tmux-plugins/tmux-pain-control ${TMUXDIR}/plugins/tmux-pain-control \
-    && git clone https://github.com/tmux-plugins/tmux-sidebar ${TMUXDIR}/plugins/tmux-sidebar \
-    && git clone https://github.com/tmux-plugins/tmux-fpp ${TMUXDIR}/plugins/tmux-fpp \
-    && git clone https://github.com/arcticicestudio/nord-tmux ${TMUXDIR}/plugins/nord-tmux
-COPY tmux.conf ${TMUXDIR}/.tmux.conf
-ENV TMUX_PLUGIN_MANAGER_PATH=${TMUXDIR}/plugins
 
 # setup nvim
 RUN git clone --depth=1 https://github.com/wbthomason/packer.nvim \
@@ -148,7 +121,6 @@ RUN mkdir -p ${TREE_INSTALL_PATH} \
     && gcc -o ${TREE_INSTALL_PATH}/dockerfile.so -I./src src/parser.c -shared -Os -lstdc++ \
     && cd ../ \
     && rm -rf tree-sitter-dockerfile 
-COPY --from=ctagsbuilder /src/ctags/ctags  /usr/local/bin
 
 COPY config.toml ${CUSTOMDIR}/starship/
 

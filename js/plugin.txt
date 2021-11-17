@@ -11,5 +11,5 @@ zpm-zsh/autoenv
 
 # theme
 sindresorhus/pure branch:main
-zdharma/fast-syntax-highlighting
+zdharma-continuum/fast-syntax-highlighting
 zsh-users/zsh-history-substring-search
