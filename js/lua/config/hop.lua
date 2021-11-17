@@ -1,3 +1,4 @@
+require("hop").setup({keys = "auietsrncbpovdljyxqghf" })
 local utils = require "utils"
 utils.map("n","<Leader>hL","<Cmd>HopLineStart<CR>")
 utils.map("v","<Leader>hL","<Cmd>HopLineStart<CR>")

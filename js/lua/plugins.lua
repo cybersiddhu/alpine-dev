@@ -1,42 +1,12 @@
 -- plugin installation using packer
 return require("packer").startup(function() 
 	use "wbthomason/packer.nvim" -- works
--- lsp and snipetts
-	use {
-		{"hrsh7th/nvim-cmp"},
-		{"hrsh7th/cmp-nvim-lsp",
-			requires = {"neovim/nvim-lspconfig"},
-			config = [[require("config.lsp")]],
-		},
-		{"hrsh7th/cmp-buffer", after = "nvim-cmp"}, -- works
-		{"f3fora/cmp-spell", after = "nvim-cmp"}, -- works,
-		{"hrsh7th/cmp-calc", after = "nvim-cmp"},
-		{"hrsh7th/cmp-path", after = "nvim-cmp"},
-		{"uga-rosa/cmp-dictionary", after = "nvim-cmp"},
-		{"octaltree/cmp-look", after = "nvim-cmp"},
-		{"onsails/lspkind-nvim", after = "nvim-cmp"}, -- works
-		{"L3MON4D3/LuaSnip",
-			requires = {
-				{"saadparwaiz1/cmp_luasnip"},
-				{"rafamadriz/friendly-snippets"},
-			},
-			after = "lspkind-nvim",
-			config = [[require("config.autocomplete")]],
-		}, -- works
-		{"liuchengxu/vista.vim",
-			config = function()
-				require("utils").map("n","<Leader>vt","<Cmd>Vista!!<CR>")
-				vim.api.nvim_set_var("vista_default_executive","nvim_lsp")
-			end
-		},
-	}
+-- treesitter
         use { 
-		{ "nvim-treesitter/nvim-treesitter", 
-			run = {":TSUpdate"},
-		},
-		{"nvim-treesitter/nvim-treesitter-textobjects" , after = "nvim-treesitter" },
+		{ "nvim-treesitter/nvim-treesitter", run = {":TSUpdate"}},
+		{"nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
 		{ "nvim-treesitter/nvim-treesitter-refactor", after = "nvim-treesitter-textobjects" },
-		{ "windwp/nvim-ts-autotag" , after = "nvim-treesitter-refactor" },
+		{ "windwp/nvim-ts-autotag", "nvim-treesitter-refactor" },
 		{ "p00f/nvim-ts-rainbow" ,
 			after = "nvim-ts-autotag",
 			config = function()
@@ -45,25 +15,65 @@ return require("packer").startup(function()
 			end
 		},
 		{ "JoosepAlviste/nvim-ts-context-commentstring",
-			requires = {"b3nj5m1n/kommentary"},
 			after = "nvim-ts-rainbow",
+			requires = {"b3nj5m1n/kommentary"},
 			config = [[require("config.comment")]],
 		},
-		{ "romgrk/nvim-treesitter-context",
+		{ "romgrk/nvim-treesitter-context", 
 			after = "nvim-ts-context-commentstring",
 			config = [[require("config.treesitter_context")]],
 		}, -- works
 		{ "folke/zen-mode.nvim", 
-			requires = { "folke/twilight.nvim" },
 			after = "nvim-treesitter-context",
+			requires = { "folke/twilight.nvim"},
+			config = function()
+				require("zen-mode").setup({})
+				require("utils").map("n","<Leader>zm","<Cmd>ZenMode<CR>")
+			end
 		},
-       		{ "shaunsingh/nord.nvim", event = "VimEnter", config = "vim.cmd[[colorscheme nord]]" }, 
+       		{ "shaunsingh/nord.nvim", 
+			event = "VimEnter", 
+			config = "vim.cmd[[colorscheme nord]]",
+		}, 
+	}
+-- lsp and snipetts
+	use {
+		{"hrsh7th/nvim-cmp"},
+		{"hrsh7th/cmp-nvim-lsp",
+			requires = {"neovim/nvim-lspconfig"},
+			config = [[require("config.lsp")]],
+		},
+		{"hrsh7th/cmp-buffer"}, -- works
+		{"f3fora/cmp-spell"}, -- works,
+		{"hrsh7th/cmp-calc"},
+		{"hrsh7th/cmp-path"},
+		{"hrsh7th/cmp-nvim-lsp-document-symbol"},
+		{"hrsh7th/cmp-cmdline"},
+		{"uga-rosa/cmp-dictionary"},
+		{"octaltree/cmp-look"},
+		{"ray-x/cmp-treesitter"},
+		{"onsails/lspkind-nvim"}, -- works
+		{"L3MON4D3/LuaSnip",
+			requires = {
+				{"saadparwaiz1/cmp_luasnip"},
+				{"rafamadriz/friendly-snippets"},
+			},
+			config = function()
+				require("config.autocomplete")
+				require("luasnip.loaders.from_vscode").load()
+			end,
+		}, -- works
+		-- tagbar like 
+		{"liuchengxu/vista.vim",
+			config = function()
+				require("utils").map("n","<Leader>vt","<Cmd>Vista!!<CR>")
+				vim.api.nvim_set_var("vista_default_executive","nvim_lsp")
+			end
+		},
 	}
 -- telescope
 	use { 
-		{ "nvim-telescope/telescope.nvim",
-			requires = {"nvim-lua/plenary.nvim"},
-		},	
+		{ "nvim-telescope/telescope.nvim", requires = {"nvim-lua/plenary.nvim"}},	
 		{ "nvim-telescope/telescope-fzf-native.nvim", 
 			run = "make",
 			config = [[require("config.telescope")]],
@@ -71,20 +81,20 @@ return require("packer").startup(function()
 		{ "nvim-telescope/telescope-symbols.nvim" },
 	}
 -- git
-        use {  
+       use {  
 		{ "lewis6991/gitsigns.nvim",
-      			requires = {"nvim-lua/plenary.nvim"},
 			config = function()
-				require("gitsigns").setup()
+				require("gitsigns").setup({current_line_blame = true})
+				vim.cmd[[highlight default link GitSignsCurrentLineBlame LineNr]]
+				require("utils").map("n","<Leader>cb","<Cmd>Gitsigns toggle_current_line_blame<CR>")
 			end
 		},
 		{ "TimUntersberger/neogit",
-			commit = "a7eba973974018b4fed5076ffdc6cdf03e368904",
-			requires = {"nvim-lua/plenary.nvim"},
+			cmd = "Neogit",
 			config = function()
 				require("neogit").setup({disable_commit_confirmation = true})
-				require("utils").map("n","<Leader>ng",":Neogit<CR>")
-			end
+				require("utils").map("n","<Leader>ng","<Cmd>Neogit<CR>")
+			end		
 		},
 	}
 -- tabline
@@ -93,10 +103,22 @@ return require("packer").startup(function()
 		config = [[require("config.tabline")]],
 	}
 -- hop 
-	use { "phaazon/hop.nvim",
-		config = function()
-			require("hop").setup({keys = "auietsrncbpovdljyxqghf" })
-			require("config.hop")
-		end
+	use { "phaazon/hop.nvim", config = [[require("config.hop")]] }
+-- notify
+	use { "rcarriga/nvim-notify",
+      		event = "VimEnter",
+      		config = function()
+        		vim.notify = require("notify")
+      		end,
+	}
+-- statusline
+	use { "nvim-lualine/lualine.nvim", 
+		event = "VimEnter",
+		config = [[require("config.lualine")]],
+	}
+-- terminal
+	use { "voldikss/vim-floaterm", 
+		event = "VimEnter",
+		config = [[require("config.floaterm")]],
 	}
 end)
