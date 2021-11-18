@@ -121,4 +121,6 @@ return require("packer").startup(function()
 		event = "VimEnter",
 		config = [[require("config.floaterm")]],
 	}
+-- editor configuration
+	use { "editorconfig/editorconfig-vim" }
 end)

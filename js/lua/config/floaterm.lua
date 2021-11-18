@@ -1,6 +1,7 @@
 local utils = require "utils"
 utils.map("n","<Leader>fn","<Cmd>FloatermNew<CR>")
 utils.map("n","<Leader>fg","<Cmd>FloatermNew --name=lazygit lazygit<CR>")
+utils.map("n","<Leader>fz","<Cmd>FloatermNew --name=fzf fzf<CR>")
 utils.map("n","<Leader>fu","<Cmd>FloatermNew --name=ncdu ncdu<CR>")
 utils.map("n","<Leader>ft","<Cmd>FloatermNew --name=gotop gotop<CR>")
 utils.map("n","<Leader>fh","<Cmd>FloatermNew --name=htop htop<CR>")

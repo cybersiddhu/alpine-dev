@@ -30,7 +30,7 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repo
 # install deps 
 RUN  apk add --update build-base --no-cache \ 
        g++ make shadow curl unzip \
-       zsh git htop gotop lazygit ncdu \
+       zsh git htop gotop lazygit ncdu fzf \
        file ca-certificates bash gawk \ 
        gnupg exa fd rxvt-unicode-terminfo \ 
        ncurses-terminfo ripgrep ripgrep-zsh-completion \
