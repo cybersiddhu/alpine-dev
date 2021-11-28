@@ -1,6 +1,6 @@
 -- plugin installation using packer
 return require("packer").startup(function() 
-	use "wbthomason/packer.nvim" -- works
+--	use "wbthomason/packer.nvim" -- works
 -- treesitter
         use { 
 		{ "nvim-treesitter/nvim-treesitter", run = {":TSUpdate"}},
