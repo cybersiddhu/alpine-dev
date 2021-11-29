@@ -1,12 +1,12 @@
 -- plugin installation using packer
 return require("packer").startup(function() 
---	use "wbthomason/packer.nvim" -- works
+	use "wbthomason/packer.nvim" -- works
 -- treesitter
         use { 
 		{ "nvim-treesitter/nvim-treesitter", run = {":TSUpdate"}},
 		{"nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
 		{ "nvim-treesitter/nvim-treesitter-refactor", after = "nvim-treesitter-textobjects" },
-		{ "windwp/nvim-ts-autotag", "nvim-treesitter-refactor" },
+		{ "windwp/nvim-ts-autotag", after = "nvim-treesitter-refactor" },
 		{ "p00f/nvim-ts-rainbow" ,
 			after = "nvim-ts-autotag",
 			config = function()
@@ -123,4 +123,10 @@ return require("packer").startup(function()
 	}
 -- editor configuration
 	use { "editorconfig/editorconfig-vim" }
+-- autopair
+	use { "windwp/nvim-autopairs",
+		config = function()
+			require('nvim-autopairs').setup{}
+		end
+	}
 end)
