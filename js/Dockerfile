@@ -38,7 +38,7 @@ RUN  apk add --update build-base --no-cache \
        python2 python3 python3-dev py3-pip neovim neovim-doc \
      && npm install -g dockerfile-language-server-nodejs semantic-release \
         vscode-langservers-extracted graphql-language-service-cli \
-	typescript typescript-language-server \
+	typescript typescript-language-server yaml-language-server \
      && cd $(mktemp -d) \
      && curl --fail --silent --location -o starship.tar.gz \
      	https://github.com/starship/starship/releases/download/v0.56.0/starship-aarch64-unknown-linux-musl.tar.gz \

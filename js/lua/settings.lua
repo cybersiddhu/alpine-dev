@@ -13,7 +13,7 @@ opt.clipboard:append("unnamedplus")
 opt.shortmess:append("c")
 opt.virtualedit = "onemore"
 opt.history = 1000
-opt.spell = true
+opt.spell = false
 opt.hidden = true
 opt.iskeyword:remove("-")
 opt.signcolumn = "yes"
