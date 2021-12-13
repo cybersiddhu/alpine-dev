@@ -82,14 +82,14 @@ cmp.setup {
 	sources = cmp.config.sources({
 		{name = "nvim_lsp"}, 
 		{name = "luasnip"},
-        	{name = "buffer", opt = { get_bufnrs = bufopt }}, 
+        	{name = "buffer", option = { get_bufnrs = bufopt }}, 
 		{name = "treesitter"},
         	{name = "look"}, 
 		{name = "path"},
          	{name = "calc"}, 
 		{name = "spell"},
         	{name = "emoji"},
-		{name = "dictionary"},
+--		{name = "dictionary"},
     	}),
 	snippet = {
 		expand = function(args) 
@@ -109,7 +109,7 @@ cmp.setup {
 				  spell = "[Spell]",
 				  calc = "[Calc]",
 				  emoji = "[Emoji]",
-				  dictionary = "[Dictionary]",
+				--  dictionary = "[Dictionary]",
 			},
 		},
 	},
