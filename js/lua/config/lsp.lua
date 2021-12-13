@@ -21,9 +21,19 @@ local on_attach = function(client,bufnr)
 	buf_set_keymap("x", "<Leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
 	buf_set_keymap("v", "<Leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
 end
+local rescript_server_path = function()
+	local base_path = os.getenv("XDG_DATA_HOME") .. "/nvim" .. "/site" .. "/pack" .. "/packer" .. "/start"
+	return base_path .. "/vim-rescript" .. "/server" .. "/out" .. "/server.js"
+end
 for _,lsp in ipairs({"tsserver","html","graphql","eslint", "dockerls", "jsonls", "yamlls"}) do
 	nvim_lsp[lsp].setup{
 		on_attach = on_attach,
 		capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
 	}
 end
+nvim_lsp.rescriptls.setup{
+	on_attach = on_attach,
+	capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+	cmd = {"node", rescript_server_path(), "--stdio"}
+}
+
