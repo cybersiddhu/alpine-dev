@@ -1,13 +1,14 @@
 local tele = require "telescope"
 tele.setup({})
 tele.load_extension("fzf")
+tele.load_extension("file_browser")
 
 local utils = require "utils"
-utils.map("n","<Leader>tf",[[<Cmd>lua require("utils").project_files()<CR>]])
+utils.map("n","<Leader>tf",[[<Cmd>lua require("utils").project_file_finder()<CR>]])
+utils.map("n","<Leader>tb",[[<Cmd>lua require("utils").project_file_manager()<CR>]])
+utils.map("n","<Leader>tm",[[<Cmd>lua require("utils").home_file_manager()<CR>]])
 utils.map("n","<Leader>tg","<Cmd>Telescope live_grep theme=ivy<CR>")
 utils.map("n","<Leader>th","<Cmd>Telescope help_tags theme=ivy<CR>")
-utils.map("n","<Leader>tb","<Cmd>Telescope file_browser theme=ivy<CR>")
-utils.map("n","<Leader>tm",[[<Cmd>lua require("utils").home_file_manager()<CR>]])
 utils.map("n","<Leader>tc","<Cmd>Telescope commands theme=ivy<CR>")
 utils.map("n","<Leader>tu","<Cmd>Telescope buffers theme=ivy<CR>")
 utils.map("n","<Leader>tC","<Cmd>Telescope command_history theme=ivy<CR>")

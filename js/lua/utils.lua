@@ -8,7 +8,7 @@ function M.map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end 
 
-function M.project_files()
+function M.project_file_finder()
   local theme = require("telescope.themes").get_ivy() 
   local builtins = require("telescope.builtin")
   local ok = pcall(builtins.git_files, theme)
@@ -18,9 +18,16 @@ function M.project_files()
 end
 
 function M.home_file_manager()
-  local builtins = require("telescope.builtin")
+  local builtins = require("telescope").extensions.file_browser
   local theme = require("telescope.themes").get_ivy() 
-  local opt = {cwd = vim.fn.expand("~"), depth = 1, hidden = true}
+  local opt = {cwd = vim.fn.expand("~"), hidden = true}
+  builtins.file_browser(vim.tbl_extend("force",opt,theme))
+end
+
+function M.project_file_manager()
+  local builtins = require("telescope").extensions.file_browser
+  local theme = require("telescope.themes").get_ivy() 
+  local opt = {hidden = true}
   builtins.file_browser(vim.tbl_extend("force",opt,theme))
 end
 
