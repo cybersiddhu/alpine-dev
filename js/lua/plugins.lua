@@ -131,4 +131,9 @@ return require("packer").startup(function()
 			require('nvim-autopairs').setup{}
 		end
 	}
+-- startup screen
+	use { "echasnovski/mini.nvim", 
+		branch = "stable",
+		config = [[require("config.minivim")]]
+	}
 end)
