@@ -132,8 +132,9 @@ return require("packer").startup(function()
 		end
 	}
 -- startup screen
-	use { "echasnovski/mini.nvim", 
-		branch = "stable",
-		config = [[require("config.minivim")]]
+	use { "goolord/alpha-nvim",
+   		config = function()
+      			require("config.alpha").setup()
+   		end,
 	}
 end)
