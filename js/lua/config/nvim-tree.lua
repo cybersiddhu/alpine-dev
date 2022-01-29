@@ -6,7 +6,7 @@ require("nvim-tree").setup{
 	},
 }
 local utils = require "utils"
-utils.map("n","<Leader>e","<Cmd>NvimTreeToogle<CR>")
+utils.map("n","<Leader>e","<Cmd>NvimTreeToggle<CR>")
 utils.map("n","<Leader>r","<Cmd>NvimTreeRefresh<CR>")
 utils.map("n","<Leader>nd","<Cmd>NvimTreeFindFile<CR>")
 utils.map("n","<Leader>no","<Cmd>NvimTreeFocus<CR>")
