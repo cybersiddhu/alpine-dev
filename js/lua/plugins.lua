@@ -91,6 +91,7 @@ return require("packer").startup(function()
 				require("utils").map("n","<Leader>cb","<Cmd>Gitsigns toggle_current_line_blame<CR>")
 			end
 		},
+		{ "rhysd/git-messenger.vim" },
 	}
 -- tabline
 	use { "romgrk/barbar.nvim",
