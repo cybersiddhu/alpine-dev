@@ -1,7 +1,7 @@
 require("package-info").setup()
 local utils = require "utils"
-utils.map("n","<Leader>ns","<Cmd>PackeInfoShow<CR>")
-utils.map("n","<Leader>nh","<Cmd>PackeInfoHide<CR>")
-utils.map("n","<Leader>nu","<Cmd>PackeInfoUpdate<CR>")
-utils.map("n","<Leader>ni","<Cmd>PackeInfoInstall<CR>")
-utils.map("n","<Leader>nv","<Cmd>PackeInfoChangeVersion<CR>")
+utils.map("n","<Leader>ns","<Cmd>PackageInfoShow<CR>")
+utils.map("n","<Leader>nh","<Cmd>PackageInfoHide<CR>")
+utils.map("n","<Leader>nu","<Cmd>PackageInfoUpdate<CR>")
+utils.map("n","<Leader>ni","<Cmd>PackageInfoInstall<CR>")
+utils.map("n","<Leader>nv","<Cmd>PackageInfoChangeVersion<CR>")
