@@ -91,13 +91,6 @@ return require("packer").startup(function()
 				require("utils").map("n","<Leader>cb","<Cmd>Gitsigns toggle_current_line_blame<CR>")
 			end
 		},
-		{ "TimUntersberger/neogit",
-			cmd = "Neogit",
-			config = function()
-				require("neogit").setup({disable_commit_confirmation = true})
-				require("utils").map("n","<Leader>ng","<Cmd>Neogit<CR>")
-			end		
-		},
 	}
 -- tabline
 	use { "romgrk/barbar.nvim",
@@ -142,5 +135,11 @@ return require("packer").startup(function()
 		config = function()
 			  require("config.nvim-tree")
 		end,
+	}
+-- extra plugin for formatting
+	use { "jose-elias-alvarez/null-ls.nvim",
+    		config = function()
+			  require("config.null-ls")
+    		end,
 	}
 end)
