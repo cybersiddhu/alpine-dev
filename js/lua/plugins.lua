@@ -143,4 +143,12 @@ return require("packer").startup(function()
 			  require("config.null-ls")
     		end,
 	}
+-- nodejs package management
+	use {
+	    "vuki656/package-info.nvim",
+	    requires = "MunifTanjim/nui.nvim",
+	    config = function()
+	      		require("config.package-info")
+	    end,
+	}
 end)
