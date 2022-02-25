@@ -1,8 +1,8 @@
 -- lsp and related configuration
 local nvim_lsp = require "lspconfig"
 local cmp_nvim_lsp = require "cmp_nvim_lsp"
-local on_attach = function(client,bufnr)
-	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr,...) end
+local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr,...) end
+local function keymaps_on_attach()
 	local opts = { noremap = true, silent = true}
 	buf_set_keymap("n","U","<cmd>lua vim.lsp.buf.hover()<CR>",opts)
 	buf_set_keymap("n", "S", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
@@ -21,19 +21,30 @@ local on_attach = function(client,bufnr)
 	buf_set_keymap("x", "<Leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
 	buf_set_keymap("v", "<Leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
 end
-local rescript_server_path = function()
-	local base_path = os.getenv("XDG_DATA_HOME") .. "/nvim" .. "/site" .. "/pack" .. "/packer" .. "/start"
-	return base_path .. "/vim-rescript" .. "/server" .. "/out" .. "/server.js"
+local on_attach = function(client,bufnr)
+	keymaps_on_attach()
 end
-for _,lsp in ipairs({"tsserver","html","graphql","eslint", "dockerls", "jsonls", "yamlls"}) do
+for _,lsp in ipairs({"html","graphql","eslint", "dockerls", "jsonls", "yamlls"}) do
 	nvim_lsp[lsp].setup{
 		on_attach = on_attach,
 		capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
 	}
+end
+local rescript_server_path = function()
+	local base_path = os.getenv("XDG_DATA_HOME") .. "/nvim" .. "/site" .. "/pack" .. "/packer" .. "/start"
+	return base_path .. "/vim-rescript" .. "/server" .. "/out" .. "/server.js"
 end
 nvim_lsp.rescriptls.setup{
 	on_attach = on_attach,
 	capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
 	cmd = {"node", rescript_server_path(), "--stdio"}
 }
-
+local on_attach_tsserver = function(client, bufnr)
+	client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false
+	keymaps_on_attach()
+end
+nvim_lsp.tsserver.setup{
+	on_attach = on_attach_tsserver,
+	capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+}
