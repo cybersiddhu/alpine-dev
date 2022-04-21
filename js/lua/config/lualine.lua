@@ -17,7 +17,7 @@ require("lualine").setup({
 	sections = {
     		lualine_a = {
       			{ "mode", separator = { left = "" }, right_padding = 2 },
-			{"diagnostics", sources = {"nvim_diagnostic"}},
+			{"diagnostics", sources = {"nvim_lsp"}},
     		},
 		lualine_b = { 
 			{"b:gitsigns_head", icon = ""}, 
