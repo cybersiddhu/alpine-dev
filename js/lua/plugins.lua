@@ -19,7 +19,7 @@ return require("packer").startup(function()
 			requires = {"b3nj5m1n/kommentary"},
 			config = [[require("config.comment")]],
 		},
-		{ "romgrk/nvim-treesitter-context", 
+		{ "lewis6991/nvim-treesitter-context", 
 			after = "nvim-ts-context-commentstring",
 			config = [[require("config.treesitter_context")]],
 		}, -- works
