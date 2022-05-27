@@ -35,6 +35,9 @@ return require("packer").startup(function()
 			event = "VimEnter", 
 			config = "vim.cmd[[colorscheme nord]]",
 		}, 
+		{ "stevearc/aerial.nvim",
+			config = [[require("config.aerial")]],
+		},
 	}
 -- lsp and snipetts
 	use {
@@ -64,13 +67,6 @@ return require("packer").startup(function()
 				require("luasnip.loaders.from_vscode").load()
 			end,
 		}, -- works
-		-- tagbar like 
-		{"liuchengxu/vista.vim",
-			config = function()
-				require("utils").map("n","<Leader>vt","<Cmd>Vista!!<CR>")
-				vim.api.nvim_set_var("vista_default_executive","nvim_lsp")
-			end
-		},
 	}
 -- telescope
 	use { 
