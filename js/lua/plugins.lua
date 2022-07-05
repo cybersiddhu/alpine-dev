@@ -41,6 +41,7 @@ return require("packer").startup(function()
 	}
 -- lsp and snipetts
 	use {
+		{"b0o/schemastore.nvim"},
 		{"hrsh7th/nvim-cmp"},
 		{"hrsh7th/cmp-nvim-lsp",
 			requires = {"neovim/nvim-lspconfig"},

@@ -24,21 +24,12 @@ end
 local on_attach = function(_,bufnr)
 	keymaps_on_attach(bufnr)
 end
-for _,lsp in ipairs({"html","graphql","eslint", "dockerls", "jsonls", "yamlls"}) do
+for _,lsp in ipairs({"html","graphql","eslint", "dockerls","yamlls"}) do
 	nvim_lsp[lsp].setup{
 		on_attach = on_attach,
 		capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
 	}
 end
-local rescript_server_path = function()
-	local base_path = os.getenv("XDG_DATA_HOME") .. "/nvim" .. "/site" .. "/pack" .. "/packer" .. "/start"
-	return base_path .. "/vim-rescript" .. "/server" .. "/out" .. "/server.js"
-end
-nvim_lsp.rescriptls.setup{
-	on_attach = on_attach,
-	capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-	cmd = {"node", rescript_server_path(), "--stdio"}
-}
 local on_attach_tsserver = function(client, bufnr)
 	client.resolved_capabilities.document_formatting = false
         client.resolved_capabilities.document_range_formatting = false
@@ -50,4 +41,14 @@ nvim_lsp.tsserver.setup{
 }
 nvim_lsp.vimls.setup{
 	on_attach = require("aerial").on_attach
+}
+nvim_lsp.jsonls.setup{
+	on_attach = on_attach,
+	capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+	settings = {
+    		json = {
+      			schemas = require("schemastore").json.schemas(),
+      			validate = { enable = true },
+    		},
+  	},
 }
