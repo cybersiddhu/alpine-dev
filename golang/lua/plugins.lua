@@ -77,6 +77,11 @@ return require("packer").startup(function()
 		}, 
 		{ "nvim-telescope/telescope-symbols.nvim" },
 	}
+-- tabline
+	use { "romgrk/barbar.nvim",
+  		requires = {"kyazdani42/nvim-web-devicons"},
+		config = [[require("config.tabline")]],
+	}
 -- git
        use {  
 		{ "lewis6991/gitsigns.nvim",
@@ -87,11 +92,9 @@ return require("packer").startup(function()
 			end
 		},
 		{ "rhysd/git-messenger.vim" },
-	}
--- tabline
-	use { "romgrk/barbar.nvim",
-  		requires = {"kyazdani42/nvim-web-devicons"},
-		config = [[require("config.tabline")]],
+		{ "pwntester/octo.nvim",
+			config = [[require("config.octo")]],
+		},
 	}
 -- hop 
 	use { "phaazon/hop.nvim", config = [[require("config.hop")]] }
