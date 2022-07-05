@@ -150,4 +150,17 @@ return require("packer").startup(function()
 	      		require("config.package-info")
 	    end,
 	}
+-- documentation
+	use { "danymat/neogen",
+		config = [[require("config.neogen")]]
+    	}
+-- test
+	use { "nvim-neotest/neotest",
+		requires = {
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-neotest/neotest-plenary",
+			"haydenmeade/neotest-jest",
+		},
+		config = [[require("config.neotest")]],
+	}
 end)

@@ -4,7 +4,7 @@ return require("packer").startup(function()
 -- treesitter
         use { 
 		{ "nvim-treesitter/nvim-treesitter", run = {":TSUpdate"}},
-		{"nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
+		{ "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
 		{ "nvim-treesitter/nvim-treesitter-refactor", after = "nvim-treesitter-textobjects" },
 		{ "windwp/nvim-ts-autotag", after = "nvim-treesitter-refactor" },
 		{ "p00f/nvim-ts-rainbow" ,
@@ -93,7 +93,7 @@ return require("packer").startup(function()
 		},
 		{ "rhysd/git-messenger.vim" },
 		{ "pwntester/octo.nvim",
-			config = [[require("config.octo")]],
+	  		config = [[require("config.octo")]],
 		},
 	}
 -- hop 
@@ -121,7 +121,7 @@ return require("packer").startup(function()
 -- autopair
 	use { "windwp/nvim-autopairs",
 		config = function()
-			require('nvim-autopairs').setup{}
+			require('nvim-autopairs').setup({})
 		end
 	}
 -- startup screen
@@ -132,8 +132,19 @@ return require("packer").startup(function()
 	}
 -- file explorer
 	use { "kyazdani42/nvim-tree.lua",
-		config = function()
-			  require("config.nvim-tree")
-		end,
+		config = [[require("config.nvim-tree")]]
+	}
+-- documentation
+	use { "danymat/neogen",
+		config = [[require("config.neogen")]]
+    	}
+-- test
+	use { "nvim-neotest/neotest",
+		requires = {
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-neotest/neotest-plenary",
+			"nvim-neotest/neotest-go",
+		},
+		config = [[require("config.neotest")]],
 	}
 end)
