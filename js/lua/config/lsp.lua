@@ -1,25 +1,29 @@
 -- lsp and related configuration
+local opts = { noremap = true, silent = true}
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[c', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']c', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setqflist, opts)
+vim.keymap.set('n', '<space>l', vim.diagnostic.setloclist, opts)
+
+local buf_set_keymap = vim.keymap.set
 local nvim_lsp = require "lspconfig"
 local cmp_nvim_lsp = require "cmp_nvim_lsp"
-local buf_set_keymap = vim.api.nvim_buf_set_keymap
 local function keymaps_on_attach(bufnr)
-	local opts = { noremap = true, silent = true}
-	buf_set_keymap(bufnr, "n", "[c", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-	buf_set_keymap(bufnr, "n", "]c", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-	buf_set_keymap(bufnr, "n", "<space>a", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
-	buf_set_keymap(bufnr, "n","U","<cmd>lua vim.lsp.buf.hover()<CR>",opts)
-	buf_set_keymap(bufnr, "n", "S", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	buf_set_keymap(bufnr, "n", "pd", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-	buf_set_keymap(bufnr, "n", "pc", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap(bufnr, "n", "pi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	buf_set_keymap(bufnr, "n", "pr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	buf_set_keymap(bufnr, "n", "<Leader>pn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	buf_set_keymap(bufnr, "n", "<Leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-	buf_set_keymap(bufnr, "x", "<Leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-	buf_set_keymap(bufnr, "v", "<Leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-	buf_set_keymap(bufnr, "n", "<Leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	buf_set_keymap(bufnr, "x", "<Leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
-	buf_set_keymap(bufnr, "v", "<Leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
+	local bufopts = { noremap=true, silent=true, buffer=bufnr }
+	buf_set_keymap("n","U", vim.lsp.buf.hover, bufopts)
+	buf_set_keymap("n", "S", vim.lsp.buf.signature_help, bufopts)
+	buf_set_keymap("n", "pd", vim.lsp.buf.type_definition, bufopts)
+	buf_set_keymap("n", "pc", vim.lsp.buf.definition, bufopts)
+	buf_set_keymap("n", "pi", vim.lsp.buf.implementation, bufopts)
+	buf_set_keymap("n", "pr", vim.lsp.buf.references, bufopts)
+	buf_set_keymap("n", "<Leader>pn", vim.lsp.buf.rename, bufopts)
+	buf_set_keymap("n", "<Leader>f", vim.lsp.buf.formatting, bufopts)
+	buf_set_keymap("x", "<Leader>f", vim.lsp.buf.range_formatting, bufopts)
+	buf_set_keymap("v", "<Leader>f", vim.lsp.buf.range_formatting, bufopts)
+	buf_set_keymap("n", "<Leader>ca", vim.lsp.buf.code_action, bufopts)
+	buf_set_keymap("x", "<Leader>ca", vim.lsp.buf.range_code_action, bufopts)
+	buf_set_keymap("v", "<Leader>ca", vim.lsp.buf.range_code_action, bufopts)
 end
 local on_attach = function(_,bufnr)
 	keymaps_on_attach(bufnr)
