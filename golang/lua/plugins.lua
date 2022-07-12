@@ -136,6 +136,12 @@ return require("packer").startup(function()
 	use { "kyazdani42/nvim-tree.lua",
 		config = [[require("config.nvim-tree")]]
 	}
+-- extra plugin for formatting
+	use { "jose-elias-alvarez/null-ls.nvim",
+    		config = function()
+			  require("config.null-ls")
+    		end,
+	}
 -- documentation
 	use { "danymat/neogen",
 		config = [[require("config.neogen")]]

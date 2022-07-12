@@ -28,12 +28,22 @@ end
 local on_attach = function(_,bufnr)
 	keymaps_on_attach(bufnr)
 end
-for _,lsp in ipairs({"gopls","golangci_lint_ls","dockerls","yamlls"}) do
+for _,lsp in ipairs({"golangci_lint_ls","dockerls","yamlls"}) do
 	nvim_lsp[lsp].setup{
 		on_attach = on_attach,
 		capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
 	}
 end
+
+local on_attach_gopls = function(client, bufnr)
+	client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false
+	keymaps_on_attach(bufnr)
+end
+nvim_lsp.gopls.setup{
+	on_attach = on_attach_gopls,
+	capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+}
 
 nvim_lsp.vimls.setup{
 	on_attach = require("aerial").on_attach
