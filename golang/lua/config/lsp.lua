@@ -43,6 +43,15 @@ end
 nvim_lsp.gopls.setup{
 	on_attach = on_attach_gopls,
 	capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+	settings =  {
+		gopls = {
+			codelenses = {
+				gc_details = true,
+				tidy = true,
+				upgrade_dependency = true,
+			}
+		}
+	}
 }
 
 nvim_lsp.vimls.setup{
