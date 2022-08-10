@@ -164,4 +164,11 @@ return require("packer").startup(function()
 		},
 		config = [[require("config.neotest")]],
 	}
+-- markdown
+	use {
+		"ellisonleao/glow.nvim",
+		config = function()
+			require("glow").setup({pager = true})
+		end,
+	}
 end)
