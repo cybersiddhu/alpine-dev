@@ -2,14 +2,16 @@
 mafredri/zsh-async
 zsh-users/zsh-completions
 zsh-users/zsh-autosuggestions
+zdharma/fast-syntax-highlighting branch:main
 robbyrussell/oh-my-zsh path:lib/git.zsh
 robbyrussell/oh-my-zsh path:plugins/git
 robbyrussell/oh-my-zsh path:plugins/common-aliases
+robbyrussell/oh-my-zsh path:plugins/web-search
 popstas/zsh-command-time
 djui/alias-tips
 zpm-zsh/autoenv
-
-# theme
-sindresorhus/pure
-zdharma/fast-syntax-highlighting
+junegunn/fzf path:shell
 zsh-users/zsh-history-substring-search
+DarrinTisdale/zsh-aliases-exa
+jsporna/terraform-zsh-plugin
+
