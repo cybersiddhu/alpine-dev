@@ -76,60 +76,6 @@ let
         sha512 = "YuGopBq3ke25BVSiS6fgF49Ul9gH1x70Bcr6bqRLjWCkcX8Hre1/5+z+IiWOIerRMSSEfGZVB9z9kyq7wVs9YA==";
       };
     };
-    "@commitlint/config-validator-17.1.0" = {
-      name = "_at_commitlint_slash_config-validator";
-      packageName = "@commitlint/config-validator";
-      version = "17.1.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@commitlint/config-validator/-/config-validator-17.1.0.tgz";
-        sha512 = "Q1rRRSU09ngrTgeTXHq6ePJs2KrI+axPTgkNYDWSJIuS1Op4w3J30vUfSXjwn5YEJHklK3fSqWNHmBhmTR7Vdg==";
-      };
-    };
-    "@commitlint/execute-rule-17.0.0" = {
-      name = "_at_commitlint_slash_execute-rule";
-      packageName = "@commitlint/execute-rule";
-      version = "17.0.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@commitlint/execute-rule/-/execute-rule-17.0.0.tgz";
-        sha512 = "nVjL/w/zuqjCqSJm8UfpNaw66V9WzuJtQvEnCrK4jDw6qKTmZB+1JQ8m6BQVZbNBcwfYdDNKnhIhqI0Rk7lgpQ==";
-      };
-    };
-    "@commitlint/load-17.1.2" = {
-      name = "_at_commitlint_slash_load";
-      packageName = "@commitlint/load";
-      version = "17.1.2";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@commitlint/load/-/load-17.1.2.tgz";
-        sha512 = "sk2p/jFYAWLChIfOIp/MGSIn/WzZ0vkc3afw+l4X8hGEYkvDe4gQUUAVxjl/6xMRn0HgnSLMZ04xXh5pkTsmgg==";
-      };
-    };
-    "@commitlint/resolve-extends-17.1.0" = {
-      name = "_at_commitlint_slash_resolve-extends";
-      packageName = "@commitlint/resolve-extends";
-      version = "17.1.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@commitlint/resolve-extends/-/resolve-extends-17.1.0.tgz";
-        sha512 = "jqKm00LJ59T0O8O4bH4oMa4XyJVEOK4GzH8Qye9XKji+Q1FxhZznxMV/bDLyYkzbTodBt9sL0WLql8wMtRTbqQ==";
-      };
-    };
-    "@commitlint/types-17.0.0" = {
-      name = "_at_commitlint_slash_types";
-      packageName = "@commitlint/types";
-      version = "17.0.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@commitlint/types/-/types-17.0.0.tgz";
-        sha512 = "hBAw6U+SkAT5h47zDMeOu3HSiD0SODw4Aq7rRNh1ceUmL7GyLKYhPbUvlRWqZ65XjBLPHZhFyQlRaPNz8qvUyQ==";
-      };
-    };
-    "@cspotcode/source-map-support-0.8.1" = {
-      name = "_at_cspotcode_slash_source-map-support";
-      packageName = "@cspotcode/source-map-support";
-      version = "0.8.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz";
-        sha512 = "IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==";
-      };
-    };
     "@endemolshinegroup/cosmiconfig-typescript-loader-3.0.2" = {
       name = "_at_endemolshinegroup_slash_cosmiconfig-typescript-loader";
       packageName = "@endemolshinegroup/cosmiconfig-typescript-loader";
@@ -292,33 +238,6 @@ let
         sha512 = "trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==";
       };
     };
-    "@jridgewell/resolve-uri-3.1.0" = {
-      name = "_at_jridgewell_slash_resolve-uri";
-      packageName = "@jridgewell/resolve-uri";
-      version = "3.1.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.0.tgz";
-        sha512 = "F2msla3tad+Mfht5cJq7LSXcdudKTWCVYUgw6pLFOOHSTtZlj6SWNYAp+AhuqLmWdBO2X5hPrLcu8cVP8fy28w==";
-      };
-    };
-    "@jridgewell/sourcemap-codec-1.4.14" = {
-      name = "_at_jridgewell_slash_sourcemap-codec";
-      packageName = "@jridgewell/sourcemap-codec";
-      version = "1.4.14";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.4.14.tgz";
-        sha512 = "XPSJHWmi394fuUuzDnGz1wiKqWfo1yXecHQMRf2l6hztTO+nPru658AyDngaBe7isIxEkRsPR3FZh+s7iVa4Uw==";
-      };
-    };
-    "@jridgewell/trace-mapping-0.3.9" = {
-      name = "_at_jridgewell_slash_trace-mapping";
-      packageName = "@jridgewell/trace-mapping";
-      version = "0.3.9";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.9.tgz";
-        sha512 = "3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==";
-      };
-    };
     "@nodelib/fs.scandir-2.1.5" = {
       name = "_at_nodelib_slash_fs.scandir";
       packageName = "@nodelib/fs.scandir";
@@ -371,51 +290,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@peculiar/webcrypto/-/webcrypto-1.4.0.tgz";
         sha512 = "U58N44b2m3OuTgpmKgf0LPDOmP3bhwNz01vAnj1mBwxBASRhptWYK+M3zG+HBkDqGQM+bFsoIihTW8MdmPXEqg==";
-      };
-    };
-    "@tsconfig/node10-1.0.9" = {
-      name = "_at_tsconfig_slash_node10";
-      packageName = "@tsconfig/node10";
-      version = "1.0.9";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@tsconfig/node10/-/node10-1.0.9.tgz";
-        sha512 = "jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==";
-      };
-    };
-    "@tsconfig/node12-1.0.11" = {
-      name = "_at_tsconfig_slash_node12";
-      packageName = "@tsconfig/node12";
-      version = "1.0.11";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@tsconfig/node12/-/node12-1.0.11.tgz";
-        sha512 = "cqefuRsh12pWyGsIoBKJA9luFu3mRxCA+ORZvA4ktLSzIuCUtWVxGIuXigEwO5/ywWFMZ2QEGKWvkZG1zDMTag==";
-      };
-    };
-    "@tsconfig/node14-1.0.3" = {
-      name = "_at_tsconfig_slash_node14";
-      packageName = "@tsconfig/node14";
-      version = "1.0.3";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@tsconfig/node14/-/node14-1.0.3.tgz";
-        sha512 = "ysT8mhdixWK6Hw3i1V2AeRqZ5WfXg1G43mqoYlM2nc6388Fq5jcXyr5mRsqViLx/GJYdoL0bfXD8nmF+Zn/Iow==";
-      };
-    };
-    "@tsconfig/node16-1.0.3" = {
-      name = "_at_tsconfig_slash_node16";
-      packageName = "@tsconfig/node16";
-      version = "1.0.3";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.3.tgz";
-        sha512 = "yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==";
-      };
-    };
-    "@types/node-14.18.29" = {
-      name = "_at_types_slash_node";
-      packageName = "@types/node";
-      version = "14.18.29";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-14.18.29.tgz";
-        sha512 = "LhF+9fbIX4iPzhsRLpK5H7iPdvW8L4IwGciXQIOEcuF62+9nw/VQVsOViAOOGxY3OlOKGLFv0sWwJXdwQeTn6A==";
       };
     };
     "@types/node-18.7.18" = {
@@ -479,15 +353,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/acorn-jsx/-/acorn-jsx-5.3.2.tgz";
         sha512 = "rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==";
-      };
-    };
-    "acorn-walk-8.2.0" = {
-      name = "acorn-walk";
-      packageName = "acorn-walk";
-      version = "8.2.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/acorn-walk/-/acorn-walk-8.2.0.tgz";
-        sha512 = "k+iyHEuPgSw6SbuDpGQM+06HQUa04DZ3o+F6CSzXMvvI5KMvnaEqXe+YVe555R9nn6GPt404fos4wcgpw12SDA==";
       };
     };
     "ajv-6.12.6" = {
@@ -859,15 +724,6 @@ let
         sha512 = "H/2gurFWVi7xXvCyvsWRLCMekl4tITJcX0QEsDMpzxtuxDyM59xLatYNg4s/k9AA/HdtCYfj2su8mgA0GSDLDA==";
       };
     };
-    "cosmiconfig-typescript-loader-4.0.0" = {
-      name = "cosmiconfig-typescript-loader";
-      packageName = "cosmiconfig-typescript-loader";
-      version = "4.0.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/cosmiconfig-typescript-loader/-/cosmiconfig-typescript-loader-4.0.0.tgz";
-        sha512 = "cVpucSc2Tf+VPwCCR7SZzmQTQkPbkk4O01yXsYqXBIbjE1bhwqSyAgYQkRK1un4i0OPziTleqFhdkmOc4RQ/9g==";
-      };
-    };
     "create-require-1.1.1" = {
       name = "create-require";
       packageName = "create-require";
@@ -1003,15 +859,6 @@ let
         sha512 = "k770mVWaCm3KbyOSPFizP6WB2ucZjfAv8aun4UsKl+IivowK7ItwBixNbziBjN05yNpvCL1/IxBdZiSz6KQIvA==";
       };
     };
-    "dockerfile-language-server-nodejs-0.9.0" = {
-      name = "dockerfile-language-server-nodejs";
-      packageName = "dockerfile-language-server-nodejs";
-      version = "0.9.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/dockerfile-language-server-nodejs/-/dockerfile-language-server-nodejs-0.9.0.tgz";
-        sha512 = "QPWcUxbbNTaWaRQrJKUBmCXI6iE8l7f81bCVaZizCIkVg4py/4o2mho+AKlLUsZcCml5ss8MkJ257SFV2BZWCg==";
-      };
-    };
     "dockerfile-language-service-0.9.0" = {
       name = "dockerfile-language-service";
       packageName = "dockerfile-language-service";
@@ -1100,15 +947,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz";
         sha512 = "TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==";
-      };
-    };
-    "eslint-8.23.1" = {
-      name = "eslint";
-      packageName = "eslint";
-      version = "8.23.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/eslint/-/eslint-8.23.1.tgz";
-        sha512 = "w7C1IXCc6fNqjpuYd0yPlcTKKmHlHHktRkzmBPZ+7cvNBQuiNjx0xaMTjAJGCafJhQkrFJooREv0CtrVzmHwqg==";
       };
     };
     "eslint-scope-7.1.1" = {
@@ -1453,15 +1291,6 @@ let
         sha512 = "XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==";
       };
     };
-    "global-dirs-0.1.1" = {
-      name = "global-dirs";
-      packageName = "global-dirs";
-      version = "0.1.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/global-dirs/-/global-dirs-0.1.1.tgz";
-        sha512 = "NknMLn7F2J7aflwFOlGdNIuCDpN3VGoSoB+aap3KABFWbHVn1TCgFC+np23J8W2BiZbjfEw3BFBycSMv1AFblg==";
-      };
-    };
     "global-modules-1.0.0" = {
       name = "global-modules";
       packageName = "global-modules";
@@ -1534,15 +1363,6 @@ let
         sha512 = "APffigZ/l2me6soek+Yq5Us3HBwmfw4vns4QoqsTePXkK3knVO8rn0uAC6PmTyglb1pmFFPbYaRIzW4wmcnnGQ==";
       };
     };
-    "graphql-language-service-cli-3.3.4" = {
-      name = "graphql-language-service-cli";
-      packageName = "graphql-language-service-cli";
-      version = "3.3.4";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/graphql-language-service-cli/-/graphql-language-service-cli-3.3.4.tgz";
-        sha512 = "pQ0PeHcFG/848Wx6VcX+EPtKRq7icp6Hftr4Z7tuSpaN98H42g0k/PvFVn7Fpn5NckGuLwsDgZTqPS1G6dlAHw==";
-      };
-    };
     "graphql-language-service-server-2.8.4" = {
       name = "graphql-language-service-server";
       packageName = "graphql-language-service-server";
@@ -1552,13 +1372,13 @@ let
         sha512 = "LCRrTBZHbop/ckKKvzHXnP5RXx24LfsFhv5w00wV1oMdGr7mMZivoMjVmrd1B/9CgBrXew/RjMbQtUjo8MGSfA==";
       };
     };
-    "graphql-ws-5.10.2" = {
+    "graphql-ws-5.11.0" = {
       name = "graphql-ws";
       packageName = "graphql-ws";
-      version = "5.10.2";
+      version = "5.11.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/graphql-ws/-/graphql-ws-5.10.2.tgz";
-        sha512 = "QnLz0hbpTkmp/ATKAA3Tsg9LFZjWtgrLMgxc3W9G+3+rxUtzcYLwQh4YbXELYcpCqo8zdQxmERAtIQSgq75LTw==";
+        url = "https://registry.npmjs.org/graphql-ws/-/graphql-ws-5.11.0.tgz";
+        sha512 = "oAdO0XPMfGaTzo6wntZNlqqjucsjTznlHG5ggYqwHQ45S55HS+3yMUiC9vaGlR+pfo9IOP4c1e+OTnj4x89VDw==";
       };
     };
     "has-flag-3.0.0" = {
@@ -2434,15 +2254,6 @@ let
         sha512 = "qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==";
       };
     };
-    "resolve-global-1.0.0" = {
-      name = "resolve-global";
-      packageName = "resolve-global";
-      version = "1.0.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/resolve-global/-/resolve-global-1.0.0.tgz";
-        sha512 = "zFa12V4OLtT5XUX/Q4VLvTfBf+Ok0SPc1FNGM/z9ctUdiU618qwKpWnd0CHs3+RqROfyEg/DhuHbMWYqcgljEw==";
-      };
-    };
     "restore-cursor-3.1.0" = {
       name = "restore-cursor";
       packageName = "restore-cursor";
@@ -2731,15 +2542,6 @@ let
         sha512 = "N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==";
       };
     };
-    "ts-node-10.9.1" = {
-      name = "ts-node";
-      packageName = "ts-node";
-      version = "10.9.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/ts-node/-/ts-node-10.9.1.tgz";
-        sha512 = "NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==";
-      };
-    };
     "ts-node-9.1.1" = {
       name = "ts-node";
       packageName = "ts-node";
@@ -2812,15 +2614,6 @@ let
         sha512 = "goMHfm00nWPa8UvR/CPSvykqf6dVV8x/dp0c5mFTMTIu0u0FlGWRioyy7Nn0PGAdHxpJZnuO/ut+PpQ8UiHAig==";
       };
     };
-    "typescript-language-server-1.2.0" = {
-      name = "typescript-language-server";
-      packageName = "typescript-language-server";
-      version = "1.2.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/typescript-language-server/-/typescript-language-server-1.2.0.tgz";
-        sha512 = "Ahxko4dKgOY/pGTMdzeVw/NTIZC4z33OqEs7xlR3VEV36IZX12OfJ8uwXSbmTJlCh1QQ12dpQgwUuNvSfbWB4w==";
-      };
-    };
     "undici-5.10.0" = {
       name = "undici";
       packageName = "undici";
@@ -2873,15 +2666,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz";
         sha512 = "EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==";
-      };
-    };
-    "v8-compile-cache-lib-3.0.1" = {
-      name = "v8-compile-cache-lib";
-      packageName = "v8-compile-cache-lib";
-      version = "3.0.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/v8-compile-cache-lib/-/v8-compile-cache-lib-3.0.1.tgz";
-        sha512 = "wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==";
       };
     };
     "value-or-promise-1.0.11" = {
@@ -2945,15 +2729,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/vscode-jsonrpc/-/vscode-jsonrpc-8.0.2.tgz";
         sha512 = "RY7HwI/ydoC1Wwg4gJ3y6LpU9FJRZAUnTYMXthqhFXXu77ErDd/xkREpGuk4MyYkk4a+XDWAMqe0S3KkelYQEQ==";
-      };
-    };
-    "vscode-langservers-extracted-4.4.0" = {
-      name = "vscode-langservers-extracted";
-      packageName = "vscode-langservers-extracted";
-      version = "4.4.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/vscode-langservers-extracted/-/vscode-langservers-extracted-4.4.0.tgz";
-        sha512 = "sWXDFmAvXMUhF5E+6v4e77SwhVPSvdLxGGfkOz15LmAsfKoamKMnW7aARnu6mRWOzqz3hKJqVZN4hnCpdvtLKg==";
       };
     };
     "vscode-languageserver-7.0.0" = {
@@ -3199,15 +2974,6 @@ let
         sha512 = "5kGSQrzDyjCk0BLuFfjkoUE9vYcoyrwZIZ+GnpOSM9vhkvPjItYiWJ1jpRSo0aU4QmsoNrFwDT4O7XS2UGcBQg==";
       };
     };
-    "yaml-language-server-1.10.0" = {
-      name = "yaml-language-server";
-      packageName = "yaml-language-server";
-      version = "1.10.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/yaml-language-server/-/yaml-language-server-1.10.0.tgz";
-        sha512 = "bGE5lObc8PBXDQ8QKEWUVFw85/g1R3TVbtLPswNY+YXR2fLb1RF6PW3CKNI0gshXTSKleywhAyORrXi7fjwpzg==";
-      };
-    };
     "yargs-16.2.0" = {
       name = "yargs";
       packageName = "yargs";
@@ -3254,178 +3020,78 @@ let
       };
     };
   };
-  args = {
-    name = "golang";
-    packageName = "golang";
-    version = "1.0.0";
-    src = ./.;
+in
+{
+  dockerfile-language-server-nodejs = nodeEnv.buildNodePackage {
+    name = "dockerfile-language-server-nodejs";
+    packageName = "dockerfile-language-server-nodejs";
+    version = "0.9.0";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/dockerfile-language-server-nodejs/-/dockerfile-language-server-nodejs-0.9.0.tgz";
+      sha512 = "QPWcUxbbNTaWaRQrJKUBmCXI6iE8l7f81bCVaZizCIkVg4py/4o2mho+AKlLUsZcCml5ss8MkJ257SFV2BZWCg==";
+    };
     dependencies = [
-      sources."@ardatan/sync-fetch-0.0.1"
-      sources."@babel/code-frame-7.18.6"
-      sources."@babel/helper-string-parser-7.18.10"
-      sources."@babel/helper-validator-identifier-7.19.1"
-      (sources."@babel/highlight-7.18.6" // {
+      sources."dockerfile-ast-0.4.2"
+      sources."dockerfile-language-service-0.9.0"
+      sources."dockerfile-utils-0.10.0"
+      sources."vscode-jsonrpc-8.0.2"
+      sources."vscode-languageserver-8.0.2"
+      (sources."vscode-languageserver-protocol-3.17.2" // {
         dependencies = [
-          sources."ansi-styles-3.2.1"
-          sources."chalk-2.4.2"
-          sources."color-convert-1.9.3"
-          sources."color-name-1.1.3"
-          sources."escape-string-regexp-1.0.5"
-          sources."has-flag-3.0.0"
-          sources."supports-color-5.5.0"
+          sources."vscode-languageserver-types-3.17.2"
         ];
       })
-      sources."@babel/parser-7.19.1"
-      sources."@babel/polyfill-7.12.1"
-      sources."@babel/types-7.19.0"
-      (sources."@commitlint/config-validator-17.1.0" // {
-        dependencies = [
-          sources."ajv-8.11.0"
-          sources."json-schema-traverse-1.0.0"
-        ];
-      })
-      sources."@commitlint/execute-rule-17.0.0"
-      (sources."@commitlint/load-17.1.2" // {
-        dependencies = [
-          sources."@types/node-14.18.29"
-          sources."resolve-from-5.0.0"
-          sources."ts-node-10.9.1"
-        ];
-      })
-      (sources."@commitlint/resolve-extends-17.1.0" // {
-        dependencies = [
-          sources."resolve-from-5.0.0"
-        ];
-      })
-      sources."@commitlint/types-17.0.0"
-      sources."@cspotcode/source-map-support-0.8.1"
-      sources."@endemolshinegroup/cosmiconfig-typescript-loader-3.0.2"
+      sources."vscode-languageserver-textdocument-1.0.7"
+      sources."vscode-languageserver-types-3.17.0-next.3"
+    ];
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "A language server for Dockerfiles powered by NodeJS, TypeScript, and VSCode technologies.";
+      homepage = "https://github.com/rcjsuen/dockerfile-language-server-nodejs#readme";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
+  eslint = nodeEnv.buildNodePackage {
+    name = "eslint";
+    packageName = "eslint";
+    version = "8.23.1";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/eslint/-/eslint-8.23.1.tgz";
+      sha512 = "w7C1IXCc6fNqjpuYd0yPlcTKKmHlHHktRkzmBPZ+7cvNBQuiNjx0xaMTjAJGCafJhQkrFJooREv0CtrVzmHwqg==";
+    };
+    dependencies = [
       sources."@eslint/eslintrc-1.3.2"
-      sources."@graphql-tools/batch-execute-8.5.6"
-      sources."@graphql-tools/delegate-9.0.6"
-      sources."@graphql-tools/graphql-file-loader-7.5.5"
-      (sources."@graphql-tools/import-6.7.6" // {
-        dependencies = [
-          sources."resolve-from-5.0.0"
-        ];
-      })
-      sources."@graphql-tools/json-file-loader-7.4.6"
-      sources."@graphql-tools/load-7.7.7"
-      sources."@graphql-tools/merge-8.3.6"
-      sources."@graphql-tools/schema-9.0.4"
-      sources."@graphql-tools/url-loader-7.16.2"
-      sources."@graphql-tools/utils-8.12.0"
-      sources."@graphql-tools/wrap-9.2.1"
       sources."@humanwhocodes/config-array-0.10.4"
       sources."@humanwhocodes/gitignore-to-minimatch-1.0.2"
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-1.2.1"
-      sources."@iarna/toml-2.2.5"
-      sources."@jridgewell/resolve-uri-3.1.0"
-      sources."@jridgewell/sourcemap-codec-1.4.14"
-      sources."@jridgewell/trace-mapping-0.3.9"
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
-      sources."@peculiar/asn1-schema-2.3.0"
-      sources."@peculiar/json-schema-1.1.12"
-      sources."@peculiar/webcrypto-1.4.0"
-      sources."@tsconfig/node10-1.0.9"
-      sources."@tsconfig/node12-1.0.11"
-      sources."@tsconfig/node14-1.0.3"
-      sources."@tsconfig/node16-1.0.3"
-      sources."@types/node-18.7.18"
-      sources."@types/parse-json-4.0.0"
-      sources."@types/ws-8.5.3"
-      sources."@whatwg-node/fetch-0.4.3"
-      sources."abort-controller-3.0.0"
       sources."acorn-8.8.0"
       sources."acorn-jsx-5.3.2"
-      sources."acorn-walk-8.2.0"
       sources."ajv-6.12.6"
-      (sources."ansi-escapes-4.3.2" // {
-        dependencies = [
-          sources."type-fest-0.21.3"
-        ];
-      })
       sources."ansi-regex-5.0.1"
       sources."ansi-styles-4.3.0"
-      sources."arg-4.1.3"
       sources."argparse-2.0.1"
       sources."array-union-2.1.0"
-      sources."asn1js-3.0.5"
-      sources."at-least-node-1.0.0"
       sources."balanced-match-1.0.2"
-      sources."base64-js-1.5.1"
-      sources."bl-4.1.0"
       sources."brace-expansion-1.1.11"
       sources."braces-3.0.2"
-      sources."buffer-5.7.1"
-      sources."buffer-from-1.1.2"
-      sources."busboy-1.6.0"
-      sources."cachedir-2.3.0"
       sources."callsites-3.1.0"
       sources."chalk-4.1.2"
-      sources."chardet-0.7.0"
-      sources."cli-cursor-3.1.0"
-      sources."cli-spinners-2.7.0"
-      sources."cli-width-3.0.0"
-      sources."cliui-7.0.4"
-      sources."clone-1.0.4"
       sources."color-convert-2.0.1"
       sources."color-name-1.1.4"
-      sources."commander-9.4.0"
-      (sources."commitizen-4.2.5" // {
-        dependencies = [
-          sources."fs-extra-9.1.0"
-        ];
-      })
       sources."concat-map-0.0.1"
-      sources."conventional-commit-types-3.0.0"
-      sources."core-js-2.6.12"
-      sources."cosmiconfig-7.0.1"
-      sources."cosmiconfig-toml-loader-1.0.0"
-      sources."cosmiconfig-typescript-loader-4.0.0"
-      sources."create-require-1.1.1"
       sources."cross-spawn-7.0.3"
-      (sources."crypto-random-string-4.0.0" // {
-        dependencies = [
-          sources."type-fest-1.4.0"
-        ];
-      })
-      (sources."cz-conventional-changelog-3.3.0" // {
-        dependencies = [
-          sources."ansi-styles-3.2.1"
-          sources."chalk-2.4.2"
-          sources."color-convert-1.9.3"
-          sources."color-name-1.1.3"
-          sources."escape-string-regexp-1.0.5"
-          sources."has-flag-3.0.0"
-          sources."supports-color-5.5.0"
-        ];
-      })
-      sources."dataloader-2.1.0"
       sources."debug-4.3.4"
-      sources."dedent-0.7.0"
       sources."deep-is-0.1.4"
-      sources."deepmerge-4.2.2"
-      sources."defaults-1.0.3"
-      sources."detect-file-1.0.0"
-      sources."detect-indent-6.1.0"
-      sources."diff-4.0.2"
       sources."dir-glob-3.0.1"
-      sources."dockerfile-ast-0.4.2"
-      sources."dockerfile-language-server-nodejs-0.9.0"
-      sources."dockerfile-language-service-0.9.0"
-      sources."dockerfile-utils-0.10.0"
       sources."doctrine-3.0.0"
-      sources."dotenv-8.2.0"
-      sources."dset-3.1.2"
-      sources."emoji-regex-8.0.0"
-      sources."error-ex-1.3.2"
-      sources."escalade-3.1.1"
       sources."escape-string-regexp-4.0.0"
-      sources."eslint-8.23.1"
       sources."eslint-scope-7.1.1"
       (sources."eslint-utils-3.0.0" // {
         dependencies = [
@@ -3438,11 +3104,6 @@ let
       sources."esrecurse-4.3.0"
       sources."estraverse-5.3.0"
       sources."esutils-2.0.3"
-      sources."event-target-polyfill-0.0.3"
-      sources."event-target-shim-5.0.1"
-      sources."expand-tilde-2.0.2"
-      sources."external-editor-3.1.0"
-      sources."extract-files-11.0.0"
       sources."fast-deep-equal-3.1.3"
       (sources."fast-glob-3.2.12" // {
         dependencies = [
@@ -3452,268 +3113,260 @@ let
       sources."fast-json-stable-stringify-2.1.0"
       sources."fast-levenshtein-2.0.6"
       sources."fastq-1.13.0"
-      (sources."figures-3.2.0" // {
-        dependencies = [
-          sources."escape-string-regexp-1.0.5"
-        ];
-      })
       sources."file-entry-cache-6.0.1"
       sources."fill-range-7.0.1"
-      sources."find-node-modules-2.1.3"
-      sources."find-root-1.1.0"
       sources."find-up-5.0.0"
-      sources."findup-sync-4.0.0"
       sources."flat-cache-3.0.4"
       sources."flatted-3.2.7"
+      sources."fs.realpath-1.0.0"
+      sources."glob-7.2.3"
+      sources."glob-parent-6.0.2"
+      sources."globals-13.17.0"
+      sources."globby-11.1.0"
+      sources."grapheme-splitter-1.0.4"
+      sources."has-flag-4.0.0"
+      sources."ignore-5.2.0"
+      sources."import-fresh-3.3.0"
+      sources."imurmurhash-0.1.4"
+      sources."inflight-1.0.6"
+      sources."inherits-2.0.4"
+      sources."is-extglob-2.1.1"
+      sources."is-glob-4.0.3"
+      sources."is-number-7.0.0"
+      sources."isexe-2.0.0"
+      sources."js-sdsl-4.1.4"
+      sources."js-yaml-4.1.0"
+      sources."json-schema-traverse-0.4.1"
+      sources."json-stable-stringify-without-jsonify-1.0.1"
+      sources."levn-0.4.1"
+      sources."locate-path-6.0.0"
+      sources."lodash.merge-4.6.2"
+      sources."merge2-1.4.1"
+      sources."micromatch-4.0.5"
+      sources."minimatch-3.1.2"
+      sources."ms-2.1.2"
+      sources."natural-compare-1.4.0"
+      sources."once-1.4.0"
+      sources."optionator-0.9.1"
+      sources."p-limit-3.1.0"
+      sources."p-locate-5.0.0"
+      sources."parent-module-1.0.1"
+      sources."path-exists-4.0.0"
+      sources."path-is-absolute-1.0.1"
+      sources."path-key-3.1.1"
+      sources."path-type-4.0.0"
+      sources."picomatch-2.3.1"
+      sources."prelude-ls-1.2.1"
+      sources."punycode-2.1.1"
+      sources."queue-microtask-1.2.3"
+      sources."regexpp-3.2.0"
+      sources."resolve-from-4.0.0"
+      sources."reusify-1.0.4"
+      sources."rimraf-3.0.2"
+      sources."run-parallel-1.2.0"
+      sources."shebang-command-2.0.0"
+      sources."shebang-regex-3.0.0"
+      sources."slash-3.0.0"
+      sources."strip-ansi-6.0.1"
+      sources."strip-json-comments-3.1.1"
+      sources."supports-color-7.2.0"
+      sources."text-table-0.2.0"
+      sources."to-regex-range-5.0.1"
+      sources."type-check-0.4.0"
+      sources."type-fest-0.20.2"
+      sources."uri-js-4.4.1"
+      sources."which-2.0.2"
+      sources."word-wrap-1.2.3"
+      sources."wrappy-1.0.2"
+      sources."yocto-queue-0.1.0"
+    ];
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "An AST-based pattern checker for JavaScript.";
+      homepage = "https://eslint.org";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
+  graphql-language-service-cli = nodeEnv.buildNodePackage {
+    name = "graphql-language-service-cli";
+    packageName = "graphql-language-service-cli";
+    version = "3.3.3";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/graphql-language-service-cli/-/graphql-language-service-cli-3.3.3.tgz";
+      sha512 = "wmfRKyHc9tlJSU6YupyJnLjZ0KdCQSxtkrb2eUanY55Vd4rV4O4VV/woMHVYOXqBNP8wbhZ19m9g6iFMJjXwJg==";
+    };
+    dependencies = [
+      sources."@ardatan/sync-fetch-0.0.1"
+      sources."@babel/code-frame-7.18.6"
+      sources."@babel/helper-string-parser-7.18.10"
+      sources."@babel/helper-validator-identifier-7.19.1"
+      sources."@babel/highlight-7.18.6"
+      sources."@babel/parser-7.19.1"
+      sources."@babel/polyfill-7.12.1"
+      sources."@babel/types-7.19.0"
+      sources."@endemolshinegroup/cosmiconfig-typescript-loader-3.0.2"
+      sources."@graphql-tools/batch-execute-8.5.6"
+      sources."@graphql-tools/delegate-9.0.6"
+      sources."@graphql-tools/graphql-file-loader-7.5.5"
+      sources."@graphql-tools/import-6.7.6"
+      sources."@graphql-tools/json-file-loader-7.4.6"
+      sources."@graphql-tools/load-7.7.7"
+      sources."@graphql-tools/merge-8.3.6"
+      sources."@graphql-tools/schema-9.0.4"
+      sources."@graphql-tools/url-loader-7.16.2"
+      sources."@graphql-tools/utils-8.12.0"
+      sources."@graphql-tools/wrap-9.2.1"
+      sources."@iarna/toml-2.2.5"
+      sources."@nodelib/fs.scandir-2.1.5"
+      sources."@nodelib/fs.stat-2.0.5"
+      sources."@nodelib/fs.walk-1.2.8"
+      sources."@peculiar/asn1-schema-2.3.0"
+      sources."@peculiar/json-schema-1.1.12"
+      sources."@peculiar/webcrypto-1.4.0"
+      sources."@types/node-18.7.18"
+      sources."@types/parse-json-4.0.0"
+      sources."@types/ws-8.5.3"
+      sources."@whatwg-node/fetch-0.4.3"
+      sources."abort-controller-3.0.0"
+      sources."ansi-regex-5.0.1"
+      sources."ansi-styles-3.2.1"
+      sources."arg-4.1.3"
+      sources."array-union-2.1.0"
+      sources."asn1js-3.0.5"
+      sources."balanced-match-1.0.2"
+      sources."brace-expansion-1.1.11"
+      sources."braces-3.0.2"
+      sources."buffer-from-1.1.2"
+      sources."busboy-1.6.0"
+      sources."callsites-3.1.0"
+      sources."chalk-2.4.2"
+      sources."cliui-7.0.4"
+      sources."color-convert-1.9.3"
+      sources."color-name-1.1.3"
+      sources."concat-map-0.0.1"
+      sources."core-js-2.6.12"
+      sources."cosmiconfig-7.0.1"
+      sources."cosmiconfig-toml-loader-1.0.0"
+      sources."create-require-1.1.1"
+      sources."dataloader-2.1.0"
+      sources."diff-4.0.2"
+      sources."dir-glob-3.0.1"
+      sources."dotenv-8.2.0"
+      sources."dset-3.1.2"
+      sources."emoji-regex-8.0.0"
+      sources."error-ex-1.3.2"
+      sources."escalade-3.1.1"
+      sources."escape-string-regexp-1.0.5"
+      sources."event-target-polyfill-0.0.3"
+      sources."event-target-shim-5.0.1"
+      sources."extract-files-11.0.0"
+      sources."fast-glob-3.2.12"
+      sources."fastq-1.13.0"
+      sources."fill-range-7.0.1"
       sources."form-data-encoder-1.7.2"
       (sources."formdata-node-4.4.1" // {
         dependencies = [
           sources."web-streams-polyfill-4.0.0-beta.3"
         ];
       })
-      sources."fs-extra-10.1.0"
       sources."fs.realpath-1.0.0"
       sources."get-caller-file-2.0.5"
       sources."glob-7.2.3"
-      sources."glob-parent-6.0.2"
-      sources."global-dirs-0.1.1"
-      sources."global-modules-1.0.0"
-      (sources."global-prefix-1.0.2" // {
-        dependencies = [
-          sources."which-1.3.1"
-        ];
-      })
-      sources."globals-13.17.0"
+      sources."glob-parent-5.1.2"
       sources."globby-11.1.0"
-      sources."graceful-fs-4.2.10"
-      sources."grapheme-splitter-1.0.4"
       (sources."graphql-config-4.3.0" // {
         dependencies = [
           sources."minimatch-4.2.1"
         ];
       })
-      (sources."graphql-language-service-5.1.0" // {
+      sources."graphql-language-service-5.1.0"
+      sources."graphql-language-service-server-2.8.4"
+      sources."graphql-ws-5.11.0"
+      sources."has-flag-3.0.0"
+      sources."ignore-5.2.0"
+      (sources."import-fresh-3.3.0" // {
         dependencies = [
-          sources."vscode-languageserver-types-3.17.2"
+          sources."resolve-from-4.0.0"
         ];
       })
-      sources."graphql-language-service-cli-3.3.4"
-      sources."graphql-language-service-server-2.8.4"
-      sources."graphql-ws-5.10.2"
-      sources."has-flag-4.0.0"
-      sources."homedir-polyfill-1.0.3"
-      sources."iconv-lite-0.4.24"
-      sources."ieee754-1.2.1"
-      sources."ignore-5.2.0"
-      sources."import-fresh-3.3.0"
-      sources."imurmurhash-0.1.4"
       sources."inflight-1.0.6"
       sources."inherits-2.0.4"
-      sources."ini-1.3.8"
-      sources."inquirer-8.2.4"
       sources."is-arrayish-0.2.1"
       sources."is-extglob-2.1.1"
       sources."is-fullwidth-code-point-3.0.0"
       sources."is-glob-4.0.3"
-      sources."is-interactive-1.0.0"
       sources."is-number-7.0.0"
-      sources."is-stream-3.0.0"
-      sources."is-unicode-supported-0.1.0"
-      sources."is-utf8-0.2.1"
-      sources."is-windows-1.0.2"
-      sources."isexe-2.0.0"
       sources."isomorphic-ws-5.0.0"
-      sources."js-sdsl-4.1.4"
       sources."js-tokens-4.0.0"
-      sources."js-yaml-4.1.0"
       sources."json-parse-even-better-errors-2.3.1"
-      sources."json-schema-traverse-0.4.1"
-      sources."json-stable-stringify-without-jsonify-1.0.1"
-      sources."jsonc-parser-3.2.0"
-      sources."jsonfile-6.1.0"
-      sources."levn-0.4.1"
       sources."lines-and-columns-1.2.4"
-      sources."locate-path-6.0.0"
-      sources."lodash-4.17.21"
       sources."lodash.get-4.4.2"
-      sources."lodash.map-4.6.0"
-      sources."lodash.merge-4.6.2"
-      sources."log-symbols-4.1.0"
-      sources."longest-2.0.1"
-      sources."lru-cache-6.0.0"
       sources."make-error-1.3.6"
-      sources."merge-2.1.1"
       sources."merge2-1.4.1"
       sources."meros-1.2.0"
       sources."micromatch-4.0.5"
-      sources."mimic-fn-2.1.0"
       sources."minimatch-3.1.2"
-      sources."minimist-1.2.6"
       sources."mkdirp-1.0.4"
-      sources."ms-2.1.2"
-      sources."mute-stream-0.0.8"
-      sources."natural-compare-1.4.0"
       sources."node-abort-controller-3.0.1"
       sources."node-domexception-1.0.0"
       sources."node-fetch-2.6.7"
       sources."normalize-path-2.1.1"
       sources."nullthrows-1.1.1"
       sources."once-1.4.0"
-      sources."onetime-5.1.2"
-      sources."optionator-0.9.1"
-      sources."ora-5.4.1"
-      sources."os-tmpdir-1.0.2"
-      sources."p-debounce-4.0.0"
       sources."p-limit-3.1.0"
-      sources."p-locate-5.0.0"
       sources."parent-module-1.0.1"
       sources."parse-json-5.2.0"
-      sources."parse-passwd-1.0.0"
-      sources."path-exists-4.0.0"
       sources."path-is-absolute-1.0.1"
-      sources."path-key-3.1.1"
       sources."path-type-4.0.0"
       sources."picomatch-2.3.1"
-      (sources."pkg-up-4.0.0" // {
-        dependencies = [
-          sources."find-up-6.3.0"
-          sources."locate-path-7.1.1"
-          sources."p-limit-4.0.0"
-          sources."p-locate-6.0.0"
-          sources."path-exists-5.0.0"
-          sources."yocto-queue-1.0.0"
-        ];
-      })
-      sources."prelude-ls-1.2.1"
-      sources."punycode-2.1.1"
       sources."pvtsutils-1.3.2"
       sources."pvutils-1.1.3"
       sources."queue-microtask-1.2.3"
-      sources."readable-stream-3.6.0"
       sources."regenerator-runtime-0.13.9"
-      sources."regexpp-3.2.0"
       sources."remove-trailing-separator-1.1.0"
-      sources."request-light-0.5.8"
       sources."require-directory-2.1.1"
-      sources."require-from-string-2.0.2"
-      sources."resolve-dir-1.0.1"
-      sources."resolve-from-4.0.0"
-      sources."resolve-global-1.0.0"
-      sources."restore-cursor-3.1.0"
+      sources."resolve-from-5.0.0"
       sources."reusify-1.0.4"
-      sources."rimraf-3.0.2"
-      sources."run-async-2.4.1"
       sources."run-parallel-1.2.0"
-      sources."rxjs-7.5.6"
-      sources."safe-buffer-5.2.1"
-      sources."safer-buffer-2.1.2"
-      sources."semver-7.3.7"
-      sources."shebang-command-2.0.0"
-      sources."shebang-regex-3.0.0"
-      sources."signal-exit-3.0.7"
       sources."slash-3.0.0"
       sources."source-map-0.6.1"
       sources."source-map-support-0.5.21"
       sources."streamsearch-1.1.0"
       sources."string-env-interpolation-1.0.1"
       sources."string-width-4.2.3"
-      sources."string_decoder-1.3.0"
       sources."strip-ansi-6.0.1"
-      sources."strip-bom-4.0.0"
-      sources."strip-json-comments-3.1.1"
-      sources."supports-color-7.2.0"
-      sources."temp-dir-2.0.0"
-      (sources."tempy-3.0.0" // {
-        dependencies = [
-          sources."type-fest-2.19.0"
-        ];
-      })
-      sources."text-table-0.2.0"
-      sources."through-2.3.8"
-      sources."tmp-0.0.33"
+      sources."supports-color-5.5.0"
       sources."to-fast-properties-2.0.0"
       sources."to-regex-range-5.0.1"
       sources."tr46-0.0.3"
       sources."ts-node-9.1.1"
       sources."tslib-2.4.0"
-      sources."type-check-0.4.0"
-      sources."type-fest-0.20.2"
-      sources."typescript-4.8.3"
-      sources."typescript-language-server-1.2.0"
       sources."undici-5.10.0"
-      sources."unique-string-3.0.0"
-      sources."universalify-2.0.0"
       sources."unixify-1.0.0"
-      sources."uri-js-4.4.1"
-      sources."util-deprecate-1.0.2"
-      sources."v8-compile-cache-lib-3.0.1"
       sources."value-or-promise-1.0.11"
-      (sources."vscode-css-languageservice-6.1.1" // {
-        dependencies = [
-          sources."vscode-languageserver-types-3.17.2"
-        ];
-      })
-      (sources."vscode-html-languageservice-5.0.2" // {
-        dependencies = [
-          sources."vscode-languageserver-types-3.17.2"
-        ];
-      })
-      (sources."vscode-json-languageservice-5.1.0" // {
-        dependencies = [
-          sources."vscode-languageserver-types-3.17.2"
-        ];
-      })
       sources."vscode-jsonrpc-8.0.2"
-      (sources."vscode-langservers-extracted-4.4.0" // {
-        dependencies = [
-          sources."core-js-3.25.1"
-          sources."vscode-languageserver-types-3.17.2"
-        ];
-      })
       sources."vscode-languageserver-8.0.2"
-      (sources."vscode-languageserver-protocol-3.17.2" // {
-        dependencies = [
-          sources."vscode-languageserver-types-3.17.2"
-        ];
-      })
-      sources."vscode-languageserver-textdocument-1.0.7"
-      sources."vscode-languageserver-types-3.17.0-next.3"
-      (sources."vscode-markdown-languageservice-0.0.0" // {
-        dependencies = [
-          sources."vscode-languageserver-types-3.17.2"
-        ];
-      })
-      sources."vscode-nls-5.2.0"
+      sources."vscode-languageserver-protocol-3.17.2"
+      sources."vscode-languageserver-types-3.17.2"
       sources."vscode-uri-3.0.4"
-      sources."wcwidth-1.0.1"
       sources."web-streams-polyfill-3.2.1"
       sources."webcrypto-core-1.7.5"
       sources."webidl-conversions-3.0.1"
       sources."whatwg-url-5.0.0"
-      sources."which-2.0.2"
-      sources."word-wrap-1.2.3"
-      sources."wrap-ansi-7.0.0"
+      (sources."wrap-ansi-7.0.0" // {
+        dependencies = [
+          sources."ansi-styles-4.3.0"
+          sources."color-convert-2.0.1"
+          sources."color-name-1.1.4"
+        ];
+      })
       sources."wrappy-1.0.2"
       sources."ws-8.8.1"
       sources."y18n-5.0.8"
-      sources."yallist-4.0.0"
       sources."yaml-1.10.2"
-      (sources."yaml-language-server-1.10.0" // {
-        dependencies = [
-          sources."ajv-8.11.0"
-          sources."json-schema-traverse-1.0.0"
-          sources."vscode-json-languageservice-4.1.8"
-          sources."vscode-jsonrpc-6.0.0"
-          sources."vscode-languageserver-7.0.0"
-          (sources."vscode-languageserver-protocol-3.16.0" // {
-            dependencies = [
-              sources."vscode-languageserver-types-3.16.0"
-            ];
-          })
-          sources."vscode-languageserver-types-3.17.2"
-          sources."yaml-2.0.0-11"
-        ];
-      })
       sources."yargs-16.2.0"
       sources."yargs-parser-20.2.9"
       sources."yn-3.1.1"
@@ -3721,30 +3374,455 @@ let
     ];
     buildInputs = globalBuildInputs;
     meta = {
-      description = "manage lsp language server";
+      description = "An interface for building GraphQL language services for IDEs";
+      homepage = "https://github.com/graphql/graphiql/tree/main/packages/graphql-language-service-cli#readme";
       license = "MIT";
     };
-    production = false;
+    production = true;
     bypassCache = true;
     reconstructLock = true;
   };
-in
-{
-  args = args;
-  sources = sources;
-  tarball = nodeEnv.buildNodeSourceDist args;
-  package = nodeEnv.buildNodePackage args;
-  shell = nodeEnv.buildNodeShell args;
-  nodeDependencies = nodeEnv.buildNodeDependencies (lib.overrideExisting args {
-    src = stdenv.mkDerivation {
-      name = args.name + "-package-json";
-      src = nix-gitignore.gitignoreSourcePure [
-        "*"
-        "!package.json"
-        "!package-lock.json"
-      ] args.src;
-      dontBuild = true;
-      installPhase = "mkdir -p $out; cp -r ./* $out;";
+  typescript-language-server = nodeEnv.buildNodePackage {
+    name = "typescript-language-server";
+    packageName = "typescript-language-server";
+    version = "1.2.0";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/typescript-language-server/-/typescript-language-server-1.2.0.tgz";
+      sha512 = "Ahxko4dKgOY/pGTMdzeVw/NTIZC4z33OqEs7xlR3VEV36IZX12OfJ8uwXSbmTJlCh1QQ12dpQgwUuNvSfbWB4w==";
     };
-  });
+    dependencies = [
+      sources."commander-9.4.0"
+      (sources."crypto-random-string-4.0.0" // {
+        dependencies = [
+          sources."type-fest-1.4.0"
+        ];
+      })
+      sources."deepmerge-4.2.2"
+      sources."find-up-6.3.0"
+      sources."fs-extra-10.1.0"
+      sources."graceful-fs-4.2.10"
+      sources."is-stream-3.0.0"
+      sources."isexe-2.0.0"
+      sources."jsonfile-6.1.0"
+      sources."locate-path-7.1.1"
+      sources."lru-cache-6.0.0"
+      sources."p-debounce-4.0.0"
+      sources."p-limit-4.0.0"
+      sources."p-locate-6.0.0"
+      sources."path-exists-5.0.0"
+      sources."pkg-up-4.0.0"
+      sources."semver-7.3.7"
+      sources."temp-dir-2.0.0"
+      sources."tempy-3.0.0"
+      sources."type-fest-2.19.0"
+      sources."unique-string-3.0.0"
+      sources."universalify-2.0.0"
+      sources."vscode-jsonrpc-8.0.2"
+      sources."vscode-languageserver-8.0.2"
+      sources."vscode-languageserver-protocol-3.17.2"
+      sources."vscode-languageserver-textdocument-1.0.7"
+      sources."vscode-languageserver-types-3.17.2"
+      sources."vscode-uri-3.0.4"
+      sources."which-2.0.2"
+      sources."yallist-4.0.0"
+      sources."yocto-queue-1.0.0"
+    ];
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "Language Server Protocol (LSP) implementation for TypeScript using tsserver";
+      license = "Apache-2.0";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
+  vscode-langservers-extracted = nodeEnv.buildNodePackage {
+    name = "vscode-langservers-extracted";
+    packageName = "vscode-langservers-extracted";
+    version = "4.4.0";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/vscode-langservers-extracted/-/vscode-langservers-extracted-4.4.0.tgz";
+      sha512 = "sWXDFmAvXMUhF5E+6v4e77SwhVPSvdLxGGfkOz15LmAsfKoamKMnW7aARnu6mRWOzqz3hKJqVZN4hnCpdvtLKg==";
+    };
+    dependencies = [
+      sources."core-js-3.25.1"
+      sources."jsonc-parser-3.2.0"
+      sources."picomatch-2.3.1"
+      sources."regenerator-runtime-0.13.9"
+      sources."request-light-0.5.8"
+      sources."typescript-4.8.3"
+      sources."vscode-css-languageservice-6.1.1"
+      sources."vscode-html-languageservice-5.0.2"
+      sources."vscode-json-languageservice-5.1.0"
+      sources."vscode-jsonrpc-8.0.2"
+      sources."vscode-languageserver-8.0.2"
+      sources."vscode-languageserver-protocol-3.17.2"
+      sources."vscode-languageserver-textdocument-1.0.7"
+      sources."vscode-languageserver-types-3.17.2"
+      sources."vscode-markdown-languageservice-0.0.0"
+      sources."vscode-nls-5.2.0"
+      sources."vscode-uri-3.0.4"
+    ];
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "HTML/CSS/JSON/ESLint language servers extracted from [vscode](https://github.com/Microsoft/vscode).";
+      homepage = "https://github.com/hrsh7th/vscode-langservers-extracted#readme";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
+  yaml-language-server = nodeEnv.buildNodePackage {
+    name = "yaml-language-server";
+    packageName = "yaml-language-server";
+    version = "1.10.0";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/yaml-language-server/-/yaml-language-server-1.10.0.tgz";
+      sha512 = "bGE5lObc8PBXDQ8QKEWUVFw85/g1R3TVbtLPswNY+YXR2fLb1RF6PW3CKNI0gshXTSKleywhAyORrXi7fjwpzg==";
+    };
+    dependencies = [
+      sources."ajv-8.11.0"
+      sources."fast-deep-equal-3.1.3"
+      sources."json-schema-traverse-1.0.0"
+      sources."jsonc-parser-3.2.0"
+      sources."punycode-2.1.1"
+      sources."request-light-0.5.8"
+      sources."require-from-string-2.0.2"
+      sources."uri-js-4.4.1"
+      sources."vscode-json-languageservice-4.1.8"
+      sources."vscode-jsonrpc-6.0.0"
+      sources."vscode-languageserver-7.0.0"
+      (sources."vscode-languageserver-protocol-3.16.0" // {
+        dependencies = [
+          sources."vscode-languageserver-types-3.16.0"
+        ];
+      })
+      sources."vscode-languageserver-textdocument-1.0.7"
+      sources."vscode-languageserver-types-3.17.2"
+      sources."vscode-nls-5.2.0"
+      sources."vscode-uri-3.0.4"
+      sources."yaml-2.0.0-11"
+    ];
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "YAML language server";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
+  commitizen = nodeEnv.buildNodePackage {
+    name = "commitizen";
+    packageName = "commitizen";
+    version = "4.2.5";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/commitizen/-/commitizen-4.2.5.tgz";
+      sha512 = "9sXju8Qrz1B4Tw7kC5KhnvwYQN88qs2zbiB8oyMsnXZyJ24PPGiNM3nHr73d32dnE3i8VJEXddBFIbOgYSEXtQ==";
+    };
+    dependencies = [
+      sources."ansi-escapes-4.3.2"
+      sources."ansi-regex-5.0.1"
+      sources."ansi-styles-3.2.1"
+      sources."at-least-node-1.0.0"
+      sources."balanced-match-1.0.2"
+      sources."base64-js-1.5.1"
+      sources."bl-4.1.0"
+      sources."brace-expansion-1.1.11"
+      sources."braces-3.0.2"
+      sources."buffer-5.7.1"
+      sources."cachedir-2.3.0"
+      sources."chalk-2.4.2"
+      sources."chardet-0.7.0"
+      sources."cli-cursor-3.1.0"
+      sources."cli-spinners-2.7.0"
+      sources."cli-width-3.0.0"
+      sources."clone-1.0.4"
+      sources."color-convert-1.9.3"
+      sources."color-name-1.1.3"
+      sources."commitizen-4.2.5"
+      sources."concat-map-0.0.1"
+      sources."conventional-commit-types-3.0.0"
+      sources."cz-conventional-changelog-3.3.0"
+      sources."dedent-0.7.0"
+      sources."defaults-1.0.3"
+      sources."detect-file-1.0.0"
+      sources."detect-indent-6.1.0"
+      sources."emoji-regex-8.0.0"
+      sources."escape-string-regexp-1.0.5"
+      sources."expand-tilde-2.0.2"
+      sources."external-editor-3.1.0"
+      sources."figures-3.2.0"
+      sources."fill-range-7.0.1"
+      sources."find-node-modules-2.1.3"
+      sources."find-root-1.1.0"
+      sources."findup-sync-4.0.0"
+      sources."fs-extra-9.1.0"
+      sources."fs.realpath-1.0.0"
+      sources."glob-7.2.3"
+      sources."global-modules-1.0.0"
+      sources."global-prefix-1.0.2"
+      sources."graceful-fs-4.2.10"
+      sources."has-flag-3.0.0"
+      sources."homedir-polyfill-1.0.3"
+      sources."iconv-lite-0.4.24"
+      sources."ieee754-1.2.1"
+      sources."inflight-1.0.6"
+      sources."inherits-2.0.4"
+      sources."ini-1.3.8"
+      (sources."inquirer-8.2.4" // {
+        dependencies = [
+          sources."ansi-styles-4.3.0"
+          sources."chalk-4.1.2"
+          sources."color-convert-2.0.1"
+          sources."color-name-1.1.4"
+          sources."has-flag-4.0.0"
+          sources."supports-color-7.2.0"
+        ];
+      })
+      sources."is-extglob-2.1.1"
+      sources."is-fullwidth-code-point-3.0.0"
+      sources."is-glob-4.0.3"
+      sources."is-interactive-1.0.0"
+      sources."is-number-7.0.0"
+      sources."is-unicode-supported-0.1.0"
+      sources."is-utf8-0.2.1"
+      sources."is-windows-1.0.2"
+      sources."isexe-2.0.0"
+      sources."jsonfile-6.1.0"
+      sources."lodash-4.17.21"
+      sources."lodash.map-4.6.0"
+      (sources."log-symbols-4.1.0" // {
+        dependencies = [
+          sources."ansi-styles-4.3.0"
+          sources."chalk-4.1.2"
+          sources."color-convert-2.0.1"
+          sources."color-name-1.1.4"
+          sources."has-flag-4.0.0"
+          sources."supports-color-7.2.0"
+        ];
+      })
+      sources."longest-2.0.1"
+      sources."merge-2.1.1"
+      sources."micromatch-4.0.5"
+      sources."mimic-fn-2.1.0"
+      sources."minimatch-3.1.2"
+      sources."minimist-1.2.6"
+      sources."mute-stream-0.0.8"
+      sources."once-1.4.0"
+      sources."onetime-5.1.2"
+      (sources."ora-5.4.1" // {
+        dependencies = [
+          sources."ansi-styles-4.3.0"
+          sources."chalk-4.1.2"
+          sources."color-convert-2.0.1"
+          sources."color-name-1.1.4"
+          sources."has-flag-4.0.0"
+          sources."supports-color-7.2.0"
+        ];
+      })
+      sources."os-tmpdir-1.0.2"
+      sources."parse-passwd-1.0.0"
+      sources."path-is-absolute-1.0.1"
+      sources."picomatch-2.3.1"
+      sources."readable-stream-3.6.0"
+      sources."resolve-dir-1.0.1"
+      sources."restore-cursor-3.1.0"
+      sources."run-async-2.4.1"
+      sources."rxjs-7.5.6"
+      sources."safe-buffer-5.2.1"
+      sources."safer-buffer-2.1.2"
+      sources."signal-exit-3.0.7"
+      sources."string-width-4.2.3"
+      sources."string_decoder-1.3.0"
+      sources."strip-ansi-6.0.1"
+      sources."strip-bom-4.0.0"
+      sources."strip-json-comments-3.1.1"
+      sources."supports-color-5.5.0"
+      sources."through-2.3.8"
+      sources."tmp-0.0.33"
+      sources."to-regex-range-5.0.1"
+      sources."tslib-2.4.0"
+      sources."type-fest-0.21.3"
+      sources."universalify-2.0.0"
+      sources."util-deprecate-1.0.2"
+      sources."wcwidth-1.0.1"
+      sources."which-1.3.1"
+      sources."word-wrap-1.2.3"
+      (sources."wrap-ansi-7.0.0" // {
+        dependencies = [
+          sources."ansi-styles-4.3.0"
+          sources."color-convert-2.0.1"
+          sources."color-name-1.1.4"
+        ];
+      })
+      sources."wrappy-1.0.2"
+    ];
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "Git commit, but play nice with conventions.";
+      homepage = "https://github.com/commitizen/cz-cli";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
+  cz-conventional-changelog = nodeEnv.buildNodePackage {
+    name = "cz-conventional-changelog";
+    packageName = "cz-conventional-changelog";
+    version = "3.3.0";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/cz-conventional-changelog/-/cz-conventional-changelog-3.3.0.tgz";
+      sha512 = "U466fIzU5U22eES5lTNiNbZ+d8dfcHcssH4o7QsdWaCcRs/feIPCxKYSWkYBNs5mny7MvEfwpTLWjvbm94hecw==";
+    };
+    dependencies = [
+      sources."ansi-escapes-4.3.2"
+      sources."ansi-regex-5.0.1"
+      sources."ansi-styles-3.2.1"
+      sources."at-least-node-1.0.0"
+      sources."balanced-match-1.0.2"
+      sources."base64-js-1.5.1"
+      sources."bl-4.1.0"
+      sources."brace-expansion-1.1.11"
+      sources."braces-3.0.2"
+      sources."buffer-5.7.1"
+      sources."cachedir-2.3.0"
+      sources."chalk-2.4.2"
+      sources."chardet-0.7.0"
+      sources."cli-cursor-3.1.0"
+      sources."cli-spinners-2.7.0"
+      sources."cli-width-3.0.0"
+      sources."clone-1.0.4"
+      sources."color-convert-1.9.3"
+      sources."color-name-1.1.3"
+      sources."commitizen-4.2.5"
+      sources."concat-map-0.0.1"
+      sources."conventional-commit-types-3.0.0"
+      sources."cz-conventional-changelog-3.3.0"
+      sources."dedent-0.7.0"
+      sources."defaults-1.0.3"
+      sources."detect-file-1.0.0"
+      sources."detect-indent-6.1.0"
+      sources."emoji-regex-8.0.0"
+      sources."escape-string-regexp-1.0.5"
+      sources."expand-tilde-2.0.2"
+      sources."external-editor-3.1.0"
+      sources."figures-3.2.0"
+      sources."fill-range-7.0.1"
+      sources."find-node-modules-2.1.3"
+      sources."find-root-1.1.0"
+      sources."findup-sync-4.0.0"
+      sources."fs-extra-9.1.0"
+      sources."fs.realpath-1.0.0"
+      sources."glob-7.2.3"
+      sources."global-modules-1.0.0"
+      sources."global-prefix-1.0.2"
+      sources."graceful-fs-4.2.10"
+      sources."has-flag-3.0.0"
+      sources."homedir-polyfill-1.0.3"
+      sources."iconv-lite-0.4.24"
+      sources."ieee754-1.2.1"
+      sources."inflight-1.0.6"
+      sources."inherits-2.0.4"
+      sources."ini-1.3.8"
+      (sources."inquirer-8.2.4" // {
+        dependencies = [
+          sources."ansi-styles-4.3.0"
+          sources."chalk-4.1.2"
+          sources."color-convert-2.0.1"
+          sources."color-name-1.1.4"
+          sources."has-flag-4.0.0"
+          sources."supports-color-7.2.0"
+        ];
+      })
+      sources."is-extglob-2.1.1"
+      sources."is-fullwidth-code-point-3.0.0"
+      sources."is-glob-4.0.3"
+      sources."is-interactive-1.0.0"
+      sources."is-number-7.0.0"
+      sources."is-unicode-supported-0.1.0"
+      sources."is-utf8-0.2.1"
+      sources."is-windows-1.0.2"
+      sources."isexe-2.0.0"
+      sources."jsonfile-6.1.0"
+      sources."lodash-4.17.21"
+      sources."lodash.map-4.6.0"
+      (sources."log-symbols-4.1.0" // {
+        dependencies = [
+          sources."ansi-styles-4.3.0"
+          sources."chalk-4.1.2"
+          sources."color-convert-2.0.1"
+          sources."color-name-1.1.4"
+          sources."has-flag-4.0.0"
+          sources."supports-color-7.2.0"
+        ];
+      })
+      sources."longest-2.0.1"
+      sources."merge-2.1.1"
+      sources."micromatch-4.0.5"
+      sources."mimic-fn-2.1.0"
+      sources."minimatch-3.1.2"
+      sources."minimist-1.2.6"
+      sources."mute-stream-0.0.8"
+      sources."once-1.4.0"
+      sources."onetime-5.1.2"
+      (sources."ora-5.4.1" // {
+        dependencies = [
+          sources."ansi-styles-4.3.0"
+          sources."chalk-4.1.2"
+          sources."color-convert-2.0.1"
+          sources."color-name-1.1.4"
+          sources."has-flag-4.0.0"
+          sources."supports-color-7.2.0"
+        ];
+      })
+      sources."os-tmpdir-1.0.2"
+      sources."parse-passwd-1.0.0"
+      sources."path-is-absolute-1.0.1"
+      sources."picomatch-2.3.1"
+      sources."readable-stream-3.6.0"
+      sources."resolve-dir-1.0.1"
+      sources."restore-cursor-3.1.0"
+      sources."run-async-2.4.1"
+      sources."rxjs-7.5.6"
+      sources."safe-buffer-5.2.1"
+      sources."safer-buffer-2.1.2"
+      sources."signal-exit-3.0.7"
+      sources."string-width-4.2.3"
+      sources."string_decoder-1.3.0"
+      sources."strip-ansi-6.0.1"
+      sources."strip-bom-4.0.0"
+      sources."strip-json-comments-3.1.1"
+      sources."supports-color-5.5.0"
+      sources."through-2.3.8"
+      sources."tmp-0.0.33"
+      sources."to-regex-range-5.0.1"
+      sources."tslib-2.4.0"
+      sources."type-fest-0.21.3"
+      sources."universalify-2.0.0"
+      sources."util-deprecate-1.0.2"
+      sources."wcwidth-1.0.1"
+      sources."which-1.3.1"
+      sources."word-wrap-1.2.3"
+      (sources."wrap-ansi-7.0.0" // {
+        dependencies = [
+          sources."ansi-styles-4.3.0"
+          sources."color-convert-2.0.1"
+          sources."color-name-1.1.4"
+        ];
+      })
+      sources."wrappy-1.0.2"
+    ];
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "Commitizen adapter following the conventional-changelog format.";
+      homepage = "https://github.com/commitizen/cz-conventional-changelog";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
 }
