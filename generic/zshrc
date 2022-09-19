@@ -1,19 +1,18 @@
-autoload -Uz compaudit compinit promptinit compdef add-zsh-hook
-compinit
-promptinit
-
-if [[ -s "${HOME}/.zsh_plugins.sh" ]]; then
-  source "${HOME}/.zsh_plugins.sh"
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
 
-test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
+autoload -Uz compaudit compinit promptinit compdef add-zsh-hook
+autoload -U +X bashcompinit && bashcompinit
+compinit -i
+promptinit
 
 ###
 # History
 ###
 HISTFILE=~/.zsh_history         # where to store zsh config
-HISTSIZE=5024                   # big history
-SAVEHIST=5024                   # big history
+HISTSIZE=10000
+SAVEHIST=10000                   # big history
 setopt append_history           # append
 setopt inc_append_history	# append in order
 setopt extended_history		# extended history format
@@ -28,13 +27,40 @@ setopt share_history            # share hist between sessions
 setopt no_hist_beep		# no beep
 setopt bang_hist     
 
+# load antidote
+if [ -d "${HOMEBREW_PREFIX}/opt/antidote/share/antidote" ]; then
+  source ${HOMEBREW_PREFIX}/opt/antidote/share/antidote/antidote.zsh
+fi
+if [[ -s "${HOME}/.zsh_plugins.sh" ]]; then
+  source "${HOME}/.zsh_plugins.sh"
+fi
+# load fzf completion
+source $(fzf-share)/completion.zsh
+source $(fzf-share)/key-bindings.zsh
+
+test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
-# aliases
-#
-if command -v neofetch &> /dev/null 
-then 
-    neofetch
-fi
+eval "$(starship init zsh)"
+eval "$(direnv hook zsh)"
+fpath+=( /Users/sba964/Projects/alpine-dev/zsh/site-functions )
+
+# simple aliases
+alias ec="$EDITOR $HOME/.zshrc"
+alias ev="$EDITOR $HOME/.zshenv"
+alias sc="source $HOME/.zshrc"
+alias kubectl=${HOME}/.nix-profile/bin/kubectl
+source <(kubectl completion zsh)
+
+# suffix aliases
+alias -s {yaml,yml,json,csv,md}=nvim
+alias -s go=nvim
+alias -s {tsx,js,jsx}=nvim
+alias -s log=nvim
+alias -s txt=nvim
+
+# neofetch
+$(which neofetch) 2> /dev/null
+

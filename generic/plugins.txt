@@ -1,12 +1,17 @@
 # plugins
 mafredri/zsh-async
-zsh-users/zsh-completions
+zsh-users/zsh-completions path:src kind:fpath
 zsh-users/zsh-autosuggestions
-zdharma/fast-syntax-highlighting branch:main
-robbyrussell/oh-my-zsh path:lib/git.zsh
-robbyrussell/oh-my-zsh path:plugins/git
-robbyrussell/oh-my-zsh path:plugins/common-aliases
-robbyrussell/oh-my-zsh path:plugins/web-search
+zdharma/fast-syntax-highlighting branch:main kind:defer
+ohmyzsh/ohmyzsh path:lib/functions.zsh
+ohmyzsh/ohmyzsh path:lib/clipboard.zsh
+ohmyzsh/ohmyzsh path:lib/git.zsh
+ohmyzsh/ohmyzsh path:plugins/extract
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/common-aliases
+ohmyzsh/ohmyzsh path:plugins/web-search
+sorin-ionescu/prezto path:modules/directory
+belak/zsh-utils path:editor
 popstas/zsh-command-time
 djui/alias-tips
 zpm-zsh/autoenv
