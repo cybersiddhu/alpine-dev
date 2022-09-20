@@ -22,6 +22,30 @@
 	  };
 	};
 
+	godoc = buildGo118Module rec {
+	  pname = "godoc";
+	  version = "0.1.12";
+
+	  src = fetchFromGitHub {
+	    owner = "golang";
+	    repo = "tools";
+	    rev = "v${version}";
+	    sha256= "sha256-OUMLnAtaS54+0Zun4oU7YAFZ5mVHkPpytiWpinjNG5c=";
+	  };
+
+	  vendorSha256 = "sha256-XpC3F6BimOja8Jv/MbbLaAdqPKipDY5gFZ8c+W2XoEM=";
+	  doCheck = false;
+
+	  subPackages = [ "cmd/godoc" ];
+
+	  meta = with lib; {
+	    description = "Godoc extracts and generates documentation for Go programs";
+	    homepage = "https://pkg.go.dev/golang.org/x/tools/cmd/godoc";
+	    license = licenses.bsd3;
+	    maintainers = with maintainers; [ cybersiddhu ]; 
+	  };
+	};
+
 	goimports = buildGo118Module rec {
 	  pname = "goimports";
 	  version = "0.1.12";
