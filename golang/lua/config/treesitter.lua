@@ -1,4 +1,26 @@
 -- treesitter configuration
+--    <Alt-n><Alt-c> to swap with the next class
+--    <Alt-p><Alt-c> to swap with the previous class
+--    <Alt-n><Alt-f> to swap with the next function
+--    <Alt-p><Alt-f> to swap with the previous function
+--    <Alt-n><Alt-p> to swap with the next parameter
+--    <Alt-p><Alt-p> to swap with the previous parameter
+local swap_next, swap_prev = (function()
+  local swap_objects = {
+    p = "@parameter.inner",
+    f = "@function.outer",
+    c = "@class.outer",
+  }
+
+  local n, p = {}, {}
+  for key, obj in pairs(swap_objects) do
+    n[string.format("<A-n><A-%s>", key)] = obj
+    p[string.format("<A-p><A-%s>", key)] = obj
+  end
+
+  return n, p
+end)()
+
 local tree_config = require "nvim-treesitter.configs"
 local text_objects = {
 	select = {
@@ -13,12 +35,8 @@ local text_objects = {
 	},
 	swap = {
 		enable = true,
-		swap_next = {
-			["<leader>a"] = "@parameter.inner",
-		},
-		swap_previous = {
-			["<leader>A"] = "@parameter.inner",
-		},
+		swap_next = swap_next,
+		swap_previous = swap_previous,
 	},
 	move = {
 		enable = true,
