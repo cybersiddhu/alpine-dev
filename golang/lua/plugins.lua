@@ -155,4 +155,11 @@ return require("packer").startup(function()
 		},
 		config = [[require("config.neotest")]],
 	}
+-- semantic highlights
+   	use { "m-demare/hlargs.nvim",
+    		config = function()
+			  require("hlargs").setup()
+    		end,
+	}
+
 end)
