@@ -6,7 +6,9 @@ vim.keymap.set('n', ']c', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setqflist, opts)
 vim.keymap.set('n', '<space>l', vim.diagnostic.setloclist, opts)
 
+
 local buf_set_keymap = vim.keymap.set
+local ih = require("inlay-hints")
 local nvim_lsp = require "lspconfig"
 local cmp_nvim_lsp = require "cmp_nvim_lsp"
 local function keymaps_on_attach(bufnr)
@@ -38,10 +40,35 @@ local on_attach_tsserver = function(client, bufnr)
 	client.resolved_capabilities.document_formatting = false
         client.resolved_capabilities.document_range_formatting = false
 	keymaps_on_attach(bufnr)
+	ih.on_attach(client, bufnr)
 end
 nvim_lsp.tsserver.setup{
 	on_attach = on_attach_tsserver,
 	capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+	settings = {
+	    javascript = {
+	      inlayHints = {
+		includeInlayEnumMemberValueHints = true,
+		includeInlayFunctionLikeReturnTypeHints = true,
+		includeInlayFunctionParameterTypeHints = true,
+		includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+		includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+		includeInlayPropertyDeclarationTypeHints = true,
+		includeInlayVariableTypeHints = true,
+	      },
+	    },
+	    typescript = {
+	      inlayHints = {
+		includeInlayEnumMemberValueHints = true,
+		includeInlayFunctionLikeReturnTypeHints = true,
+		includeInlayFunctionParameterTypeHints = true,
+		includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+		includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+		includeInlayPropertyDeclarationTypeHints = true,
+		includeInlayVariableTypeHints = true,
+	      },
+	    },
+	},
 }
 nvim_lsp.vimls.setup{
 	on_attach = require("aerial").on_attach

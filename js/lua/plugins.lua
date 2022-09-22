@@ -44,8 +44,18 @@ return require("packer").startup(function()
 		{"b0o/schemastore.nvim"},
 		{"hrsh7th/nvim-cmp"},
 		{"hrsh7th/cmp-nvim-lsp",
-			requires = {"neovim/nvim-lspconfig"},
-			config = [[require("config.lsp")]],
+			requires = {
+				{
+			          "simrat39/inlay-hints.nvim",
+      				  config = function()
+        				require("inlay-hints").setup()
+      				  end,
+				},
+				{
+				  "neovim/nvim-lspconfig",
+				   config = [[require("config.lsp")]],
+				}
+			}
 		},
 		{"hrsh7th/cmp-buffer"}, -- works
 		{"f3fora/cmp-spell"}, -- works,

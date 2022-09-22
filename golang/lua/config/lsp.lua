@@ -6,6 +6,7 @@ vim.keymap.set('n', ']c', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setqflist, opts)
 vim.keymap.set('n', '<space>l', vim.diagnostic.setloclist, opts)
 
+local ih = require("inlay-hints")
 local nvim_lsp = require "lspconfig"
 local cmp_nvim_lsp = require "cmp_nvim_lsp"
 local buf_set_keymap = vim.keymap.set
@@ -39,6 +40,7 @@ local on_attach_gopls = function(client, bufnr)
 	client.resolved_capabilities.document_formatting = false
         client.resolved_capabilities.document_range_formatting = false
 	keymaps_on_attach(bufnr)
+	ih.on_attach(client,bufnr)
 end
 nvim_lsp.gopls.setup{
 	on_attach = on_attach_gopls,
@@ -49,8 +51,18 @@ nvim_lsp.gopls.setup{
 				gc_details = true,
 				tidy = true,
 				upgrade_dependency = true,
-			}
-		}
+
+			},
+			hints = {
+				assignVariableTypes = true,
+				compositeLiteralFields = true,
+				compositeLiteralTypes = true,
+				constantValues = true,
+				functionTypeParameters = true,
+				parameterNames = true,
+				rangeVariableTypes = true,
+			},
+		},
 	}
 }
 
