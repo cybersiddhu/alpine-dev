@@ -84,6 +84,7 @@ cmp.setup {
 		{name = "luasnip"},
         	{name = "buffer", option = { get_bufnrs = bufopt }}, 
 		{name = "treesitter"},
+		{name = "nvim_lsp_signature_help"},
         	{name = "look"}, 
 		{name = "path"},
          	{name = "calc"}, 

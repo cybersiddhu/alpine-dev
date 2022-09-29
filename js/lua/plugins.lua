@@ -63,7 +63,8 @@ return require("packer").startup(function()
 		{"hrsh7th/cmp-path"},
 		{"hrsh7th/cmp-nvim-lsp-document-symbol"},
 		{"hrsh7th/cmp-cmdline"},
---		{"uga-rosa/cmp-dictionary"},
+		{"hrsh7th/cmp-nvim-lsp-signature-help"},
+--		{"uga-rosa/cmp-dictionary",
 		{"octaltree/cmp-look"},
 		{"ray-x/cmp-treesitter"},
 		{"onsails/lspkind-nvim"}, -- works
