@@ -174,5 +174,6 @@ return require("packer").startup(function()
 			  require("hlargs").setup()
     		end,
 	}
-
+-- vim ui interface
+	use { "stevearc/dressing.nvim" }
 end)
