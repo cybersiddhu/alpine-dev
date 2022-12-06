@@ -33,9 +33,11 @@ return require("packer").startup(function()
 		},
        		{ "shaunsingh/nord.nvim", 
 			event = "VimEnter", 
+			commit = "78f5f001709b5b321a35dcdc44549ef93185e024",
 			config = "vim.cmd[[colorscheme nord]]",
 		}, 
 		{ "stevearc/aerial.nvim",
+			branch = "nvim-0.5",
 			config = [[require("config.aerial")]],
 		},
 	}

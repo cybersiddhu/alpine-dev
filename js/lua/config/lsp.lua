@@ -33,18 +33,18 @@ end
 for _,lsp in ipairs({"html","graphql","eslint", "dockerls","yamlls"}) do
 	nvim_lsp[lsp].setup{
 		on_attach = on_attach,
-		capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+		capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 	}
 end
 local on_attach_tsserver = function(client, bufnr)
-	client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
+	client.server_capabilities.documentFormatting = false
+        client.server_capabilities.documentRangeFormatting = false
 	keymaps_on_attach(bufnr)
 	ih.on_attach(client, bufnr)
 end
 nvim_lsp.tsserver.setup{
 	on_attach = on_attach_tsserver,
-	capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+	capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 	settings = {
 	    javascript = {
 	      inlayHints = {
@@ -75,7 +75,7 @@ nvim_lsp.vimls.setup{
 }
 nvim_lsp.jsonls.setup{
 	on_attach = on_attach,
-	capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+	capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 	settings = {
     		json = {
       			schemas = require("schemastore").json.schemas(),
