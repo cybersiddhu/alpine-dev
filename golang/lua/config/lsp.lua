@@ -19,12 +19,12 @@ local function keymaps_on_attach(bufnr)
 	buf_set_keymap("n", "pi", vim.lsp.buf.implementation, bufopts)
 	buf_set_keymap("n", "pr", vim.lsp.buf.references, bufopts)
 	buf_set_keymap("n", "<Leader>pn", vim.lsp.buf.rename, bufopts)
-	buf_set_keymap("n", "<Leader>f", vim.lsp.buf.formatting, bufopts)
-	buf_set_keymap("x", "<Leader>f", vim.lsp.buf.range_formatting, bufopts)
-	buf_set_keymap("v", "<Leader>f", vim.lsp.buf.range_formatting, bufopts)
+	buf_set_keymap("n", "<Leader>f", function() vim.lsp.buf.format { async = true } end, bufopts)
+	buf_set_keymap("x", "<Leader>f", vim.lsp.formatexpr, bufopts)
+	buf_set_keymap("v", "<Leader>f", vim.lsp.formatexpr, bufopts)
 	buf_set_keymap("n", "<Leader>ca", vim.lsp.buf.code_action, bufopts)
-	buf_set_keymap("x", "<Leader>ca", vim.lsp.buf.range_code_action, bufopts)
-	buf_set_keymap("v", "<Leader>ca", vim.lsp.buf.range_code_action, bufopts)
+	buf_set_keymap("x", "<Leader>ca", vim.lsp.buf.code_action, bufopts)
+	buf_set_keymap("v", "<Leader>ca", vim.lsp.buf.code_action, bufopts)
 end
 local on_attach = function(_,bufnr)
 	keymaps_on_attach(bufnr)
@@ -37,8 +37,7 @@ for _,lsp in ipairs({"golangci_lint_ls","dockerls","yamlls","graphql"}) do
 end
 
 local on_attach_gopls = function(client, bufnr)
-	client.server_capabilities.documentFormatting = false
-        client.server_capabilities.documentRangeFormatting = false
+	client.server_capabilities.documentFormattingProvider = false
 	keymaps_on_attach(bufnr)
 	ih.on_attach(client,bufnr)
 end
