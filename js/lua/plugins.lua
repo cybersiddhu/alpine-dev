@@ -183,4 +183,6 @@ return require("packer").startup(function()
 			require("glow").setup({pager = true})
 		end,
 	}
+-- gpt 
+	use { "aduros/ai.vim" }
 end)
