@@ -1,20 +1,20 @@
-{ lib, buildGo118Module, fetchFromGitHub, installShellFiles }:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
   {
 
-	gopls = buildGo118Module rec {
+	gopls = buildGoModule rec {
 	  pname = "gopls";
-	  version = "0.9.5";
+	  version = "0.11.0";
 
 	  src = fetchFromGitHub {
 	    owner = "golang";
 	    repo = "tools";
 	    rev = "gopls/v${version}";
-	    sha256 = "sha256-kDO7Sxz2pqZZBG2eGAWyh9UTAoYLzkAn86qh9LdepoU=";
+	    sha256 = "sha256-49TDAxFx4kSwCn1YGQgMn3xLG3RHCCttMzqUfm4OPtE=";
 	  };
 
 	  modRoot = "gopls";
-	  vendorSha256 = "sha256-ny+gD3ZXp6ZncWJtpW9fprYojQBkIUL+FEKp/7K5rrU=";
+	  vendorSha256 = "sha256-1/stMvxsCs2OPMN7KGbZ61s2qGT5Yg7kHVHsWi6ekcY=";
 
 	  doCheck = false;
 
@@ -29,7 +29,7 @@
 	  };
 	};
 
-	golines = buildGo118Module rec {
+	golines = buildGoModule rec {
 	  pname = "golines";
 	  version = "0.11.0";
 
@@ -50,7 +50,7 @@
 	  };
 	};
 
-	godoc = buildGo118Module rec {
+	godoc = buildGoModule rec {
 	  pname = "godoc";
 	  version = "0.1.12";
 
@@ -74,7 +74,7 @@
 	  };
 	};
 
-	goimports = buildGo118Module rec {
+	goimports = buildGoModule rec {
 	  pname = "goimports";
 	  version = "0.1.12";
 
@@ -97,7 +97,7 @@
 	  };
 	};
 
-	gorename = buildGo118Module rec {
+	gorename = buildGoModule rec {
 	  pname = "gorename";
 	  version = "0.1.12";
 
@@ -121,7 +121,7 @@
 	  };
 	};
 
-	gomodifytags = buildGo118Module rec {
+	gomodifytags = buildGoModule rec {
 	  pname = "gomodifytags";
 	  version = "1.16.0";
 
@@ -142,7 +142,7 @@
 	  };
 	};
 
-	gotests = buildGo118Module rec {
+	gotests = buildGoModule rec {
 	  pname = "gotests";
 	  version = "1.6.0";
 
@@ -164,7 +164,7 @@
 	  };
 	};
 
-	goguru = buildGo118Module rec {
+	goguru = buildGoModule rec {
 	  pname = "goguru";
 	  version = "0.1.12";
 
@@ -188,7 +188,7 @@
 	  };
 	};
 
-	goiferr = buildGo118Module rec {
+	goiferr = buildGoModule rec {
 	   pname = "iferr-unstable";
 	   version = "1.1.0";
 
@@ -210,7 +210,7 @@
 	  };
         };
 
-	golangci-lint-langserver = buildGo118Module rec {
+	golangci-lint-langserver = buildGoModule rec {
 	  pname = "golangci-lint-langserver";
 	  version = "0.0.7";
 
@@ -230,7 +230,7 @@
 	    maintainers = with maintainers; [ cybersiddhu ];
 	};
      };
-     steampipe = buildGo118Module rec {
+     steampipe = buildGoModule rec {
 	  pname = "steampipe";
 	  version = "0.15.4";
 
