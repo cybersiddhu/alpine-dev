@@ -1,7 +1,7 @@
-{ lib, buildGo118Module, fetchFromGitHub, stdenv }:
+{ lib, buildGoModule, fetchFromGitHub, stdenv }:
 
 {
-	terraform-ls = buildGo118Module rec {
+	terraform-ls = buildGoModule rec {
 	  pname = "terraform-ls";
 	  version = "0.30.1";
 
@@ -32,6 +32,27 @@
 	    changelog = "https://github.com/hashicorp/terraform-ls/blob/v${version}/CHANGELOG.md";
 	    license = licenses.mpl20;
 	    maintainers = with maintainers; [ mbaillie jk ];
+	  };
+	};
+
+	aiac = buildGoModule rec {
+	  pname = "aiac";
+	  version = "2.2.0";
+
+	  src = fetchFromGitHub {
+	    owner = "fatih";
+	    repo = "gofireflyio";
+	    rev = "v${version}";
+	    sha256 = "sha256-Ju2LoCDY4lQaiJ3OSkt01SaOqVLrDGiTAwxxRnbnz/0=";
+	  };
+
+	  vendorSha256 = "sha256-UaC3Ez/i+kPQGOJYtCRtaD2pn3kVZPTaoCcNG7LiFbY=";
+
+	  meta = with lib; {
+	    description = "Artificial Intelligence Infrastructure-as-Code Generator";
+	    homepage = "https://github.com/gofireflyio/aiac"; 
+	    license = licenses.asl20;
+	    maintainers = with maintainers; [ cybersiddhu ]; 
 	  };
 	};
 }
