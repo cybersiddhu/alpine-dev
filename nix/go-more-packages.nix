@@ -56,79 +56,29 @@
 	  };
 	};
 
-	k0sctl = buildGoModule rec {
-	  pname = "k0sctl";
-	  version = "0.15.0";
+
+	oapi-codegen = buildGoModule rec {
+  	   pname = "oapi-codegen";
+           version = "1.13.2";
 
 	  src = fetchFromGitHub {
-	    owner = "k0sproject";
+	    owner = "deepmap";
 	    repo = pname;
-	    rev = "v${version}";
-	    sha256 = "sha256-i/XgEPuYNxn10eOXfF+X33oLlkO9r6daeygZcSdcicQ=";
+	    rev = "refs/tags/v${version}";
+	    sha256 = "11cxw7pjvmh2bbzv9wpjf2f3mj649b1zk0232wiw46h9s4ihfnb1";
 	  };
 
-	  vendorSha256 = "sha256-RTC2AEDzSafvJT/vuPjzs25PhuzBiPb32an/a/wpY04=";
+	  vendorHash = "sha256-AV9rNKqfDMbelu2Bfo5EZ8HlZPjCupBdxsM1Y6Sy9QM=";
 
-	  ldflags = [
-	    "-s"
-	    "-w"
-	    "-X github.com/k0sproject/k0sctl/version.Environment=production"
-	    "-X github.com/k0sproject/k0sctl/version.Version=${version}"
-	  ];
-
-  	  nativeBuildInputs = [ installShellFiles ];
-
-	  postInstall = ''
-	    for shell in bash zsh fish; do
-	      installShellCompletion --cmd ${pname} \
-		--$shell <($out/bin/${pname} completion --shell $shell)
-	    done
-	  '';
+	  # Tests use network
+	  doCheck = false;
 
 	  meta = with lib; {
-	    description = "A bootstrapping and management tool for k0s clusters.";
-	    homepage = "https://k0sproject.io/";
+	    description = "Go client and server OpenAPI 3 generator";
+	    homepage = "https://github.com/deepmap/oapi-codegen";
+	    changelog = "https://github.com/deepmap/oapi-codegen/releases/tag/v${version}";
 	    license = licenses.asl20;
-	    maintainers = with maintainers; [ nickcao ];
-	  };
-	};
-
-	clusterctl = buildGoModule rec {
-  	  pname = "clusterctl";
-  	  version = "1.4.2";
-
-	  src = fetchFromGitHub {
-	    owner = "kubernetes-sigs";
-	    repo = "cluster-api";
-	    rev = "v${version}";
-	    sha256 = "sha256-NvCQs6YzQ2zNLQiYgFK/q2c74g/+YkzQIQJWEINOYIE=";
-	  };
-
-	  vendorSha256 = "sha256-ZJFpzBeC048RZ6YfjXQPyohCO1WagxXvBBacifkfkjE=";
-
-	  subPackages = [ "cmd/clusterctl" ];
-
-	  nativeBuildInputs = [ installShellFiles ];
-
-	  ldflags = let t = "sigs.k8s.io/cluster-api/version"; in [
-	    "-X ${t}.gitMajor=${lib.versions.major version}"
-	    "-X ${t}.gitMinor=${lib.versions.minor version}"
-	    "-X ${t}.gitVersion=v${version}"
-	  ];
-
-	  postInstall = ''
-	    export HOME=$TMPDIR
-
-	    installShellCompletion --cmd clusterctl \
-	      --bash <($out/bin/clusterctl completion bash) \
-	      --zsh <($out/bin/clusterctl completion zsh)
-	  '';
-
-	  meta = with lib; {
-	    description = "Kubernetes cluster API tool";
-	    homepage = "https://cluster-api.sigs.k8s.io/";
-	    license = licenses.asl20;
-	    maintainers = with maintainers; [ zowoq ];
+	    maintainers = with maintainers; [ j4m3s ];
 	  };
 	};
 }
